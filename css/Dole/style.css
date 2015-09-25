@@ -1,0 +1,133 @@
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+  background-image: url("http://localhost/Dole/images/fondo.png");
+}
+
+select{
+  margin-bottom: 12px;
+}
+
+.modal-content{
+  margin-top: 20%;
+}
+
+.modal-body
+{
+   /*background-image: url("http://localhost/Dole/images/modal_fondo.png");*/
+}
+
+.modal-dialog{
+  max-width: 100%;
+}
+
+.navbar-brand2{
+  float:left;
+  height:50px;
+  padding:6px 15px;
+  font-size:18px;
+  line-height:20px
+}
+
+.table{
+  max-width: 100%;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 10px;
+  margin: 0 auto;
+}
+th{
+  text-align: center;
+}
+.tabla-content{
+  max-width: auto;
+  padding: 10px;
+  margin: 0 auto;
+}
+.centrar{
+  display: block;
+  margin-left: 47%;
+  margin-right: auto;
+  margin-top: 25%;
+  margin-bottom: auto;
+}
+
+.btn-circle {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  padding: 8px 0;
+  padding-left: 11px;
+  font-size: 30px;
+  line-height: 1.62;
+  border-radius: 35px;
+}
+
+.btn-circle2 {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 4px 0;
+  padding-left: 4px;
+  font-size: 15px;
+  line-height: 1.42;
+  border-radius: 35px;
+}
+
+.btn-circle3 {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 3px 0;
+  padding-left: 0.5px;
+  font-size: 15px;
+  line-height: 0.5;
+  border-radius: 35px;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 5px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.panel-body input[type="text"] {
+  margin-bottom: 5px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
