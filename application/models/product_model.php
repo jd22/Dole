@@ -46,6 +46,15 @@ class Product_model extends CI_Model
         }
      }
 
+    function obtener_producto($id)
+     {
+      $this->db->select('*');
+      $this->db->from('products');
+      $this->db->where('id_producto',$id);
+      // $this->db->limit(1);
+      $query = $this->db->get();
+      return $query; 
+     }
      function get_product($id)
      {
      	$this->db->select('activecomponent, unit');

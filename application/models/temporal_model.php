@@ -72,6 +72,12 @@ class Temporal_model extends CI_Model
         }
      }
 
-     
+     function eli_temporal()
+     {
+     	  $query="DELETE FROM temporal_trata";
+        $this->db->query($query);
+        $query2="DELETE FROM temporal_dosis";
+     	  $this->db->query($query2);
+     }
  }
  ?>

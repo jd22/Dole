@@ -94,7 +94,14 @@ class Aplication extends CI_Controller {
         }
     }
 
-    
+
+    function insertar_tratamiento($id_proyecto)
+    {
+        
+    }    
+
+
+
 
     //Funcion para insertar una determinada aplicación
 

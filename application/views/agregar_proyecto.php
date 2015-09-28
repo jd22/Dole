@@ -33,7 +33,7 @@
                                 <div class="starter-template">
                                     <label>Numero de Proyecto:</label>
                                     <div class="form-inline">
-                                        <input type="number" id="nnumero" class="form-control" placeholder="Numero de Proyecto" name="numero" required="">
+                                        <input type="text" id="nnumero" class="form-control" placeholder="Numero de Proyecto" name="numero" required="">
                                         <input type="button" id="agregarProyecto" class="btn btn-sm btn-success" value="Crear Proyecto" />
                                     </div>
                             </div>
@@ -49,7 +49,7 @@
                         <table class="table table-bordered"  id="Trataments">
                             <tr>
                                 <th style="color:white;background:#108CAE" >Nº Tratamiento</th>
-                                <th style="color:white;background:#108CAE">Cedula Aplicación</th>
+                                <th style="color:white;background:#108CAE">Cédula Aplicación</th>
                                 <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
                             </tr>
                         </table>
@@ -68,44 +68,32 @@
                 <div class="modal-content">
                     <div class="modal-header modal-header-success" style="background:#3E448A">
                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 style="color:white;text-align:center;" class="panel-title">Cedula de Aplicación</h4>
+                        <h4 style="color:white;text-align:center;" class="panel-title">Cédula de Aplicación</h4>
                     </div>
                     <div class="model-body" style="margin-top:5px;">
                         <!-- Opciones Generales -->
-                        <div class="col-md-6">
+                        <div class="col-md-12" style="margin-top: 21px;">
                             <div class="panel panel-primary panel-md">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">General</h3>
+                                <!-- <div class="panel-heading"> -->
+                                <div style="text-align: center;margin-bottom: -4px;">
+                                    <h3 class="panel-title" id="numProyecto" style="color: rgb(113, 104, 181);font-size: x-large">Proyecto Numero</h3>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body" style="text-align: center;">
                                     <div class="form-inline">
                                         <div class="form-group">
-                                            <input type="number" value="1" min="1" class="form-control" placeholder="Número de Proyecto" id="number_proyect" name="number_proyect" required/>
-                                        </div>
-                                        <!-- <div class="form-group">
-                                            <?php echo form_label("Elegir Finca: ",'class="label label-primary"'), form_dropdown("selLands",$lands,'','class="form-control" id="lands"') ?>
-                                        </div> -->
-                                        
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Semana de Aplicacaión Ej: 21-2015" id="week_aplication" name="week_aplication" required/>
+                                            <?php echo form_dropdown("selLands",$lands,'','class="form-control" id="idfinca" data-toggle="tooltip" data-placement="top" title="Ubicación(Fincas)"') ?>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Semana de Aplicacaión Ej: 21-2015" id="week_aplication" name="week_aplication" required/>
+                                            <?php echo form_dropdown("selDescriptions",$descriptions,'','class="form-control" id="iddescripcion" data-toggle="tooltip" data-placement="top" title="Descripción de la Aplicación"') ?>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Semana de Aplicacaión Ej: 21-2015" id="week_aplication" name="week_aplication" required/>
-                                        </div>
-                                        <!-- <div class="form-group">
-                                            <?php echo form_label("Descripción: ",'class="label label-primary"'), form_dropdown("selDescriptions",$descriptions,'','class="form-control" id="description"') ?>
-                                        </div> -->
-                                        <br></br>
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <input type="text" class="form-control" placeholder="Fecha de Aplicación" readonly id="scheduled" name="scheduled"  required/>
-                                            <!--  -->
+                                            <input type="text" class="form-control" placeholder="S. Aplicación: 22-2015" id="idsemanaaplicacion" name="idsemanaaplicacion" required/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" style="display:none;" placeholder="Week Post Seeding" id="week_post_seeding" />
+                                            <div class="input-group" style="width: 280px;">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" class="form-control" placeholder="Fecha Programada" readonly id="idfechaprogramada" name="idfechaprogramada"  required/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,34 +101,88 @@
                         </div>
                         <div class="col-md-6">
                             <div class="panel panel-primary panel-md">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Información del bloque</h3>
+                                <!-- <div class="panel-heading"> -->
+                                <div style="text-align: center;margin-bottom: -4px;">
+                                    <h3 class="panel-title">Datos de Calibración</h3>
                                 </div>
-                                <div class="panel-body" style="margin-top: 10px;">
+                                <div class="panel-body" style="text-align: center;">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" placeholder="Litros" id="idlitros" name="idlitros" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" placeholder="Presion(PSI)" id="idpresion" name="idpresion" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" placeholder="Velocidad(km/h)" id="idvelocidad" name="idvelocidad" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" placeholder="R.P.M" id="idr_p_m" name="idr_p_m" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Marcha" id="idmarcha" name="idmarcha" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Tipo de Boquilla" id="idboquilla" name="idboquilla" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="panel panel-primary panel-md">
+                                <!-- <div class="panel-heading"> -->
+                                <div style="text-align: center;margin-bottom: -4px;">
+                                    <h3 class="panel-title">Información de Bloque</h3>
+                                </div>
+                                <div class="panel-body" style="margin-top: 10px;text-align: center;">
                                     <div class="form-inline" role="form">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Lote" id="batch" name="batch" required />
+                                            <input type="text" class="form-control" placeholder="Cultivo/Nombre Científico" id="idcultivonombrecientifico" name="idcultivonombrecientifico" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Bloque" id="block" name="block" required/>
+                                            <input type="text" class="form-control" placeholder="Variedad del Cultivo" id="idvariedadcultivo" name="idvariedadcultivo" required />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Estadio" id="stadium" name="stadium" required/>
+                                            <input type="number" class="form-control" placeholder="Lote" id="idlote" name="idlote" required />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Semana de Siembra" id="week_seeding" name="week_seeding" required/>
+                                            <input type="number" class="form-control" placeholder="Bloque" id="idbloque" name="idbloque" required/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Area de Bloque" id="block_area" name="block_area" required/>
+                                            <input type="text" class="form-control" placeholder="Estadio: RC,PC" id="idestadio" name="idestadio" required/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Area de Proyecto" id="proyect_area" name="proyect_area" required/>
+                                            <input type="text" class="form-control" placeholder="S Siembra/S cierre Cosecha" id="idsemanasiembra" name="idsemanasiembra" required/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Tipo de Cultivo" id="culti_type" name="culti_type" />
+                                            <input type="number" class="form-control" placeholder="Area block (m2)" id="idareabloque" name="idareabloque" required/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Variedad del Cultivo" id="product_range" name="product_range" required />
+                                            <input type="number" class="form-control" placeholder="Area Proyecto (m2)" id="idareaproyecto" name="idareaproyecto" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="panel panel-primary panel-md">
+                                <!-- <div class="panel-heading"> -->
+                                <div style="text-align: center;margin-bottom: -4px;">
+                                    <h3 class="panel-title">Dimenciones de parcelas</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" placeholder="Cantidad de Camas" id="idnumerocamas" name="idnumerocamas" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" placeholder="Ancho de Camas(m)" id="idanchocamas" name="idcames" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" placeholder="Longitud de parcelas(m)" id="idlongitudparcelas" name="idlargoparcelas" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -148,57 +190,38 @@
                         </div>
                         <div class="col-md-6">
                             <div class="panel panel-primary panel-md">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Dimension de parcelas</h3>
+                                <!-- <div class="panel-heading"> -->
+                                <div style="text-align: center;margin-bottom: -4px;">
+                                    <h3 class="panel-title">Información adicional</h3>
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-inline">
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Número de Camas" id="num_beds" name="num_beds" required />
+                                            <input type="text" class="form-control" placeholder="Cant. Tratamientos" id="idnumerotratamientos" name="idnumerotratamientos" required=""/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Ancho de Camas(m)" id="beds_width" name="beds_width" required/>
+                                            <input type="text" class="form-control" placeholder="Cant. Replicas" id="idnumeroreplicas" name="idnumeroreplicas" required=""/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Largo de Percelas(m)" id="plots_length" name="plots_length" required/>
+                                            <input type="text" class="form-control" placeholder="Cant. Parcelas" id="idnumeroparcelas" name="idnumeroparcelas" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Volumen de Aplicación" id="idvolumenaplicacion" name="idvolumenaplicacion" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php echo form_dropdown("selLands",$modo,'','class="form-control" id="idmodoaplicacion" data-toggle="tooltip" data-placement="top" title="Modo de Aplicación"') ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php echo form_dropdown("selLands",$metodo,'','class="form-control" id="idmetodoaplicacion" data-toggle="tooltip" data-placement="top" title="Método de Aplicación"') ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel panel-primary panel-md">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Información de calibración</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Litros" id="litros" name="litros" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Presion(PSI)" id="presion" name="presion" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Velocidad(km/h)" id="velocidad" name="velocidad" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="R.P.M" id="r_p_m" name="r_p_m" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Marcha" id="marcha" name="marcha" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Tipo de Boquilla" id="boquilla" name="boquilla" required/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>    
                     </div>
                     <div class="modal-footer">
-                        <button id="agregarTratamiento" class=" btn btn-primary" type="button">Agregar</button>
-                        <button class=" btn btn-primary" type="button" id="cerrarTratamiento" data-dismiss="modal">Cerrar</button>
+                        <button id="agregarCedula" class=" btn btn-primary" type="button" data-dismiss="modal">Crear Cédula</button>
+                        <!-- <button class=" btn btn-primary" type="button" id="cerrarTratamiento" data-dismiss="modal">Cerrar</button> -->
                     </div>
                 </div>
             </div>
@@ -292,6 +315,95 @@
             </div>
         </div>
         <!-- Cierre del modal de productos -->
+
+
+<!-- Modal Para agregar Nuevos Productos al tratamiento -->
+        <div class="modal fade" id="listanuevosProductos" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header  modal-header-info">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                        <h4 style="color:white;" class="panel-title">Productos del Tratamiento</h4>
+                    </div>
+
+                    <div class="model-body" style="margin-top:15px">
+                        <div class="col-md-12">
+                            <div class="panel panel-info panel-md">
+                                <div class="panel-body">
+                                    <table class="table table-striped table-y-border"  id="idtablanuevosproductos" name="tabla">
+                                        <tr>
+                                            <th style="color:white;background:#108CAE">Producto Comercial</th>
+                                            <th style="color:white;background:#108CAE">Ingrediente Activo</th>
+                                            <th style="color:white;background:#108CAE">Dosis</th>
+                                            <th style="color:white;background:#108CAE">Unidad</th>
+                                            <th style="color:white;background:#108CAE">Inter. Secado</th>
+                                            <th style="color:white;background:#108CAE">Inter. Cosecha</th>
+                                            <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button style="margin-left:10px" class=" btn btn-primary" type="button" data-toggle="modal" onclick="" data-target="#AddProductNuevo">Nuevo Producto</button>
+                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Cerrar Tratamiento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+<!-- Modal Para agregar nuevos Productos a tratamientos existentes -->
+        <div class="modal fade" id="AddProductNuevo" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header  modal-header-info">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                        <h4 style="color:white;" class="panel-title">Agregar Producto</h4>
+                    </div>
+
+                    <div class="model-body" style="margin-top:15px">
+                        <div class="col-md-6">
+                            <div class="panel panel-primary panel-md">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Datos del Producto</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <?php echo form_dropdown("selProduct",$products,'','class="form-control" id="selectproductsnuevo" placeholder="Productos"') ?>
+                                        <input  type="text" class="form-control" placeholder="Dosis" id="iddosisnuevo" name="dosis" required/>
+                                        <input type="text" class="form-control" placeholder="Nombre Común" id="idnombrecomunnuevo" name="nombrecomun" required/>
+                                        <input type="text" class="form-control" placeholder="Nombre Científico" id="idnombrecientificonuevo" name="nombrecientifico" required/>            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary panel-md">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Intervalos</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Secado" id="idsecadonuevo" name="nombrecomun" required/>
+                                        <input type="text" class="form-control" placeholder="Cosecha" id="idcosechanuevo" name="nombrecientifico" required/>            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class=" btn btn-primary" type="button" id="agregarProductoNuevo">Agregar</button>
+                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cierre del modal de productos -->
+
 
         <!-- Modal de cedulas -->
 <!-- Modal Para agregar Productos -->

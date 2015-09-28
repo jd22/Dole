@@ -5,16 +5,7 @@ $(document).ready(function() {
         var onejan = new Date(this.getFullYear(), 0, 1);
         return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
     }
-    //Datos para iniciar el datepicker en la fecha de hoy
-    var d = new Date();
-    var fechaInicial = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-    //alert(d.getWeek());
-    $('#scheduled').daterangepicker({
-        singleDatePicker: true,
-        format: 'YYYY-MM-DD',
-        startDate: fechaInicial
-        // ***defaultDate: new Date('1 January 2008')***
-    });
+    
     //Date pickers
     // $('#birthday').daterangepicker({ singleDatePicker: true, }, function(start, end, label) {});
     $('#appointment').daterangepicker({ 

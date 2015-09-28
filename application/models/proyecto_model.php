@@ -25,6 +25,25 @@ class Proyecto_model extends CI_Model
           return true;
      }
 
+     function getid_proyecto($numero_proyecto)
+     {
+          $this->db->select('*');
+          $this->db->from('proyecto');
+          $this->db->where('numero_proyecto',$numero_proyecto);
+          $query = $this->db->get();
+          if($query->num_rows() >= 1) 
+          {
+            foreach ($query->result() as $row) 
+               {
+                    return $row->id_proyecto;
+               }   
+          } 
+          else 
+          {
+            return false; 
+          }
+     }
+
      function get_proyecto($id)
      {
           $this->db->select('*');

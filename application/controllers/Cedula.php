@@ -18,34 +18,96 @@ class Cedula  extends CI_Controller
 
 	function index()
 	{
-        $this->temporal_model->eli_temporal();
+  //       $this->temporal_model->eli_temporal();
 
-		if($this->session->userdata('logged_in'))
-        {
-            $session_data = $this->session->userdata('logged_in');
-            $data['realname'] = $session_data['realname'];
-            $datos['users'] = $this->cedula_model->get_cedulas();
-            //$this->load->view('header/librerias');
-            //$this->load->view('header/header');
-            if($session_data['realname']=="Administrator")
-            {
-            	//$this->load->view('header/menu',$data);
-            }
-            else
-            {
-            	//$this->load->view('header/menu_user',$data);
-            }
-            $this->load->view('_Layout');
-            $this->load->view('lista_cedulas',$datos);
-           // $this->load->view('footerlayout');
+		// if($this->session->userdata('logged_in'))
+  //       {
+  //           $session_data = $this->session->userdata('logged_in');
+  //           $data['realname'] = $session_data['realname'];
+  //           $datos['users'] = $this->cedula_model->get_cedulas();
+  //           //$this->load->view('header/librerias');
+  //           //$this->load->view('header/header');
+  //           if($session_data['realname']=="Administrator")
+  //           {
+  //           	//$this->load->view('header/menu',$data);
+  //           }
+  //           else
+  //           {
+  //           	//$this->load->view('header/menu_user',$data);
+  //           }
+  //           $this->load->view('_Layout');
+  //           $this->load->view('lista_cedulas',$datos);
+  //          // $this->load->view('footerlayout');
             
-	     	//$this->load->view('seecedulas_view',$datos);
-	     	//$this->load->view('footer');
-        } else {
-            redirect('Home', 'refresh');
-        }
+	 //     	//$this->load->view('seecedulas_view',$datos);
+	 //     	//$this->load->view('footer');
+  //       } else {
+  //           redirect('Home', 'refresh');
+  //       }
 
 	}
+
+    function CargarCantidadCedulas()
+    {
+      $data = array(
+        '_id_tratamiento' => $this->input->post('_id_tratamiento')        
+      );
+
+     $linfoCedulas = $this->cedulas_model->obtener_cedulas($data['_id_tratamiento']);
+     $datos=array();
+     $cantidadCedulas = 0;
+     foreach($linfoCedulas->result() as $row)
+      {
+        // $datos3=array();
+        // $datos3[]= $row->id_tratamiento;
+        // $datos[] = $datos3;
+        $cantidadCedulas =  $cantidadCedulas+1;
+      }
+      $datos[] = $cantidadCedulas;
+      echo json_encode($datos,JSON_UNESCAPED_UNICODE);
+    }
+
+    function Agregar_cedula(){
+        $data = array(
+                         '_id_tratamiento'=>$this->input->post('_id_tratamiento'),
+                         '_numero_proyecto'=>$this->input->post('_numero_proyecto'),
+                         '_id_finca'=>$this->input->post('_id_finca'),
+                         '_descripcion_aplicacion'=>$this->input->post('_descripcion_aplicacion'),
+                         '_semana_aplicacion'=>$this->input->post('_semana_aplicacion'),
+                         '_fecha_programada'=>$this->input->post('_fecha_programada'),
+                         '_litros'=>$this->input->post('_litros'),
+                         '_presion'=>$this->input->post('_presion'),
+                         '_velocidad'=>$this->input->post('_velocidad'),
+                         '_rpm'=>$this->input->post('_rpm'),
+                         '_marcha'=>$this->input->post('_marcha'),
+                         '_tipo_boquilla'=>$this->input->post('_tipo_boquilla'),
+                         '_cultivo'=>$this->input->post('_cultivo'),
+                         '_variedad'=>$this->input->post('_variedad'),
+                         '_lote'=>$this->input->post('_lote'),
+                         '_bloque'=>$this->input->post('_bloque'),
+                         '_estadio'=>$this->input->post('_estadio'),
+                         '_semana_siembra'=>$this->input->post('_semana_siembra'),
+                         '_area_bloque'=>$this->input->post('_area_bloque'),
+                         '_area_proyecto'=>$this->input->post('_area_proyecto'),
+                         '_cantidad_camas'=>$this->input->post('_cantidad_camas'),
+                         '_ancho_camas'=>$this->input->post('_ancho_camas'),
+                         '_longitud_parcelas'=>$this->input->post('_longitud_parcelas'),
+                         '_cantidad_parcelas'=>$this->input->post('_cantidad_parcelas'),
+                         '_cantidad_replicas'=>$this->input->post('_cantidad_replicas'),
+                         '_volumen_aplicacion'=>$this->input->post('_volumen_aplicacion'),
+                         '_modo_aplicacion'=>$this->input->post('_modo_aplicacion'),
+                         '_metodo_aplicacion'=>$this->input->post('_metodo_aplicacion')
+                         );
+        $this->cedula_model->insertar_cedula($data['_id_tratamiento'],$data['_numero_proyecto'],$data['_id_finca'],$data['_descripcion_aplicacion'],
+                     $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
+                     $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
+                     $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
+                     $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
+                     $data['_modo_aplicacion'],$data['_metodo_aplicacion']);
+        $datos3=array();
+        $datos3[]="Exito";
+        echo json_encode($datos3);
+    }
 
     function generar_pdf($id_cedula)
     {   $nombre_finca='';

@@ -64,42 +64,10 @@ class Product extends CI_Controller {
       $this->db->from('products');
       $this->db->where('id_producto',$id);
       $this->db->limit(1);
-        $query = $this->db->get();
-        if($query->num_rows() == 1) 
-        {
-            return $query; 
-        } 
-        else 
-        {
-            return false; 
-        }
+      $query = $this->db->get();
+      return $query;
     }
-
-    function temporal($secado,$cosecha)
-    {
-            $this->temporal_model->insert_trata_t(urldecode($secado),urldecode($cosecha));
-            $datos3=array();
-            $datos3[]="Exito";
-            echo json_encode($datos3);
-
-    }
-
-    function temporal2($dosis,$id_producto)
-    {
-            $query = $this->temporal_model->get_last_id();
-            foreach ($query->result() as $row) 
-            {
-                $this->temporal_model->insert_dosis_t($row->id,urldecode($id_producto),urldecode($dosis));
-                $datos3=array();
-                $datos3[]="Exito";
-                echo json_encode($datos3);
-            }
            
-
-    }
-
-
-    
 }
 
 ?>

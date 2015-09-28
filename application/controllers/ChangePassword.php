@@ -14,7 +14,8 @@ class ChangePassword extends CI_Controller {
     {
     	$this->form_validation->set_rules('recentpassword', 'Password', 'trim|required|callback_change_pass');
         $this->form_validation->set_rules('newpassword', 'New Password', 'trim|required');
-        $this->form_validation->set_rules('confpass', 'Confirm Password', 'trim|required'); 
+        $this->form_validation->set_rules('confpass', 'Confirm Password', 'trim|required');
+        $this->temporal_model->eli_temporal();  
         if($this->form_validation->run() == false) 
         {
           
