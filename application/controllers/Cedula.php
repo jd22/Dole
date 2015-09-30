@@ -109,7 +109,7 @@ class Cedula  extends CI_Controller
         echo json_encode($datos3);
     }
 
-    function generar_pdf($id_cedula)
+    function generar_pdf()//$id_cedula
     {   $nombre_finca='';
         $num_proyecto='';
         $cedula = $this->cedula_model->get_cedula($id_cedula);
