@@ -190,8 +190,10 @@ function CargarCedulasDelTratamiento (id) {
     };
 }
 
+var idTratamientogeneral="";
 //Cuando los productos ya existen en la bd
 function CargarProductosDelTratamiento(id_tratamiento) {
+    idTratamientogeneral=id_tratamiento;
     var TableProductos = document.getElementById("idtablanuevosproductos");
     var filas = TableProductos.rows.length;
     for (var x=filas-1; x>0; x--) {
@@ -204,20 +206,14 @@ function CargarProductosDelTratamiento(id_tratamiento) {
         type: "POST",
         dataType: 'json',
         success: function(data) {
-            alert(JSON.stringify(data));
+            // alert(JSON.stringify(data));
             for (var i = data.length - 1; i >= 0; i--) {
                 var producto = data[i][0];
                 var activo = data[i][1]; // Este se saca del id del producto
                 var unidad = data[i][2]; // Este se saca del id del producto
-                // var productoid = producto.options[producto.selectedIndex].value;
-                // var productoselect = producto.options[producto.selectedIndex].text;
                 var dosis = data[i][3];
                 var secado = data[i][4];
                 var cosecha = data[i][5];
-                // var ncomun = document.getElementById("idnombrecomun").value;
-                // var ncientifico = document.getElementById("idnombrecientifico").value;
-                
-
                 $('#idtablanuevosproductos tr:last').after('<tr class="default">'+
                                     '<th style="font-weight: normal;">'+producto+'</th>'+
                                     '<th style="font-weight: normal;">'+activo+'</th>'+
@@ -292,6 +288,43 @@ $('#agregarProducto').click(function () {
     });
 });
 
+$('#modalAgregarProducto').click(function () { // limpiar la tabla de productos al crear el modal
+    var TableProductos = document.getElementById("idproductos");
+    var filas = TableProductos.rows.length;
+    for (var x=filas-1; x>0; x--) {
+       TableProductos.deleteRow(x);
+    }
+});
+
+//Agregar un producto a un tratamiento existente
+$('#agregarProductoNuevo').click(function () {
+    //idTratamientogeneral
+    var producto = document.getElementById("selectproductsnuevo");
+
+    var productoid = producto.options[producto.selectedIndex].value;
+    var dosis = document.getElementById("iddosisnuevo").value;
+    var ncomun = document.getElementById("idnombrecomunnuevo").value;
+    var ncientifico = document.getElementById("idnombrecientificonuevo").value;
+    var secado = document.getElementById("idsecadonuevo").value;
+    var cosecha = document.getElementById("idcosechanuevo").value;
+    $.ajax({ // ajax para consultar algunos datos del producto seleccionado
+        url: BASE_URL+'Proyecto/AgregarProductoATratamientoExistente',
+        async: true,
+        type: "POST",
+        data: {_idTratamientogeneral:idTratamientogeneral,_productoid:productoid,_dosis:dosis,_ncomun:ncomun,_ncientifico:ncientifico,
+                _secado:secado,_cosecha:cosecha},
+        dataType: 'json',
+        success: function(data) {
+            //alert(data);
+            CargarProductosDelTratamiento(idTratamientogeneral);// Para refrescar la lista de productos del tratamiento
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('Error al agregar el producto nuevo al tratamiento');
+        }
+    });
+});
+
+
 
 function get_product(id)
 {
@@ -317,6 +350,7 @@ function get_product(id)
 
 $('#agregarProyecto').click(function () {
     var nnumero = document.getElementById("nnumero").value;
+
     document.getElementById("numProyecto").innerHTML="Proyecto Nº: "+nnumero;
     
     var _url = 'http://localhost/Dole/Proyecto/CrearProyecto';
@@ -324,7 +358,7 @@ $('#agregarProyecto').click(function () {
         url: _url,
         async: true,
         type: "POST",
-        data: {_numero: nnumero},
+        data: {_numero: nnumero,_fecha_creacion:fechaInicial},
         dataType: 'json',
         success: function (msg) { // success callback
             //alert("Proyecto agregado");
@@ -339,7 +373,34 @@ $('#agregarProyecto').click(function () {
 });
 
 
+'name'
+'active'
+'unit'
 
+
+
+$('#nuevoProducto').click(function () { // agregar solo productos
+    var name = document.getElementById("nameproducto").value;
+    var active = document.getElementById("activeproducto").value;
+    var unit = document.getElementById("unitproducto").value;
+    $.ajax({
+        url: 'http://localhost/Dole/Product/insert_product',
+        async: true,
+        type: "POST",
+        data: {_name: name,_active:active,_unit:unit},
+        dataType: 'json',
+        success: function (msg) { // success callback
+            alert("Producto agregado");
+            document.getElementById("nameproducto").value="";
+            document.getElementById("activeproducto").value="";
+            document.getElementById("unitproducto").value="";
+            
+        },
+        error: function () {
+            alert("Error al insertar el producto");
+        }
+    });
+}); 
 function AddRowTable() 
 {
     var table = document.getElementById("Tratament");

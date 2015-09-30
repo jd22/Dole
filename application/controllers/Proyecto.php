@@ -47,6 +47,15 @@ class Proyecto extends CI_Controller {
 
     }
 
+    function listaProyectos(){
+      $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+      // por el momento se cargaran todos los proyectos
+      $this->load->view('_Layout');                     
+      $this->load->view('lista_proyectos',$datos);
+      // $this->load->view('footerlayout');
+
+    }
+
    function CargarTratamientos()
     {
       $data = array(
@@ -86,15 +95,36 @@ class Proyecto extends CI_Controller {
       echo json_encode($datos3);
     }
 
+    // Inserta el tratamiento y su informacion
+    function AgregarProductoATratamientoExistente()
+    {
+      $info = array(
+        '_idTratamientogeneral'=> $this->input->post('_idTratamientogeneral'),
+        '_productoid'=> $this->input->post('_productoid'),
+        '_dosis'=> $this->input->post('_dosis'),
+        '_ncomun'=> $this->input->post('_ncomun'),
+        '_ncientifico'=> $this->input->post('_ncientifico'),
+        '_secado'=> $this->input->post('_secado'),
+        '_cosecha'=> $this->input->post('_cosecha'),
+      );
+      $this->tratamiento_model->insertar_informaciontratamiento($info['_idTratamientogeneral'],$info['_productoid'],$info['_dosis'],$info['_ncomun'],$info['_ncientifico'],
+          $info['_secado'],$info['_cosecha']);
+      $datos3=array();
+      $datos3[]="TratamientNuevooAgregado";
+      echo json_encode($datos3);
+    }
+
+
 
 
     function CrearProyecto()
     {
       $data = array(
-        '_numero' =>$this->input->post('_numero')
+        '_numero' =>$this->input->post('_numero'),
+        '_fecha_creacion'  =>$this->input->post('_fecha_creacion')
       );
 
-      if($this->proyecto_model->insert_proyecto($data['_numero'])==false){
+      if($this->proyecto_model->insert_proyecto($data['_numero'],$data['_fecha_creacion'])==false){
         $datos3=array();
         $datos3[]="False";
         echo json_encode($datos3);

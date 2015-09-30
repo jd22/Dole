@@ -28,6 +28,15 @@ class Product_model extends CI_Model
         }
 
      }
+  function get_productos()
+     {
+      $this->db->select('*');
+      $this->db->from('products');
+      $query = $this->db->get();
+      return $query->result(); 
+     }
+
+
 
      function get_product2($id)
      {
