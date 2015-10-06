@@ -185,11 +185,16 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
                                                     '<a href="" style="color:green;float: right;" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal" data-target="#calculos">Agregar Cedula</a>'+
                                                     '<th style="font-weight: normal;text-align: center;">'
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                     +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'
 =======
                                                     +'<a style="color:red" href="" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'+'|'
                                                     +'<a style="color:orange" href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')">Editar</a>'
 >>>>>>> origin/master
+=======
+                                                    +'<a style="color:red" href="" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'+'|'
+                                                    +'<a style="color:orange" href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')">Editar</a>'
+>>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
                                                     +'</th>'+
                                                 '</tr>');
             };
@@ -283,10 +288,13 @@ function CargarProductosDelTratamiento(id_tratamiento) {
                 var activo = data[i][1]; // Este se saca del id del producto
                 var unidad = data[i][2]; // Este se saca del id del producto
 <<<<<<< HEAD
+<<<<<<< HEAD
                 var dosis = data[i][3];
                 var secado = data[i][4];
                 var cosecha = data[i][5];
 =======
+=======
+>>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
                 var idProduct = data[i][3]
                 // var productoid = producto.options[producto.selectedIndex].value;
                 // var productoselect = producto.options[producto.selectedIndex].text;
@@ -323,6 +331,7 @@ function CargarProductosDelTratamiento(id_tratamiento) {
 
 function eliminarProductoGuardado(t,it,p,d,s,c,pnc,pnci)
 {
+<<<<<<< HEAD
 
     var _url = BASE_URL+'Tratamiento/eliminar_producto_informaciontratamiento';
     $.ajax({
@@ -350,6 +359,35 @@ var pnciA = "";
 var secA = "";
 var cosA = "";
 
+=======
+
+    var _url = BASE_URL+'Tratamiento/eliminar_producto_informaciontratamiento';
+    $.ajax({
+        url: _url,
+        async: true,
+        type: "POST",
+        data: {_idTrat: it,_idProd:p,_dos:d,_sec:s,_cos:c,_planombcom:pnc,_planombcien:pnci},
+        dataType: 'json',
+        success: function (msg) { // success callback
+            var row = t.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        },
+        error: function (msg) {
+            alert("Error al eliminar el producto");
+        }
+    });
+    
+}
+
+var idTA = "";
+var idPA = "";
+var dosA = "";
+var pncA = "";
+var pnciA = "";
+var secA = "";
+var cosA = "";
+
+>>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
 
 function editarProductoGuardado(it,p,d,pnc,pnci,s,c)
 {
@@ -452,6 +490,7 @@ $('#agregarProducto').click(function () {
         }
     });
     fila++;
+<<<<<<< HEAD
 });
 //'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas">'
 //"deleteRow(this)"
@@ -539,7 +578,60 @@ $('#agregarProductoNuevo').click(function () {
             alert('Error al agregar el producto nuevo al tratamiento');
         }
     });
+=======
+>>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
 });
+//'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas">'
+//"deleteRow(this)"
+function eliminarProducto(t,p)
+{
+    //alert($(t).attr("data-row"));
+    //alert(p + a + d + u + s + c);
+    var listaInformacionTratamientosTemp = [];
+    var filas = listaInformacionTratamientos.length;
+
+    for (var x=filas-1; x>=0; x--) {
+        if(listaInformacionTratamientos[x]['id_producto'] != p){
+            listaInformacionTratamientosTemp.push(listaInformacionTratamientos[x]);
+        }
+   }
+   listaInformacionTratamientos = listaInformacionTratamientosTemp;
+    //alert(listaInformacionTratamientos[0]['id_producto']);
+    var row = t.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+
+
+
+
+
+$('#editarProducto').click(function () {
+   var eddosis = document.getElementById("editiddosis").value;
+    var edncomun = document.getElementById("editidnombrecomun").value;
+    var edncientifico = document.getElementById("editidnombrecientifico").value;
+    var edsecado = document.getElementById("editidsecado").value;
+    var edcosecha = document.getElementById("editidcosecha").value;
+
+    var _url = 'http://localhost/Dole/Tratamiento/editar_producto_informaciontratamiento';
+    $.ajax({
+        url: _url,
+        async: true,
+        type: "POST",
+        data: {_idTrat: productoSeleccionado[0], _idProd: productoSeleccionado[1], _dos: productoSeleccionado[2], _sec: productoSeleccionado[5],
+         _cos: productoSeleccionado[6], _planombcom:productoSeleccionado[3], _planombcien: productoSeleccionado[4], 
+         _dosn: eddosis, _secn: edsecado, _cosn: edcosecha, _nplanombcom: edncomun, _nplanombcien: edncientifico},
+        dataType: 'json',
+        success: function (msg) { // success callback
+            CargarProductosDelTratamiento(productoSeleccionado[0]);
+        },
+        error: function (msg) {
+            alert("Error al editar el producto");
+        }
+    });
+
+});
+
+
 
 
 

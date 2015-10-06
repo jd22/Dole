@@ -124,6 +124,7 @@ class Proyecto extends CI_Controller {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Inserta el tratamiento y su informacion
     function AgregarProductoATratamientoExistente()
     {
@@ -144,6 +145,8 @@ class Proyecto extends CI_Controller {
     }
 
 =======
+=======
+>>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
     function eliminar_tratamiento(){
       $data = array(
         '_idTrat' => $this->input->post('_idTrat'),
@@ -155,7 +158,10 @@ class Proyecto extends CI_Controller {
         echo json_encode($datos3);
 
     }
+<<<<<<< HEAD
 >>>>>>> origin/master
+=======
+>>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
 
 
 
