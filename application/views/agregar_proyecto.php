@@ -404,6 +404,56 @@
         </div>
         <!-- Cierre del modal de productos -->
 
+        <!-- Modal Para editar Productos de tratamientos guardados -->
+        <div class="modal fade" id="EditProductNuevo" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header  modal-header-info">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                        <h4 style="color:white;" class="panel-title">Editar Producto</h4>
+                    </div>
+
+                    <div class="model-body" style="margin-top:15px">
+                        <div class="col-md-6">
+                            <div class="panel panel-primary panel-md">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Datos del Producto</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <input  type="text" class="form-control" placeholder="Producto" id="editselectproducts" readonly="readonly" name="product" required/>
+                                        <input  type="text" class="form-control" placeholder="Dosis" id="editiddosis" name="dosis" required/>
+                                        <input type="text" class="form-control" placeholder="Nombre Común" id="editidnombrecomun" name="nombrecomun" required/>
+                                        <input type="text" class="form-control" placeholder="Nombre Científico" id="editidnombrecientifico" name="nombrecientifico" required/>            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary panel-md">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Intervalos</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Secado" id="editidsecado" name="nombrecomun" required/>
+                                        <input type="text" class="form-control" placeholder="Cosecha" id="editidcosecha" name="nombrecientifico" required/>            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class=" btn btn-primary" type="button" data-dismiss="modal" id="editarProducto">Actualizar</button>
+                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cierre del modal de productos -->
+
+
 
         <!-- Modal de cedulas -->
 <!-- Modal Para agregar Productos -->
