@@ -100,16 +100,13 @@
                                     </li>
                                     <li class="nav-header">Proyectos/Experimentos</li>
                                     <li class="menu-list">
-                                        <a href=""><i class="fa fa-arrows"></i> <span>Nuevo Proyecto</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
+                                         <a href=""><i class="fa fa-arrows"></i> <span>Proyectos</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
                                         <ul class="sub-menu-list">
                                             <li>
-                                                <a href="<?=base_url()?>Proyecto"><i class="glyphicon glyphicon-plus-sign"></i>Crear</a>
+                                                <a href="<?=base_url()?>Proyecto/index/-1"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Proyecto</a>
                                             </li>
                                             <li>
-                                                <a href="<?=base_url()?>Product"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Producto</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?=base_url()?>Cedula"><i class="glyphicon glyphicon-list"></i>Lista Cedulas</a>
+                                                <a href="<?=base_url()?>Proyecto/listaProyectos"><i class="glyphicon glyphicon-list"></i>Lista de Proyectos</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -117,16 +114,13 @@
 
                                     <li class="nav-header">Opciones Generales</li>
                                     <li class="menu-list">
-                                        <a href=""><i class="glyphicon glyphicon-th"></i> <span>Aplicaciones</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
+                                       <a href=""><i class="glyphicon glyphicon-th"></i> <span>Productos</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
                                         <ul class="sub-menu-list">
-                                            <li>
-                                                <a href="<?=base_url()?>Aplication"><i class="glyphicon glyphicon-plus-sign"></i>Nueva Aplicación</a>
-                                            </li>
                                             <li>
                                                 <a href="<?=base_url()?>Product"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Producto</a>
                                             </li>
                                             <li>
-                                                <a href="<?=base_url()?>Cedula"><i class="glyphicon glyphicon-list"></i>Lista Cedulas</a>
+                                                <a href="<?=base_url()?>Product/listaProductos"><i class="glyphicon glyphicon-list"></i>Lista Productos</a>
                                             </li>
                                         </ul>
                                     </li>

@@ -60,6 +60,22 @@ class Proyecto_model extends CI_Model
           }
      }
 
+     function get_proyectos()// obtiene todos los proyectos de la base de datos
+     {
+          $this->db->select('*');
+          $this->db->from('proyecto');
+          $query = $this->db->get();
+          return $query->result();
+          // if($query->num_rows() >= 1) 
+          // {
+          //   return $query->result(); 
+          // } 
+          // else 
+          // {
+          //   return false; 
+          // }
+     }
+     
 }
 
 ?>

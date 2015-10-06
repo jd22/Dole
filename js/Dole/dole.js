@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var numeroProyecto = document.getElementById("nnumero").value;
+        var numeroProyecto = document.getElementById("nnumero").value;
     if(numeroProyecto!=""){
         document.getElementById("nnumero").disabled = "true";
         document.getElementById("infoTratamientos").style.display = "initial";
@@ -29,7 +29,7 @@ $(document).ready(function () {
                 };
             },
             error: function (msg) {
-                alert("Error al Cargar informacion de tratamientos");
+                alert("No cargan los tratamientos");
             }
         });
     }
@@ -407,12 +407,6 @@ $('#agregarProyecto').click(function () {
         }
     });
 });
-
-
-'name'
-'active'
-'unit'
-
 
 
 $('#nuevoProducto').click(function () { // agregar solo productos

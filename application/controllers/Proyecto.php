@@ -10,13 +10,10 @@ class Proyecto extends CI_Controller {
        parent::__construct();
        $this->load->model('proyecto_model','',TRUE);
        $this->load->model('product_model','',TRUE);
-       // $this->load->model('InformacionTratamiento_model','',TRUE);
-       // $this->load->model('product_model','',TRUE);
-       // // $this->load->model('tratament_model','',TRUE);
+       $this->load->model('InformacionTratamiento_model','',TRUE);
+       $this->load->model('tratamiento_model','',TRUE);
        $this->load->model('land_model','',TRUE);
-       // $this->load->model('dosis_model','',TRUE);
        $this->load->model('cedula_model','',TRUE);
-       // $this->load->model('temporal_model','',TRUE);
 
     }
 
@@ -87,15 +84,15 @@ class Proyecto extends CI_Controller {
         '_numeroProyecto' => $this->input->post('_numeroProyecto')        
       );
 
-     $linfoTratamientos = $this->tratamiento_model->obtener_tratamientos($data['_numeroProyecto']);
+      $linfoTratamientos = $this->tratamiento_model->obtener_tratamientos($data['_numeroProyecto']);
      $datos=array();
-     foreach($linfoTratamientos->result() as $row)
-      {
-        $datos3=array();
-        $cantidad_cedulas = $this->cedula_model->cantidad_cedulas($row->id_tratamiento); // buscar la cantidad de cedulas de el tratamiento
-        $datos3[]= $row->id_tratamiento;
-        $datos3[]= $cantidad_cedulas;
-        $datos[] = $datos3;
+      foreach($linfoTratamientos->result() as $row)
+       {
+         $datos3=array();
+         $cantidad_cedulas = $this->cedula_model->cantidad_cedulas($row->id_tratamiento); // buscar la cantidad de cedulas de el tratamiento
+         $datos3[]= $row->id_tratamiento;
+         $datos3[]= $cantidad_cedulas;
+         $datos[] = $datos3;
       }
       echo json_encode($datos,JSON_UNESCAPED_UNICODE);
     }
@@ -120,7 +117,7 @@ class Proyecto extends CI_Controller {
       echo json_encode($datos3);
     }
 
-    // Inserta el tratamiento y su informacion
+      // Inserta el tratamiento y su informacion
     function AgregarProductoATratamientoExistente()
     {
       $info = array(
