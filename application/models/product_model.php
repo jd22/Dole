@@ -28,15 +28,22 @@ class Product_model extends CI_Model
         }
 
      }
+<<<<<<< HEAD
   function get_productos()
+=======
+     function get_productos()
+>>>>>>> JosueBranch
      {
       $this->db->select('*');
       $this->db->from('products');
       $query = $this->db->get();
       return $query->result(); 
      }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> JosueBranch
 
      function get_product2($id)
      {

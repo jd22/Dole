@@ -115,6 +115,7 @@ $(document).ready(function() {
             "sLast": "Ult", 
             "sFirst": "Prim" 
             },
+<<<<<<< HEAD
         "sLengthMenu": 'Mostrar <select>'+ 
         '<option value="10">10</option>'+ 
         '<option value="20">20</option>'+ 
@@ -122,6 +123,15 @@ $(document).ready(function() {
         '<option value="40">40</option>'+ 
         '<option value="50">50</option>'+ 
         '<option value="-1">Todos</option>'+ 
+=======
+        "sLengthMenu": 'Mostrar <select>' 
+        '<option value="10">10</option>' 
+        '<option value="20">20</option>' 
+        '<option value="30">30</option>' 
+        '<option value="40">40</option>' 
+        '<option value="50">50</option>' 
+        '<option value="-1">Todos</option>' 
+>>>>>>> JosueBranch
         '</select> registros', 
 
         "sInfo": "Mostrando del _START_ a _END_ (Total: _TOTAL_ resultados)", 

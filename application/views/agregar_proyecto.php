@@ -33,7 +33,11 @@
                                 <div class="starter-template">
                                     <label>Número de Proyecto:</label>
                                     <div class="form-inline">
+<<<<<<< HEAD
                                        <?php 
+=======
+                                        <?php 
+>>>>>>> JosueBranch
                                        if ($idproyecto!=-1){
                                         ?>
                                             <input type="text" id="nnumero" value='<?=$idproyecto?>' class="form-control" placeholder="Numero de Proyecto" name="numero" required="">
@@ -73,7 +77,11 @@
         </div>
         
 
+<<<<<<< HEAD
 <!-- Modal Para los calculos de la cedula de aplicacion -->
+=======
+    <!-- Modal Para los calculos de la cedula de aplicacion -->
+>>>>>>> JosueBranch
     <div class="col-md-12">
         <div class="modal fade" id="calculos" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" data-keyboard="false">
             <div class="modal-dialog modal-xs" style="float: right;width:450px;margin-top: 3px;">
@@ -481,6 +489,7 @@
             </div>
         </div>
         <!-- Cierre del modal de productos -->
+
 
         <!-- Modal Para editar Productos de tratamientos guardados -->
         <div class="modal fade" id="EditProductNuevo" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
