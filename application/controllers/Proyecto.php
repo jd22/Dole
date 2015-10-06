@@ -125,6 +125,9 @@ class Proyecto extends CI_Controller {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ChristiamBranch
     // Inserta el tratamiento y su informacion
     function AgregarProductoATratamientoExistente()
     {
@@ -144,6 +147,7 @@ class Proyecto extends CI_Controller {
       echo json_encode($datos3);
     }
 
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
@@ -162,6 +166,8 @@ class Proyecto extends CI_Controller {
 >>>>>>> origin/master
 =======
 >>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
+=======
+>>>>>>> ChristiamBranch
 
 
 

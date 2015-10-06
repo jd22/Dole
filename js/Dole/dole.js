@@ -186,6 +186,7 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
                                                     '<th style="font-weight: normal;text-align: center;">'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                     +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'
 =======
                                                     +'<a style="color:red" href="" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'+'|'
@@ -195,6 +196,9 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
                                                     +'<a style="color:red" href="" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'+'|'
                                                     +'<a style="color:orange" href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')">Editar</a>'
 >>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
+=======
+                                                    +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'
+>>>>>>> ChristiamBranch
                                                     +'</th>'+
                                                 '</tr>');
             };
@@ -210,6 +214,7 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
 function eliminarTratamiento(t,it)
 {
 
+<<<<<<< HEAD
     var _url = BASE_URL+'Proyecto/eliminar_tratamiento';
     $.ajax({
         url: _url,
@@ -229,6 +234,8 @@ function eliminarTratamiento(t,it)
 }
 
 
+=======
+>>>>>>> ChristiamBranch
 function CargarCedulasDelTratamiento (id_tratamiento) { // cargar cedula del tratamiento existente con el id del tratamiento
     var tablaCedulas = document.getElementById("tablaCedulas");
     var filas = tablaCedulas.rows.length;
@@ -289,6 +296,7 @@ function CargarProductosDelTratamiento(id_tratamiento) {
                 var unidad = data[i][2]; // Este se saca del id del producto
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 var dosis = data[i][3];
                 var secado = data[i][4];
                 var cosecha = data[i][5];
@@ -308,6 +316,11 @@ function CargarProductosDelTratamiento(id_tratamiento) {
                 
 
 >>>>>>> origin/master
+=======
+                var dosis = data[i][3];
+                var secado = data[i][4];
+                var cosecha = data[i][5];
+>>>>>>> ChristiamBranch
                 $('#idtablanuevosproductos tr:last').after('<tr class="default">'+
                                     '<th style="font-weight: normal;">'+producto+'</th>'+
                                     '<th style="font-weight: normal;">'+activo+'</th>'+
@@ -542,6 +555,43 @@ $('#editarProducto').click(function () {
 
 });
 
+$('#modalAgregarProducto').click(function () { // limpiar la tabla de productos al crear el modal
+    var TableProductos = document.getElementById("idproductos");
+    var filas = TableProductos.rows.length;
+    for (var x=filas-1; x>0; x--) {
+       TableProductos.deleteRow(x);
+    }
+});
+
+//Agregar un producto a un tratamiento existente
+$('#agregarProductoNuevo').click(function () {
+    //idTratamientogeneral
+    var producto = document.getElementById("selectproductsnuevo");
+
+    var productoid = producto.options[producto.selectedIndex].value;
+    var dosis = document.getElementById("iddosisnuevo").value;
+    var ncomun = document.getElementById("idnombrecomunnuevo").value;
+    var ncientifico = document.getElementById("idnombrecientificonuevo").value;
+    var secado = document.getElementById("idsecadonuevo").value;
+    var cosecha = document.getElementById("idcosechanuevo").value;
+    $.ajax({ // ajax para consultar algunos datos del producto seleccionado
+        url: BASE_URL+'Proyecto/AgregarProductoATratamientoExistente',
+        async: true,
+        type: "POST",
+        data: {_idTratamientogeneral:idTratamientogeneral,_productoid:productoid,_dosis:dosis,_ncomun:ncomun,_ncientifico:ncientifico,
+                _secado:secado,_cosecha:cosecha},
+        dataType: 'json',
+        success: function(data) {
+            //alert(data);
+            CargarProductosDelTratamiento(idTratamientogeneral);// Para refrescar la lista de productos del tratamiento
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('Error al agregar el producto nuevo al tratamiento');
+        }
+    });
+});
+
+
 
 
 $('#modalAgregarProducto').click(function () { // limpiar la tabla de productos al crear el modal
@@ -685,9 +735,15 @@ $('#agregarProyecto').click(function () {
 'name'
 'active'
 'unit'
+<<<<<<< HEAD
 
 
 
+=======
+
+
+
+>>>>>>> ChristiamBranch
 $('#nuevoProducto').click(function () { // agregar solo productos
     var name = document.getElementById("nameproducto").value;
     var active = document.getElementById("activeproducto").value;
