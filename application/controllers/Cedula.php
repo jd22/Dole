@@ -12,7 +12,6 @@ class Cedula  extends CI_Controller
        $this->load->model('dosis_model','',TRUE);
        $this->load->model('land_model','',TRUE);
        $this->load->model('product_model','',TRUE);
-       $this->load->model('temporal_model','',TRUE);
 	}
 
 
@@ -53,7 +52,7 @@ class Cedula  extends CI_Controller
         '_id_tratamiento' => $this->input->post('_id_tratamiento')        
       );
 
-     $linfoCedulas = $this->cedulas_model->obtener_cedulas($data['_id_tratamiento']);
+     $linfoCedulas = $this->cedula_model->obtener_cedulas($data['_id_tratamiento']);
      $datos=array();
      $cantidadCedulas = 0;
      foreach($linfoCedulas->result() as $row)
@@ -66,6 +65,21 @@ class Cedula  extends CI_Controller
       $datos[] = $cantidadCedulas;
       echo json_encode($datos,JSON_UNESCAPED_UNICODE);
     }
+    function obtener_cedulas($id_tratamiento)
+    {
+     $linfoCedulas = $this->cedula_model->obtener_cedulas($id_tratamiento);
+     $datos=array();
+     foreach($linfoCedulas as $row)
+      {
+        $datos3=array();
+        $datos3[]= $row->id_cedulaAplicacion;
+        $datos3[]= $row->descripcion_aplicacion;
+        $datos3[]= $row->semana_aplicacion;
+        $datos[] = $datos3;
+      }
+      echo json_encode($datos,JSON_UNESCAPED_UNICODE);
+    }
+
 
     function Agregar_cedula(){
         $data = array(

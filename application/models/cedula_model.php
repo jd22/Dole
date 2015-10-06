@@ -14,14 +14,7 @@ class cedula_model extends CI_Model
           $this->db->from('cedula_aplicacion');
           $this->db->where('id_tratamiento',$id_tratamiento);
           $query = $this->db->get();
-          if($query->num_rows() >= 1) 
-          {
-            return $query->result(); 
-          } 
-          else 
-          {
-            return false; 
-          }
+          return $query->result(); 
      }
      function cantidad_cedulas($id_tratamiento){
           $this->db->select('*');
