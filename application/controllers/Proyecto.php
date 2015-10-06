@@ -47,6 +47,8 @@ class Proyecto extends CI_Controller {
 
     }
 
+    
+
    function CargarTratamientos()
     {
       $data = array(
@@ -84,6 +86,18 @@ class Proyecto extends CI_Controller {
       $datos3=array();
       $datos3[]="TratamientoCreado";
       echo json_encode($datos3);
+    }
+
+    function eliminar_tratamiento(){
+      $data = array(
+        '_idTrat' => $this->input->post('_idTrat'),
+        );
+
+      $this->tratamiento_model->eliminar_tratamiento($data['_idTrat']);
+      $datos3=array();
+        $datos3[]="ProductoEliminado";
+        echo json_encode($datos3);
+
     }
 
 

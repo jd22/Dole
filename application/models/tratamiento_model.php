@@ -27,6 +27,19 @@ class Tratamiento_model extends CI_Model
         $this->db->insert('tratamiento',$data);
         return $this->db->insert_id();// retorna el ultima id insertado
      }
+
+     function eliminar_tratamiento($idT)
+     {
+          $data = array(
+               'id_tratamiento' => $idT
+               );
+          $this->db->delete('informacion_tratamiento',$data);
+          $this->db->delete('cedula_aplicacion',$data);
+          $this->db->delete('tratamiento',$data);
+          return true;
+
+     }
+
      function insertar_informaciontratamiento( $idTratamiento,$id_producto,$dosis,$plaga_nombre_comun,$plaga_nombre_cientifico,$secado,$cosecha)
      {
         $data = array(
@@ -39,6 +52,7 @@ class Tratamiento_model extends CI_Model
           'cosecha' => $cosecha
           );
         $this->db->insert('informacion_tratamiento',$data);
+        
         return true;
      }
      function obtener_tratamientos($numeroProyecto)
@@ -52,6 +66,18 @@ class Tratamiento_model extends CI_Model
         } 
         $listaTratamientos = $this->db->select('*')->from('tratamiento')->where('id_proyecto',$idProyecto)->get();
 	    return $listaTratamientos;
+     }
+
+     function ontener_nombre_producto($idProducto)
+     {
+
+      $this->db->select('*');
+      $this->db->from('products');
+      $this->db->where('id_producto',$idProducto);
+      $query = $this->db->get();
+      return $query;
+
+
      }
  }
 
