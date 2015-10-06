@@ -21,8 +21,9 @@ class Proyecto extends CI_Controller {
 
     }
 
-    function index()
+    function index($id_proyecto)
     {
+      $datos['idproyecto']=$id_proyecto;
       $datos['products']=$this->product_model->get_products();// se envian los productos a la vista
       $datos['lands']=$this->land_model->get_lands();// se envian las fincas a la vista
       $datos['descriptions']= array(
@@ -44,8 +45,44 @@ class Proyecto extends CI_Controller {
       $this->load->view('_Layout');
       $this->load->view('agregar_proyecto',$datos);
       $this->load->view('footerlayout');
+    }
+
+    function existente($id_proyecto)
+    {
+      $datos['idproyecto']=$id_proyecto;
+      $datos['products']=$this->product_model->get_products();// se envian los productos a la vista
+      $datos['lands']=$this->land_model->get_lands();// se envian las fincas a la vista
+      $datos['descriptions']= array(
+                                        1 => 'Fertilización',
+                                        2 => 'Control Plagas Plantación',
+                                        3 => 'Control Plagas Fruta',
+                                        );// se envian los tipos de aplicacion a la vista
+      $datos['modo']= array(
+                                        1 => 'Apersión foliar',
+                                        2 => 'Granular',
+                                        3 => 'Manual',
+                                        );// se envian los modos de aplicacion a la vista
+      $datos['metodo']= array(
+                                        1 => 'Spray Boom',
+                                        2 => 'Stroller',
+                                        3 => 'Bomba espalda',
+                                        4 => 'Manual',
+                                        );// se envian los metodos de aplicacion a la vista
+      $this->load->view('_Layout');
+      $this->load->view('agregar_proyecto',$datos);
+      $this->load->view('footerlayout');
+    }
+
+    function listaProyectos(){
+      $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+      // por el momento se cargaran todos los proyectos
+      $this->load->view('_Layout');                     
+      $this->load->view('lista_proyectos',$datos);
+      // $this->load->view('footerlayout');
 
     }
+
+    
 
    function CargarTratamientos()
     {
@@ -86,15 +123,50 @@ class Proyecto extends CI_Controller {
       echo json_encode($datos3);
     }
 
+<<<<<<< HEAD
+    // Inserta el tratamiento y su informacion
+    function AgregarProductoATratamientoExistente()
+    {
+      $info = array(
+        '_idTratamientogeneral'=> $this->input->post('_idTratamientogeneral'),
+        '_productoid'=> $this->input->post('_productoid'),
+        '_dosis'=> $this->input->post('_dosis'),
+        '_ncomun'=> $this->input->post('_ncomun'),
+        '_ncientifico'=> $this->input->post('_ncientifico'),
+        '_secado'=> $this->input->post('_secado'),
+        '_cosecha'=> $this->input->post('_cosecha'),
+      );
+      $this->tratamiento_model->insertar_informaciontratamiento($info['_idTratamientogeneral'],$info['_productoid'],$info['_dosis'],$info['_ncomun'],$info['_ncientifico'],
+          $info['_secado'],$info['_cosecha']);
+      $datos3=array();
+      $datos3[]="TratamientNuevooAgregado";
+      echo json_encode($datos3);
+    }
+
+=======
+    function eliminar_tratamiento(){
+      $data = array(
+        '_idTrat' => $this->input->post('_idTrat'),
+        );
+
+      $this->tratamiento_model->eliminar_tratamiento($data['_idTrat']);
+      $datos3=array();
+        $datos3[]="ProductoEliminado";
+        echo json_encode($datos3);
+
+    }
+>>>>>>> origin/master
+
 
 
     function CrearProyecto()
     {
       $data = array(
-        '_numero' =>$this->input->post('_numero')
+        '_numero' =>$this->input->post('_numero'),
+        '_fecha_creacion'  =>$this->input->post('_fecha_creacion')
       );
 
-      if($this->proyecto_model->insert_proyecto($data['_numero'])==false){
+      if($this->proyecto_model->insert_proyecto($data['_numero'],$data['_fecha_creacion'])==false){
         $datos3=array();
         $datos3[]="False";
         echo json_encode($datos3);

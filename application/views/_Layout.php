@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Programas de Aplicación">
+    <meta name="author" content="Tecnológico de Costa Rica">
     <title>Dole Company </title>
-    <link href="<?=base_url()?>favicon1.ico" rel="icon" type="image/x-icon" />
+    <link href="<?=base_url()?>images/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="<?=base_url()?>css/lib/bootstrap/bootstrap.css" />
     <link rel="stylesheet" href="<?=base_url()?>css/lib/font-awesome/font-awesome.min.css">
     <link rel="stylesheet" href="<?=base_url()?>css/lib/ionicons/ionicons.min.css">
@@ -100,16 +100,13 @@
                                     </li>
                                     <li class="nav-header">Proyectos/Experimentos</li>
                                     <li class="menu-list">
-                                        <a href=""><i class="fa fa-arrows"></i> <span>Nuevo Proyecto</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
+                                        <a href=""><i class="fa fa-arrows"></i> <span>Proyectos</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
                                         <ul class="sub-menu-list">
                                             <li>
-                                                <a href="<?=base_url()?>Proyecto"><i class="glyphicon glyphicon-plus-sign"></i>Crear</a>
+                                                <a href="<?=base_url()?>Proyecto/index/-1"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Proyecto</a>
                                             </li>
                                             <li>
-                                                <a href="<?=base_url()?>Product"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Producto</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?=base_url()?>Cedula"><i class="glyphicon glyphicon-list"></i>Lista Cedulas</a>
+                                                <a href="<?=base_url()?>Proyecto/listaProyectos"><i class="glyphicon glyphicon-list"></i>Lista de Proyectos</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -117,17 +114,20 @@
 
                                     <li class="nav-header">Opciones Generales</li>
                                     <li class="menu-list">
-                                        <a href=""><i class="glyphicon glyphicon-th"></i> <span>Aplicaciones</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
+                                        <a href=""><i class="glyphicon glyphicon-th"></i> <span>Productos</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
                                         <ul class="sub-menu-list">
-                                            <li>
+                                            <!-- <li>
                                                 <a href="<?=base_url()?>Aplication"><i class="glyphicon glyphicon-plus-sign"></i>Nueva Aplicación</a>
-                                            </li>
+                                            </li> -->
                                             <li>
                                                 <a href="<?=base_url()?>Product"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Producto</a>
                                             </li>
                                             <li>
-                                                <a href="<?=base_url()?>Cedula"><i class="glyphicon glyphicon-list"></i>Lista Cedulas</a>
+                                                <a href="<?=base_url()?>Product/listaProductos"><i class="glyphicon glyphicon-list"></i>Lista Productos</a>
                                             </li>
+                                            <!-- <li>
+                                                <a href="<?=base_url()?>Cedula"><i class="glyphicon glyphicon-list"></i>Lista Cedulas</a>
+                                            </li> -->
                                         </ul>
                                     </li>
                                     <li class="menu-list ">
