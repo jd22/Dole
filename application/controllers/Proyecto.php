@@ -10,7 +10,6 @@ class Proyecto extends CI_Controller {
        parent::__construct();
        $this->load->model('proyecto_model','',TRUE);
        $this->load->model('product_model','',TRUE);
-       $this->load->model('tratamiento_model','',TRUE);
        // $this->load->model('InformacionTratamiento_model','',TRUE);
        // $this->load->model('product_model','',TRUE);
        // // $this->load->model('tratament_model','',TRUE);

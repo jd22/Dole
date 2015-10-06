@@ -8,7 +8,7 @@ class Proyecto_model extends CI_Model
           $this->load->database();
      }
 
-     function insert_proyecto($numero,$fechacreacion)
+     function insert_proyecto($numero)
      {
           $this->db->select('*');
           $this->db->from('proyecto');
@@ -20,8 +20,7 @@ class Proyecto_model extends CI_Model
                }
           } 
           $data = array(
-               'numero_proyecto'=>$numero,
-               'fecha_creacion'=>$fechacreacion);
+               'numero_proyecto'=>$numero);
           $this->db->insert('proyecto',$data);
           return true;
      }
@@ -59,21 +58,6 @@ class Proyecto_model extends CI_Model
           {
             return false; 
           }
-     }
-     function get_proyectos()// obtiene todos los proyectos de la base de datos
-     {
-          $this->db->select('*');
-          $this->db->from('proyecto');
-          $query = $this->db->get();
-          return $query->result();
-          // if($query->num_rows() >= 1) 
-          // {
-          //   return $query->result(); 
-          // } 
-          // else 
-          // {
-          //   return false; 
-          // }
      }
 
 }
