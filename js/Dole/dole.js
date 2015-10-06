@@ -1,21 +1,37 @@
 $(document).ready(function () {
-    var intputElements = document.getElementsByTagName("input");
-    for (var i = 0; i < intputElements.length; i++) {
-        intputElements[i].oninvalid = function (e) {
-            e.target.setCustomValidity("");
-            if (!e.target.validity.valid) {
+    var numeroProyecto = document.getElementById("nnumero").value;
+    if(numeroProyecto!=""){
+        document.getElementById("nnumero").disabled = "true";
+        document.getElementById("infoTratamientos").style.display = "initial";
 
-                if (e.target.name == "username") {
-                    e.target.setCustomValidity("The field 'Username' cannot be left blank");
-                }
-                else if(e.target.name == "password") {
-                    e.target.setCustomValidity("The field 'Password' cannot be left blank");
-                }
-                else{
-                     e.target.setCustomValidity("The field cannot be left blank");
-                }
-            }
+        var TableTratamientos = document.getElementById("Trataments");
+        var filas = TableTratamientos.rows.length;
+        for (var x=filas-1; x>0; x--) {
+           TableTratamientos.deleteRow(x);
         }
+        var numeroProyecto = document.getElementById("nnumero").value;
+        $.ajax({
+            url: 'http://localhost/Dole/Proyecto/CargarTratamientos',
+            async: true,
+            type: "POST",
+            data: {_numeroProyecto: numeroProyecto},
+            dataType: 'json',
+            success: function (msg) { // success callback
+                for (var i = 0; msg.length-1 >= i; i++) {
+                    $('#Trataments tr:last').after('<tr class="default">'+
+                                                        '<th style="font-weight: normal;">'+'<a href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')" data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">'+'Tratamiento '+(i+1)+'</a>'+'</th>'+
+                                                        '<th style="font-weight: normal;">'+'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
+                                                        '<a href="" style="color:green;float: right;" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>'+
+                                                        '<th style="font-weight: normal;text-align: center;">'
+                                                        +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'
+                                                        +'</th>'+
+                                                    '</tr>');
+                };
+            },
+            error: function (msg) {
+                alert("Error al Cargar informacion de tratamientos");
+            }
+        });
     }
 });
 var BASE_URL = location.protocol + "//" + location.hostname + '/Dole/';
@@ -135,6 +151,8 @@ $('#crearTratamiento').click(function () {
 
 var idGenerakTratamiento="";
 function CargarIdTratamiento(id,numerotratamiento){
+    $('#calculos').modal('show');
+    $('#NuevaCedula').modal('show');
     idGenerakTratamiento=id;
 }
 
@@ -152,15 +170,14 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
         data: {_numeroProyecto: numeroProyecto},
         dataType: 'json',
         success: function (msg) { // success callback
-            alert(JSON.stringify(msg));
+        //     alert(JSON.stringify(msg));
             for (var i = 0; msg.length-1 >= i; i++) {
                 $('#Trataments tr:last').after('<tr class="default">'+
-                                                    '<th style="font-weight: normal;">'+'<a href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')">'+'Tratamiento '+(i+1)+'</a>'+'</th>'+
-                                                    '<th style="font-weight: normal;">'+'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
-                                                    '<a href="" style="color:green;float: right;" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal" data-target="#NuevaCedula">Agregar Cedula</a>'+
+                                                    '<th style="font-weight: normal;">'+'<a href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')" data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">'+'Tratamiento '+(i+1)+'</a>'+'</th>'+
+                                                    '<th style="font-weight: normal;">'+'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
+                                                    '<a href="" style="color:green;float: right;" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal" data-target="#calculos">Agregar Cedula</a>'+
                                                     '<th style="font-weight: normal;text-align: center;">'
-                                                    +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'+'|'
-                                                    +'<a style="color:orange" href="'+BASE_URL+'">Editar</a>'
+                                                    +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'
                                                     +'</th>'+
                                                 '</tr>');
             };
@@ -172,22 +189,41 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
 }
 
 
-function CargarCedulasDelTratamiento (id) {
+function CargarCedulasDelTratamiento (id_tratamiento) { // cargar cedula del tratamiento existente con el id del tratamiento
     var tablaCedulas = document.getElementById("tablaCedulas");
     var filas = tablaCedulas.rows.length;
-    for (var x=filas-1; x>0; x--) {
+    for (var x=filas-1; x>0; x--) {// Limpiar la tabla visual para cargar las cedulas nuevas
        tablaCedulas.deleteRow(x);
     }    
-    for (var i = listaCedulas.length - 1; i >= 0; i--) {
-        $('#tablaCedulas tr:last').after('<tr class="default">'+
+    $.ajax({ // ajax para consultar las cedulas del tratamiento seleccionado
+        url: BASE_URL+'Cedula/obtener_cedulas/'+id_tratamiento, // se manda solo con el id no ocupa mas datos
+        async: true,
+        type: "POST",
+        dataType: 'json',
+        success: function(data) {
+            // alert(JSON.stringify(data));
+            for (var i = 0; data.length-1 >= i; i++) {
+                var idcedula = data[i][0];
+                var descripcion = data[i][1]; 
+                var semana_aplicacion = data[i][2];
+                $('#tablaCedulas tr:last').after('<tr class="default">'+
                                     '<th style="font-weight: normal;">'+'<a href="">'+'Cedula '+ i+'</a>'+'</th>'+
-                                    '<th style="font-weight: normal;">'+'<a href="">Ver Información</a>'+'</th>'+
+                                    '<th style="font-weight: normal;">'+'<a href="">'+descripcion+'</a>'+'</th>'+
+                                    '<th style="font-weight: normal;">'+'<a href="">'+semana_aplicacion+'</a>'+'</th>'+
                                     '<th style="font-weight: normal;">'
                                     +'<a href="'+BASE_URL+'">Eliminar</a>'+'|'
                                     +'<a href="'+BASE_URL+'">Editar</a>'
                                     +'</th>'+
+                                    '<th style="font-weight: normal;text-align:center">'+'<a href="'+BASE_URL+'Cedula/generar_pdf/'+idcedula+'">'+
+                                    '<button type="summit" class="btn btn-default btn-circle3"><img src="'+BASE_URL+'images/pdf.png">'+
+                                    '</button></a>'+'</th>'+
                                 '</tr>');
-    };
+            };
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('Error al cargar la cedulas del tratamiento');
+        }
+    });
 }
 
 var idTratamientogeneral="";
@@ -654,7 +690,53 @@ function Close()
     ClearTable();
 }
 
+// Realiza todos los calculos para la cedula
+function calcular(){
+    document.getElementById("idareabuffer").value =  document.getElementById("idareabloque").value-document.getElementById("idareaproyecto").value;
+    document.getElementById("idcapacidadtanque").value = 200*3.785;
+    var idncames =document.getElementById("idnumerocamas").value;
+    var idacamas=document.getElementById("idanchocamas").value;
+    var idlparcelas=document.getElementById("idlongitudparcelas").value;
+    
+    document.getElementById("idareaaplicacion").value = (idncames*idacamas*idlparcelas);
+
+    var idareaap = document.getElementById("idareaaplicacion").value;
+    var idnparcelas = document.getElementById("idnumeroparcelas").value;
+    document.getElementById("idareacalculada").value = (idareaap*idnparcelas);
+
+    var volaplicacion = document.getElementById("idvolaplicacion").value;
+    var areaaplica = document.getElementById("idareaaplicacion").value;
+    document.getElementById("idaguaporaplicacion").value = (volaplicacion/100000*areaaplica);
+
+    document.getElementById("idtanquesrequeridos").value = document.getElementById("idaguaporaplicacion").value/document.getElementById("idcapacidadtanque").value;
+    
+    document.getElementById("idvolumentanque1").value =document.getElementById("idtanquesrequeridos").value;
+}
+
+$('#idareabloque').change(function(){
+    calcular();
+});
+$('#idareaproyecto').change(function(){
+    calcular();
+});
+
+$('#idnumerocamas').change(function(){
+    calcular();
+});
+$('#idanchocamas').change(function(){
+    calcular();
+});
+$('#idlongitudparcelas').change(function(){
+    calcular();
+});
+$('#idnumeroparcelas').change(function(){
+    document.getElementById("idnumeroreplica").value = document.getElementById("idnumeroparcelas").value;
+    calcular();
+});
 
 
-
+$('#idvolumenaplicacion').change(function(){
+    document.getElementById("idvolaplicacion").value = document.getElementById("idvolumenaplicacion").value;
+    calcular();
+});
 

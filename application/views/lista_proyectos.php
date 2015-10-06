@@ -57,8 +57,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Número del Proyecto</th>
-                                                    <th>Fecha Creación</th>
-                                                    <th>Opciones Extras</th>
+                                                    <th>Fecha de Creación</th>
+                                                    <th style="text-align:center">Opciones Extras</th>
                                                 </tr>
                                             </thead>
                                             <?php
@@ -66,20 +66,11 @@
                                                 {
                                             ?>
                                                 <tr>
-                                                    <td><?=$row->numero_proyecto?></td>
+                                                    <td><a href="<?=base_url()?>Proyecto/index/<?=$row->numero_proyecto?>"><?=$row->numero_proyecto?></a></td>
                                                     <td><?=$row->fecha_creacion?></td>
                                                     <td style="text-align:center">
-                                                        <a href="'+BASE_URL+'">Eliminar</a> | <a href="'+BASE_URL+'">Editar</a>
+                                                        <a href="<?=base_url()?>">Eliminar</a> | <a href="<?=base_url()?>">Editar</a>
                                                     </td>
-                                                    <!-- <td> 
-                                                        <?php echo form_open("Cedula/generar_pdf/");?>
-                                                            <button type="summit" class="btn btn-default btn-circle3">
-                                                                <span class="glyphicon glyphicon-eye-open">
-                                                                </span>&nbsp;
-                                                                <img src="<?=base_url()?>images/pdf.png">
-                                                            </button>
-                                                        </form>
-                                                    </td> -->
                                                 </tr>
 
                                             <?php

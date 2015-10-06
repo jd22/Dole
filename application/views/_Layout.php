@@ -103,7 +103,7 @@
                                         <a href=""><i class="fa fa-arrows"></i> <span>Proyectos</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
                                         <ul class="sub-menu-list">
                                             <li>
-                                                <a href="<?=base_url()?>Proyecto"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Proyecto</a>
+                                                <a href="<?=base_url()?>Proyecto/index/-1"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Proyecto</a>
                                             </li>
                                             <li>
                                                 <a href="<?=base_url()?>Proyecto/listaProyectos"><i class="glyphicon glyphicon-list"></i>Lista de Proyectos</a>

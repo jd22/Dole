@@ -3,8 +3,8 @@
         <div class="col-md-12">
             <ol class="breadcrumb">
                 <li><a href="#">Inicio</a></li>
-                <li><a href="#">Aplicaciones</a></li>
-                <li class="active">Nuevo Producto</li>
+                <li><a href="#">Proyectos</a></li>
+                <li class="active">Nuevo Proyecto</li>
             </ol>
         </div>
     </div><p></p>
@@ -17,7 +17,7 @@
         <div class="container-fluid container-padded">
             <div class="row">
                 <div class="col-md-12 page-title">
-                    <h3>Información Requerida</h3>
+                    <h3>Información General</h3>
                     <hr>
                 </div> <!-- col end -->
             </div> <!-- row end -->
@@ -31,10 +31,20 @@
                         <div class="panel-heading">Información del Proyecto</div>
                             <div class="panel-body">
                                 <div class="starter-template">
-                                    <label>Numero de Proyecto:</label>
+                                    <label>Número de Proyecto:</label>
                                     <div class="form-inline">
-                                        <input type="text" id="nnumero" class="form-control" placeholder="Numero de Proyecto" name="numero" required="">
-                                        <input type="button" id="agregarProyecto" class="btn btn-sm btn-success" value="Crear Proyecto" />
+                                       <?php 
+                                       if ($idproyecto!=-1){
+                                        ?>
+                                            <input type="text" id="nnumero" value='<?=$idproyecto?>' class="form-control" placeholder="Numero de Proyecto" name="numero" required="">
+                                        <?php
+                                        } else { 
+                                        ?>
+                                            <input type="text" id="nnumero" class="form-control" placeholder="Numero de Proyecto" name="numero" required="">
+                                            <input type="button" id="agregarProyecto" class="btn btn-sm btn-success" value="Crear Proyecto" />
+                                        <?php
+                                        }
+                                        ?>
                                     </div>
                             </div>
                         </div>
@@ -62,11 +72,78 @@
             
         </div>
         
-        <!-- Creacion del modal para agregar una cedula de aplicacion -->
-        <div class="modal fade" id="NuevaCedula" tabindex="1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog modal-lg">
+
+<!-- Modal Para los calculos de la cedula de aplicacion -->
+    <div class="col-md-12">
+        <div class="modal fade" id="calculos" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" data-keyboard="false">
+            <div class="modal-dialog modal-xs" style="float: right;width:450px;margin-top: 3px;">
                 <div class="modal-content">
-                    <div class="modal-header modal-header-success" style="background:#3E448A">
+                    <div class="modal-header  modal-header-info">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                         <h4 style="color:white;" class="panel-title">Cálculos de Aplicación</h4>
+                    </div>
+
+                    <div class="model-body">
+                        
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <label class="form-control">Número Replc.</label>
+                                            <input type="text" class="form-control" placeholder="Número Replc. " id="idnumeroreplica" name="idnumeroreplica" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control">Area de Aplicación.(m2)</label>
+                                            <input type="text" class="form-control" placeholder="Area de Aplicación.(m2)" id="idareaaplicacion" name="idareaaplicacion" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control">Area calculada por Replica  (m2)</label>
+                                            <input type="text" class="form-control" placeholder="Area calculada por Replica  (m2)" id="idareacalculada" name="idareacalculada" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control">Volumen de Apl. (L ha-1)</label>
+                                            <input type="text" class="form-control" placeholder="Volumen de Apl. (L ha-1)" id="idvolaplicacion" name="idvolaplicacion" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control">VLts. Agua x aplicación</label>
+                                            <input type="text" class="form-control" placeholder="Lts. Agua x aplicación" id="idaguaporaplicacion" name="idaguaporaplicacion" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control">Capacidad Tanque (L)</label>
+                                            <input type="text" class="form-control" placeholder="Capacidad Tanque (L)" id="idcapacidadtanque" name="idcapacidadtanque" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control">Area Buffer (m2)</label>
+                                            <input type="text" class="form-control" placeholder="Area Buffer (m2)" id="idareabuffer" name="idareabuffer" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control">Tanques requeridos</label>
+                                            <input type="text" class="form-control" placeholder="Tanques requeridos" id="idtanquesrequeridos" name="idtanquesrequeridos" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control">Volumen tanque 1</label>
+                                            <input type="text" class="form-control" placeholder="Volumen tanque 1" id="idvolumentanque1" name="idvolumentanque1" required=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control">Volumen tanque 2</label>
+                                            <input type="text" class="form-control" placeholder="Volumen tanque 2" id="idvolumentanque2" name="idvolumentanque2" required=""/>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Creacion del modal para agregar una cedula de aplicacion -->
+        <div class="modal fade" id="NuevaCedula" style="background-color: rgba(0, 0, 0, 0.26);" tabindex="1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg" style="margin-top: 3px;float: left;">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-success" style="background:#3E448A;">
                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 style="color:white;text-align:center;" class="panel-title">Cédula de Aplicación</h4>
                     </div>
@@ -203,7 +280,7 @@
                                             <input type="text" class="form-control" placeholder="Cant. Replicas" id="idnumeroreplicas" name="idnumeroreplicas" required=""/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Cant. Parcelas" id="idnumeroparcelas" name="idnumeroparcelas" required=""/>
+                                            <input type="number" class="form-control" placeholder="Cant. Parcelas" id="idnumeroparcelas" name="idnumeroparcelas" required=""/>
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Volumen de Aplicación" id="idvolumenaplicacion" name="idvolumenaplicacion" required=""/>
@@ -227,6 +304,7 @@
             </div>
         </div>
         <!-- Cierre del modal agregar tratamiento -->
+
 
 
 <!-- Modal Para agregar Productos -->
@@ -408,7 +486,7 @@
         <!-- Modal de cedulas -->
 <!-- Modal Para agregar Productos -->
         <div class="modal fade" id="listaCedulas" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog modal-md">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header  modal-header-info">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
@@ -423,8 +501,10 @@
                                         <table cellpadding="0" cellspacing="0" id="tablaCedulas" border="0" class="datatable table table-striped table-bordered">
                                             <tr>
                                                 <th style="color:white;background:#108CAE">Nº Cedula Aplicación</th>
-                                                <th style="color:white;background:#108CAE">Información</th>
+                                                <th style="color:white;background:#108CAE">Descripción</th>
+                                                <th style="color:white;background:#108CAE">Sem. Aplicación</th>
                                                 <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
+                                                <th style="text-align: center;color:white;background:#108CAE">Descargar Documento</th>
                                             </tr>
                                         </table>
                                     </div>

@@ -21,8 +21,9 @@ class Proyecto extends CI_Controller {
 
     }
 
-    function index()
+    function index($id_proyecto)
     {
+      $datos['idproyecto']=$id_proyecto;
       $datos['products']=$this->product_model->get_products();// se envian los productos a la vista
       $datos['lands']=$this->land_model->get_lands();// se envian las fincas a la vista
       $datos['descriptions']= array(
@@ -44,7 +45,32 @@ class Proyecto extends CI_Controller {
       $this->load->view('_Layout');
       $this->load->view('agregar_proyecto',$datos);
       $this->load->view('footerlayout');
+    }
 
+    function existente($id_proyecto)
+    {
+      $datos['idproyecto']=$id_proyecto;
+      $datos['products']=$this->product_model->get_products();// se envian los productos a la vista
+      $datos['lands']=$this->land_model->get_lands();// se envian las fincas a la vista
+      $datos['descriptions']= array(
+                                        1 => 'Fertilización',
+                                        2 => 'Control Plagas Plantación',
+                                        3 => 'Control Plagas Fruta',
+                                        );// se envian los tipos de aplicacion a la vista
+      $datos['modo']= array(
+                                        1 => 'Apersión foliar',
+                                        2 => 'Granular',
+                                        3 => 'Manual',
+                                        );// se envian los modos de aplicacion a la vista
+      $datos['metodo']= array(
+                                        1 => 'Spray Boom',
+                                        2 => 'Stroller',
+                                        3 => 'Bomba espalda',
+                                        4 => 'Manual',
+                                        );// se envian los metodos de aplicacion a la vista
+      $this->load->view('_Layout');
+      $this->load->view('agregar_proyecto',$datos);
+      $this->load->view('footerlayout');
     }
 
     function listaProyectos(){

@@ -44,7 +44,7 @@ class Tratamiento_model extends CI_Model
      function obtener_tratamientos($numeroProyecto)
      {
        	$Proyectos = $this->db->select('*')->from('proyecto')->where('numero_proyecto',$numeroProyecto)->get();
- 		$idProyecto = "";
+ 		   $idProyecto = "";
         foreach ($Proyectos->result() as $row) 
         {
             $idProyecto = $row->id_proyecto;
