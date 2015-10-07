@@ -271,11 +271,6 @@ function CargarProductosDelTratamiento(id_tratamiento) {
         type: "POST",
         dataType: 'json',
         success: function(data) {
-<<<<<<< HEAD
-            // alert(JSON.stringify(data));
-=======
-            //alert(JSON.stringify(data));
->>>>>>> JosueBranch
             for (var i = data.length - 1; i >= 0; i--) {
                 var producto = data[i][0];
                 var activo = data[i][1]; // Este se saca del id del producto
@@ -286,10 +281,6 @@ function CargarProductosDelTratamiento(id_tratamiento) {
                 var cosecha = data[i][6];
                 var pncomun = data[i][7];
                 var pncientifico = data[i][8];
-
-                
-
-
                 $('#idtablanuevosproductos tr:last').after('<tr class="default">'+
                                     '<th style="font-weight: normal;">'+producto+'</th>'+
                                     '<th style="font-weight: normal;">'+activo+'</th>'+
