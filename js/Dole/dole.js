@@ -23,7 +23,7 @@ $(document).ready(function () {
                                                         '<th style="font-weight: normal;">'+'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
                                                         '<a href="" style="color:green;float: right;" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>'+
                                                         '<th style="font-weight: normal;text-align: center;">'
-                                                        +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'
+                                                        +'<a style="color:red" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'
                                                         +'</th>'+
                                                     '</tr>');
                 };

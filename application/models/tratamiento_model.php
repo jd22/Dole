@@ -1,13 +1,13 @@
 <?php
 class Tratamiento_model extends CI_Model
 {
-	 function __construct()
+   function __construct()
      {
           // Call the Model constructor
           parent::__construct();
           $this->load->database();
      }
-	function insert_product($name,$active,$unit)
+  function insert_product($name,$active,$unit)
      {
 
         $data = array(
@@ -43,11 +43,11 @@ class Tratamiento_model extends CI_Model
      function insertar_informaciontratamiento( $idTratamiento,$id_producto,$dosis,$plaga_nombre_comun,$plaga_nombre_cientifico,$secado,$cosecha)
      {
         $data = array(
-        	'id_tratamiento' => $idTratamiento,
-        	'id_producto' => $id_producto,
-        	'dosis' => $dosis,
-        	'plaga_nombre_comun' => $plaga_nombre_comun,
-        	'plaga_nombre_cientifico' => $plaga_nombre_cientifico,
+          'id_tratamiento' => $idTratamiento,
+          'id_producto' => $id_producto,
+          'dosis' => $dosis,
+          'plaga_nombre_comun' => $plaga_nombre_comun,
+          'plaga_nombre_cientifico' => $plaga_nombre_cientifico,
           'secado' => $secado,
           'cosecha' => $cosecha
           );
@@ -57,15 +57,15 @@ class Tratamiento_model extends CI_Model
      }
      function obtener_tratamientos($numeroProyecto)
      {
-       	$Proyectos = $this->db->select('*')->from('proyecto')->where('numero_proyecto',$numeroProyecto)->get();
- 		    $idProyecto = "";
+        $Proyectos = $this->db->select('*')->from('proyecto')->where('numero_proyecto',$numeroProyecto)->get();
+        $idProyecto = "";
         foreach ($Proyectos->result() as $row) 
         {
             $idProyecto = $row->id_proyecto;
-	        
+          
         } 
         $listaTratamientos = $this->db->select('*')->from('tratamiento')->where('id_proyecto',$idProyecto)->get();
-	    return $listaTratamientos;
+      return $listaTratamientos;
      }
 
      function ontener_nombre_producto($idProducto)

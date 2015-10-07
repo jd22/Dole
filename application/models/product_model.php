@@ -1,7 +1,7 @@
 <?php
 class Product_model extends CI_Model
 {
-	 function __construct()
+   function __construct()
      {
           // Call the Model constructor
           parent::__construct();
@@ -10,14 +10,14 @@ class Product_model extends CI_Model
 
      function get_products()
      {
-     	$this->db->select('id_producto, name');
-     	$this->db->from('products');
-     	$query = $this->db->get();
+      $this->db->select('id_producto, name');
+      $this->db->from('products');
+      $query = $this->db->get();
         if($query->num_rows() > 0) 
         {
           foreach ($query->result() as $row) 
           {
-          	$arrDatos[htmlspecialchars($row->id_producto,ENT_QUOTES)]=htmlspecialchars($row->name,ENT_QUOTES);
+            $arrDatos[htmlspecialchars($row->id_producto,ENT_QUOTES)]=htmlspecialchars($row->name,ENT_QUOTES);
           } 
           $query->free_result();
           return $arrDatos;
@@ -64,10 +64,10 @@ class Product_model extends CI_Model
      }
      function get_product($id)
      {
-     	$this->db->select('activecomponent, unit');
-     	$this->db->from('products');
-     	$this->db->where('id_producto',$id);
-     	$this->db->limit(1);
+      $this->db->select('activecomponent, unit');
+      $this->db->from('products');
+      $this->db->where('id_producto',$id);
+      $this->db->limit(1);
         $query = $this->db->get();
         if($query->num_rows() == 1) 
         {

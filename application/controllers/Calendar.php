@@ -11,10 +11,10 @@ class Calendar extends CI_Controller {
        $this->load->model('tratament_model','',TRUE);
     }
 
-	function index()
-	{
+  function index()
+  {
   //       $this->temporal_model->eli_temporal();
-		// if($this->session->userdata('logged_in'))
+    // if($this->session->userdata('logged_in'))
   //       {
   //           $session_data = $this->session->userdata('logged_in');
   //           $data['realname'] = $session_data['realname'];
@@ -30,14 +30,14 @@ class Calendar extends CI_Controller {
   //           }
   //           $this->load->view('_Layout');
   //           $this->load->view('calendario');
-	 //     	// $this->load->view('calendar_view');
-	 //     	// $this->load->view('footer');
+   //       // $this->load->view('calendar_view');
+   //       // $this->load->view('footer');
   //       } else {
   //           redirect('login', 'refresh');
   //       }
             $this->load->view('_Layout');
             $this->load->view('calendario');
-	}
+  }
 
 
     function addEvents()
@@ -52,7 +52,7 @@ class Calendar extends CI_Controller {
                 )
             );
         }
-    }	
+    } 
 }
 
 ?>
