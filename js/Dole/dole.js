@@ -177,36 +177,14 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
         data: {_numeroProyecto: numeroProyecto},
         dataType: 'json',
         success: function (msg) { // success callback
-<<<<<<< HEAD
-        //     alert(JSON.stringify(msg));
-=======
-            //alert(JSON.stringify(msg));
->>>>>>> JosueBranch
             for (var i = 0; msg.length-1 >= i; i++) {
                 $('#Trataments tr:last').after('<tr class="default">'+
                                                     '<th style="font-weight: normal;">'+'<a href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')" data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">'+'Tratamiento '+(i+1)+'</a>'+'</th>'+
                                                     '<th style="font-weight: normal;">'+'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
                                                     '<a href="" style="color:green;float: right;" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal" data-target="#calculos">Agregar Cedula</a>'+
                                                     '<th style="font-weight: normal;text-align: center;">'
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                                    +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'
-=======
                                                     +'<a style="color:red" href="" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'+'|'
-                                                    +'<a style="color:orange" href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')">Editar</a>'
->>>>>>> origin/master
-=======
-                                                    +'<a style="color:red" href="" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'+'|'
-                                                    +'<a style="color:orange" href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')">Editar</a>'
->>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
-=======
-                                                    +'<a style="color:red" href="'+BASE_URL+'">Eliminar</a>'
->>>>>>> ChristiamBranch
-=======
-                                                    +'<a style="color:red" href="" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'                        
->>>>>>> JosueBranch
+
                                                     +'</th>'+
                                                 '</tr>');
             };
@@ -217,12 +195,11 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
     });
 }
 
-//onclick="eliminarTratamiento(this,'+id_tratamiento+')"
 
 function eliminarTratamiento(t,it)
 {
 
-<<<<<<< HEAD
+
     var _url = BASE_URL+'Proyecto/eliminar_tratamiento';
     $.ajax({
         url: _url,
@@ -241,12 +218,6 @@ function eliminarTratamiento(t,it)
     
 }
 
-
-<<<<<<< HEAD
-=======
->>>>>>> ChristiamBranch
-=======
->>>>>>> JosueBranch
 function CargarCedulasDelTratamiento (id_tratamiento) { // cargar cedula del tratamiento existente con el id del tratamiento
     var tablaCedulas = document.getElementById("tablaCedulas");
     var filas = tablaCedulas.rows.length;
@@ -309,34 +280,16 @@ function CargarProductosDelTratamiento(id_tratamiento) {
                 var producto = data[i][0];
                 var activo = data[i][1]; // Este se saca del id del producto
                 var unidad = data[i][2]; // Este se saca del id del producto
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                var dosis = data[i][3];
-                var secado = data[i][4];
-                var cosecha = data[i][5];
-=======
-=======
->>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
                 var idProduct = data[i][3]
                 var dosis = data[i][4];
                 var secado = data[i][5];
                 var cosecha = data[i][6];
                 var pncomun = data[i][7];
                 var pncientifico = data[i][8];
-<<<<<<< HEAD
-                // var ncomun = document.getElementById("idnombrecomun").value;
-                // var ncientifico = document.getElementById("idnombrecientifico").value;
+
                 
 
->>>>>>> origin/master
-=======
-                var dosis = data[i][3];
-                var secado = data[i][4];
-                var cosecha = data[i][5];
->>>>>>> ChristiamBranch
-=======
->>>>>>> JosueBranch
+
                 $('#idtablanuevosproductos tr:last').after('<tr class="default">'+
                                     '<th style="font-weight: normal;">'+producto+'</th>'+
                                     '<th style="font-weight: normal;">'+activo+'</th>'+
@@ -360,7 +313,6 @@ function CargarProductosDelTratamiento(id_tratamiento) {
 
 function eliminarProductoGuardado(t,it,p,d,s,c,pnc,pnci)
 {
-<<<<<<< HEAD
 
     var _url = BASE_URL+'Tratamiento/eliminar_producto_informaciontratamiento';
     $.ajax({
@@ -388,35 +340,6 @@ var pnciA = "";
 var secA = "";
 var cosA = "";
 
-=======
-
-    var _url = BASE_URL+'Tratamiento/eliminar_producto_informaciontratamiento';
-    $.ajax({
-        url: _url,
-        async: true,
-        type: "POST",
-        data: {_idTrat: it,_idProd:p,_dos:d,_sec:s,_cos:c,_planombcom:pnc,_planombcien:pnci},
-        dataType: 'json',
-        success: function (msg) { // success callback
-            var row = t.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-        },
-        error: function (msg) {
-            alert("Error al eliminar el producto");
-        }
-    });
-    
-}
-
-var idTA = "";
-var idPA = "";
-var dosA = "";
-var pncA = "";
-var pnciA = "";
-var secA = "";
-var cosA = "";
-
->>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
 
 function editarProductoGuardado(it,p,d,pnc,pnci,s,c)
 {
@@ -519,7 +442,6 @@ $('#agregarProducto').click(function () {
         }
     });
     fila++;
-<<<<<<< HEAD
 });
 
 $('#modalAgregarProducto').click(function () { // limpiar la tabla de productos al crear el modal
@@ -640,97 +562,6 @@ $('#agregarProductoNuevo').click(function () {
         }
     });
 });
-
-
-
-
-$('#modalAgregarProducto').click(function () { // limpiar la tabla de productos al crear el modal
-    var TableProductos = document.getElementById("idproductos");
-    var filas = TableProductos.rows.length;
-    for (var x=filas-1; x>0; x--) {
-       TableProductos.deleteRow(x);
-    }
-});
-
-//Agregar un producto a un tratamiento existente
-$('#agregarProductoNuevo').click(function () {
-    //idTratamientogeneral
-    var producto = document.getElementById("selectproductsnuevo");
-
-    var productoid = producto.options[producto.selectedIndex].value;
-    var dosis = document.getElementById("iddosisnuevo").value;
-    var ncomun = document.getElementById("idnombrecomunnuevo").value;
-    var ncientifico = document.getElementById("idnombrecientificonuevo").value;
-    var secado = document.getElementById("idsecadonuevo").value;
-    var cosecha = document.getElementById("idcosechanuevo").value;
-    $.ajax({ // ajax para consultar algunos datos del producto seleccionado
-        url: BASE_URL+'Proyecto/AgregarProductoATratamientoExistente',
-        async: true,
-        type: "POST",
-        data: {_idTratamientogeneral:idTratamientogeneral,_productoid:productoid,_dosis:dosis,_ncomun:ncomun,_ncientifico:ncientifico,
-                _secado:secado,_cosecha:cosecha},
-        dataType: 'json',
-        success: function(data) {
-            //alert(data);
-            CargarProductosDelTratamiento(idTratamientogeneral);// Para refrescar la lista de productos del tratamiento
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert('Error al agregar el producto nuevo al tratamiento');
-        }
-    });
-=======
->>>>>>> 82bd385e386363c32d20be9aa12d8da177c08f9f
-});
-//'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas">'
-//"deleteRow(this)"
-function eliminarProducto(t,p)
-{
-    //alert($(t).attr("data-row"));
-    //alert(p + a + d + u + s + c);
-    var listaInformacionTratamientosTemp = [];
-    var filas = listaInformacionTratamientos.length;
-
-    for (var x=filas-1; x>=0; x--) {
-        if(listaInformacionTratamientos[x]['id_producto'] != p){
-            listaInformacionTratamientosTemp.push(listaInformacionTratamientos[x]);
-        }
-   }
-   listaInformacionTratamientos = listaInformacionTratamientosTemp;
-    //alert(listaInformacionTratamientos[0]['id_producto']);
-    var row = t.parentNode.parentNode;
-    row.parentNode.removeChild(row);
-}
-
-
-
-
-
-$('#editarProducto').click(function () {
-   var eddosis = document.getElementById("editiddosis").value;
-    var edncomun = document.getElementById("editidnombrecomun").value;
-    var edncientifico = document.getElementById("editidnombrecientifico").value;
-    var edsecado = document.getElementById("editidsecado").value;
-    var edcosecha = document.getElementById("editidcosecha").value;
-
-    var _url = 'http://localhost/Dole/Tratamiento/editar_producto_informaciontratamiento';
-    $.ajax({
-        url: _url,
-        async: true,
-        type: "POST",
-        data: {_idTrat: productoSeleccionado[0], _idProd: productoSeleccionado[1], _dos: productoSeleccionado[2], _sec: productoSeleccionado[5],
-         _cos: productoSeleccionado[6], _planombcom:productoSeleccionado[3], _planombcien: productoSeleccionado[4], 
-         _dosn: eddosis, _secn: edsecado, _cosn: edcosecha, _nplanombcom: edncomun, _nplanombcien: edncientifico},
-        dataType: 'json',
-        success: function (msg) { // success callback
-            CargarProductosDelTratamiento(productoSeleccionado[0]);
-        },
-        error: function (msg) {
-            alert("Error al editar el producto");
-        }
-    });
-
-});
-
 
 
 function get_product(id)
@@ -783,22 +614,7 @@ $('#agregarProyecto').click(function () {
 'active'
 'unit'
 
-'name'
-'active'
-'unit'
-<<<<<<< HEAD
 
-
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> ChristiamBranch
-=======
-
->>>>>>> JosueBranch
 $('#nuevoProducto').click(function () { // agregar solo productos
     var name = document.getElementById("nameproducto").value;
     var active = document.getElementById("activeproducto").value;
@@ -820,12 +636,8 @@ $('#nuevoProducto').click(function () { // agregar solo productos
             alert("Error al insertar el producto");
         }
     });
-<<<<<<< HEAD
 }); 
-=======
-});
 
->>>>>>> JosueBranch
 function AddRowTable() 
 {
     var table = document.getElementById("Tratament");
@@ -1088,54 +900,11 @@ function calcular(){
     var idlparcelas=document.getElementById("idlongitudparcelas").value;
     
     document.getElementById("idareaaplicacion").value = (idncames*idacamas*idlparcelas);
-<<<<<<< HEAD
 
     var idareaap = document.getElementById("idareaaplicacion").value;
     var idnparcelas = document.getElementById("idnumeroparcelas").value;
     document.getElementById("idareacalculada").value = (idareaap*idnparcelas);
-=======
- 
-    var idareaap = document.getElementById("idareaaplicacion").value;
-    var idnparcelas = document.getElementById("idnumeroparcelas").value;
-    document.getElementById("idareacalculada").value = (idareaap*idnparcelas);
- 
-    var volaplicacion = document.getElementById("idvolaplicacion").value;
-    var areaaplica = document.getElementById("idareaaplicacion").value;
-    document.getElementById("idaguaporaplicacion").value = (volaplicacion/100000*areaaplica);
- 
-    document.getElementById("idtanquesrequeridos").value = document.getElementById("idaguaporaplicacion").value/document.getElementById("idcapacidadtanque").value;
-    
-    document.getElementById("idvolumentanque1").value =document.getElementById("idtanquesrequeridos").value;
-}
 
-$('#idareabloque').change(function(){
-    calcular();
-});
-$('#idareaproyecto').change(function(){
-    calcular();
-});
-
-$('#idnumerocamas').change(function(){
-    calcular();
-});
-$('#idanchocamas').change(function(){
-    calcular();
-});
-$('#idlongitudparcelas').change(function(){
-    calcular();
-});
-$('#idnumeroparcelas').change(function(){
-    document.getElementById("idnumeroreplica").value = document.getElementById("idnumeroparcelas").value;
-    calcular();
-});
-
-
-$('#idvolumenaplicacion').change(function(){
-    document.getElementById("idvolaplicacion").value = document.getElementById("idvolumenaplicacion").value;
-    calcular();
-});
-
->>>>>>> JosueBranch
 
     var volaplicacion = document.getElementById("idvolaplicacion").value;
     var areaaplica = document.getElementById("idareaaplicacion").value;

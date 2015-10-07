@@ -40,11 +40,7 @@
                 <div class="col-md-12 page-title">
                     <h3>Lista de Productos</h3>
                     <hr>
-<<<<<<< HEAD
                 </div> <!-- col end -->
-=======
-               </div> <!-- col end -->
->>>>>>> JosueBranch
             </div> <!-- row end -->
         </div>
         <!-- title container end -->
@@ -54,15 +50,9 @@
                 <div class="col-md-12">
                     <div class="panel panel-success">
                         <div class="panel-heading">Productos Actuales</div>
-<<<<<<< HEAD
-                            <div class="panel-body">		
-								<div class="starter-template">
-									<div class="table-responsive">
-=======
                             <div class="panel-body">   
                <div class="starter-template">
                  <div class="table-responsive">
->>>>>>> JosueBranch
                                         <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
                                             <thead>
                                                 <tr>
@@ -80,17 +70,10 @@
                                                     <td><?=$row->name?></td>
                                                     <td><?=$row->activecomponent?></td>
                                                     <td><?=$row->unit?></td>
-<<<<<<< HEAD
-                                                    <td style="text-align:center">
-                                                        <a href="'+BASE_URL+'">Eliminar</a> | <a href="'+BASE_URL+'">Editar</a>
-                                                    </td>
-                                                </tr>
-=======
                                                    <td style="text-align:center">
                                                         <a href="'+BASE_URL+'">Eliminar</a> | <a href="'+BASE_URL+'">Editar</a>
                                                     </td>
                                                </tr>
->>>>>>> JosueBranch
                                             <?php
                                                 }    
                                             ?>
@@ -134,20 +117,12 @@ $(document).ready(function() {
             "sFirst": "Prim" 
             },
         "sLengthMenu": 'Mostrar <select>'+ 
-<<<<<<< HEAD
         '<option value="10">10</option>'+ 
-=======
-       '<option value="10">10</option>'+ 
->>>>>>> JosueBranch
         '<option value="20">20</option>'+ 
         '<option value="30">30</option>'+ 
         '<option value="40">40</option>'+ 
         '<option value="50">50</option>'+ 
-<<<<<<< HEAD
         '<option value="-1">Todos</option>'+ 
-=======
-       '<option value="-1">Todos</option>'+ 
->>>>>>> JosueBranch
         '</select> registros', 
 
         "sInfo": "Mostrando del _START_ a _END_ (Total: _TOTAL_ resultados)", 
@@ -162,11 +137,7 @@ $(document).ready(function() {
 
         "sSearch": "Buscar:", 
     }
-<<<<<<< HEAD
-    }); 
-=======
    }); 
->>>>>>> JosueBranch
     $('.datatable').each(function(){
         var datatable = $(this);
         // SEARCH - Add the placeholder for Search and Turn this into in-line form control

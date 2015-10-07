@@ -126,13 +126,8 @@
                                                 <a href="<?=base_url()?>Product/listaProductos"><i class="glyphicon glyphicon-list"></i>Lista Productos</a>
                                             </li>
                                             <!-- <li>
-<<<<<<< HEAD
                                                 <a href="<?=base_url()?>Cedula"><i class="glyphicon glyphicon-list"></i>Lista Cedulas</a>
                                             </li> -->
-=======
-+                                                <a href="<?=base_url()?>Cedula"><i class="glyphicon glyphicon-list"></i>Lista Cedulas</a>
-+                                            </li> -->
->>>>>>> JosueBranch
                                         </ul>
                                     </li>
                                     <li class="menu-list ">

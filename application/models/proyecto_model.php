@@ -21,11 +21,7 @@ class Proyecto_model extends CI_Model
           } 
           $data = array(
                'numero_proyecto'=>$numero,
-<<<<<<< HEAD
                'fecha_creacion'=>$fechacreacion);
-=======
-               'fecha_creacion'=>$fechacreacion,);
->>>>>>> JosueBranch
           $this->db->insert('proyecto',$data);
           return true;
      }

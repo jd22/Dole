@@ -8,19 +8,12 @@ class Calendar extends CI_Controller {
        parent::__construct();
        $this->load->model('aplication_model','',TRUE);
        $this->load->model('product_model','',TRUE);
-<<<<<<< HEAD
-       $this->load->model('land_model','',TRUE);
-=======
        $this->load->model('tratament_model','',TRUE);
->>>>>>> JosueBranch
     }
 
 	function index()
 	{
-<<<<<<< HEAD
-=======
   //       $this->temporal_model->eli_temporal();
->>>>>>> JosueBranch
 		// if($this->session->userdata('logged_in'))
   //       {
   //           $session_data = $this->session->userdata('logged_in');
@@ -35,7 +28,6 @@ class Calendar extends CI_Controller {
   //           {
   //               //$this->load->view('header/menu_user',$data);
   //           }
-<<<<<<< HEAD
   //           $this->load->view('_Layout');
   //           $this->load->view('calendario');
 	 //     	// $this->load->view('calendar_view');
@@ -45,19 +37,6 @@ class Calendar extends CI_Controller {
   //       }
             $this->load->view('_Layout');
             $this->load->view('calendario');
-=======
-       //      $this->load->view('_Layout');
-       //      $this->load->view('calendario');
-	     	// // $this->load->view('calendar_view');
-	     	// // $this->load->view('footer');
-       //  } else {
-       //      redirect('login', 'refresh');
-       //  }
-
-        $this->load->view('_Layout');
-        $this->load->view('calendario');
-
->>>>>>> JosueBranch
 	}
 
 
