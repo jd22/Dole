@@ -39,8 +39,11 @@ class Tratamiento_model extends CI_Model
           return true;
 
      }
+     
 
-     function insertar_informaciontratamiento( $idTratamiento,$id_producto,$dosis,$plaga_nombre_comun,$plaga_nombre_cientifico,$secado,$cosecha)
+
+
+     function insertar_informaciontratamiento($idTratamiento,$id_producto,$dosis,$plaga_nombre_comun,$plaga_nombre_cientifico,$secado,$cosecha)
      {
         $data = array(
         	'id_tratamiento' => $idTratamiento,
@@ -52,8 +55,6 @@ class Tratamiento_model extends CI_Model
           'cosecha' => $cosecha
           );
         $this->db->insert('informacion_tratamiento',$data);
-        
-        return true;
      }
      function obtener_tratamientos($numeroProyecto)
      {
