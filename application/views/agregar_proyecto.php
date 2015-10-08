@@ -452,9 +452,9 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <?php echo form_dropdown("selProduct",$products,'','class="form-control" id="selectproductsnuevo" placeholder="Productos"') ?>
-                                        <input  type="text" class="form-control" placeholder="Dosis" id="iddosisnuevo" name="dosis" required/>
-                                        <input type="text" class="form-control" placeholder="Nombre Común" id="idnombrecomunnuevo" name="nombrecomun" required/>
-                                        <input type="text" class="form-control" placeholder="Nombre Científico" id="idnombrecientificonuevo" name="nombrecientifico" required/>            
+                                        <input  type="text" class="form-control" placeholder="Dosis" id="iddosisnuevo" name="iddosisnuevo" required/>
+                                        <input type="text" class="form-control" placeholder="Nombre Común" id="idnombrecomunnuevo" name="idnombrecomunnuevo" required/>
+                                        <input type="text" class="form-control" placeholder="Nombre Científico" id="idnombrecientificonuevo" name="idnombrecientificonuevo" required/>            
                                     </div>
                                 </div>
                             </div>
@@ -466,8 +466,8 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Secado" id="idsecadonuevo" name="nombrecomun" required/>
-                                        <input type="text" class="form-control" placeholder="Cosecha" id="idcosechanuevo" name="nombrecientifico" required/>            
+                                        <input type="text" class="form-control" placeholder="Secado" id="idsecadonuevo" name="idsecadonuevo" required/>
+                                        <input type="text" class="form-control" placeholder="Cosecha" id="idcosechanuevo" name="idcosechanuevo" required/>            
                                     </div>
                                 </div>
                             </div>
@@ -501,10 +501,11 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <input  type="text" class="form-control" placeholder="Producto" id="editselectproducts" readonly="readonly" name="product" required/>
-                                        <input  type="text" class="form-control" placeholder="Dosis" id="editiddosis" name="dosis" required/>
-                                        <input type="text" class="form-control" placeholder="Nombre Común" id="editidnombrecomun" name="nombrecomun" required/>
-                                        <input type="text" class="form-control" placeholder="Nombre Científico" id="editidnombrecientifico" name="nombrecientifico" required/>            
+                                        <!-- <input  type="text" class="form-control" placeholder="Producto" id="editselectproducts" readonly="readonly" name="product" required/> -->
+                                        <?php echo form_dropdown("selProduct",$products,'','class="form-control" id="editselectproducts" placeholder="Productos"') ?>
+                                        <input  type="text" class="form-control" placeholder="Dosis" id="editiddosis" name="editiddosis" required/>
+                                        <input type="text" class="form-control" placeholder="Nombre Común" id="editidnombrecomun" name="editidnombrecomun" required/>
+                                        <input type="text" class="form-control" placeholder="Nombre Científico" id="editidnombrecientifico" name="editidnombrecientifico" required/>            
                                     </div>
                                 </div>
                             </div>
@@ -516,8 +517,8 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Secado" id="editidsecado" name="nombrecomun" required/>
-                                        <input type="text" class="form-control" placeholder="Cosecha" id="editidcosecha" name="nombrecientifico" required/>            
+                                        <input type="text" class="form-control" placeholder="Secado" id="editidsecado" name="editidsecado" required/>
+                                        <input type="text" class="form-control" placeholder="Cosecha" id="editidcosecha" name="editidcosecha" required/>            
                                     </div>
                                 </div>
                             </div>
