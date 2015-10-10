@@ -77,11 +77,8 @@ class InformacionTratamiento_model extends CI_Model
           
           $this->db->where('id_informaciontratamiento',$idinformaciontratamientoGeneralAeditar);
           $this->db->update('informacion_tratamiento',$data);
-          
-
           $query = $this->db->select('*')->from('informacion_tratamiento')->where('id_informaciontratamiento',$idinformaciontratamientoGeneralAeditar)->get();
           return $query;
-
      }
 
 }

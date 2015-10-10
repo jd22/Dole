@@ -34,11 +34,12 @@
 <script src="<?=base_url()?>js/lib/slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <script src="<?=base_url()?>js/lib/momentjs/moment.min.js" type="text/javascript"></script>
 <script src="<?=base_url()?>js/lib/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+
 <script src="<?=base_url()?>js/lib/tabdrop/bootstrap-tabdrop.js" type="text/javascript"></script>
 <script src="<?=base_url()?>js/lib/datatables/jquery.dataTables.min.js"></script>
 <script src="<?=base_url()?>js/lib/datatables/datatables.js" type="text/javascript"></script>
+
 <script src="<?=base_url()?>js/scripts.js" type="text/javascript"></script>
 <script src="<?=base_url()?>js/Dole/dole.js" type="text/javascript"></script>
-
 </body>
 </html>
