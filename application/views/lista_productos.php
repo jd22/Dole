@@ -27,6 +27,35 @@
         <div class="container-fluid container-padded">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">Productos Actuales</div>
+                            <div class="panel-body">   
+                               <div class="starter-template">
+                                 <div class="table-responsive">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Ingrediente activo</th>
+                                                    <th>Unidad</th>
+                                                    <th>Opciones Extras</th>
+                                                </tr>
+                                            </thead>
+                                            <?php
+                                            foreach ($productos as $row) 
+                                                {
+                                            ?>
+                                                <tr>
+                                                    <td><?=$row->name?></td>
+                                                    <td><?=$row->activecomponent?></td>
+                                                    <td><?=$row->unit?></td>
+                                                   <td style="text-align:center">
+                                                        <a href="'+BASE_URL+'">Eliminar</a> | <a href="'+BASE_URL+'">Editar</a>
+                                                    </td>
+                                               </tr>
+                                            <?php
+                                                }    
+                                            ?>
                     <div class="panel panel-success panel-md">
                         <div class="panel-heading">Información del Proyecto</div>
                             <div class="panel-body">

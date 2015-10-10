@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="<?=base_url()?>css/lib/font-awesome/font-awesome.min.css">
     <link rel="stylesheet" href="<?=base_url()?>css/lib/ionicons/ionicons.min.css">
     <link rel="stylesheet" href="<?=base_url()?>css/lib/daterangepicker/daterangepicker-bs3.css" />
+    <!-- Page specific style sheet -->
+    <link rel="stylesheet" href="<?=base_url()?>css/lib/datatables/datatables.css">
+    <link href="<?=base_url()?>css/lib/iCheck/all.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="<?=base_url()?>css/lib/tabdrop/tabdrop.css" />
     <link rel="stylesheet" href="<?=base_url()?>css/styles.css" id="theme-css" />
 </head>
@@ -136,79 +139,8 @@
                                             <li>
                                                 <a href="<?=base_url()?>Calendar"><i class="fa fa-calendar"></i> Calendario</a>
                                             </li>
-                                            <!-- <li>
-                                                <a href="<?=base_url()?>">Typography</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?=base_url()?>">Buttons</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?=base_url()?>">Tabs & Accordians</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?=base_url()?>">Panels</a>
-                                            </li>
-                                            <li>
-                                                <a href="ui_alerts.html">Alerts & Modals</a>
-                                            </li>
-                                            <li>
-                                                <a href="ui_icons.html">Icons</a>
-                                            </li>
-                                            <li>
-                                                <a href="ui_components.html">Components</a>
-                                            </li>
-                                            
-                                            <li>
-                                                <a href="ui_list.html">List & Tree</a>
-                                            </li> -->
                                         </ul>
                                     </li>
-                                    <!-- <li class="menu-list ">
-                                        <a href=""><i class="ion ion-document"></i> <span>Forms</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
-                                        <ul class="sub-menu-list">
-                                            <li>
-                                                <a href="form_basic.html">Basic</a>
-                                            </li>
-                                            <li>
-                                                <a href="form_advanced.html">Advanced</a>
-                                            </li>
-                                            <li>
-                                                <a href="form_validation.html">Validation</a>
-                                            </li>
-                                            <li>
-                                                <a href="form_editors.html">Editors</a>
-                                            </li>
-
-                                        </ul>
-                                    </li> -->
-                                    <!-- <li class="menu-list ">
-                                        <a href=""><i class="ion ion-grid"></i> <span>Tables</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
-                                        <ul class="sub-menu-list">
-                                            <li>
-                                                <a href="table_basic.html">Basic</a>
-                                            </li>
-                                            <li>
-                                                <a href="table_responsive.html">Responsive</a>
-                                            </li>
-                                            <li>
-                                                <a href="table_datatables.html">Datatables</a>
-                                            </li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- <li class="menu-list">
-                                        <a href="#"><i class="ion ion-laptop"></i> <span>Layouts</span> <i class="ion ion-ios7-arrow-up pull-right"></i></a>
-                                        <ul class="sub-menu-list">
-                                            <li>
-                                                <a href="layout_grid.html">Grid system</a>
-                                            </li>
-                                            <li>
-                                                <a href="layout_full.html">Full-width</a>
-                                            </li>
-                                            <li>
-                                                <a href="layout_blank.html">Blank page</a>
-                                            </li>
-                                        </ul>
-                                    </li> -->
                                     <li class="nav-header">Configuración de Sistema</li>
                                     <li class="menu-list ">
                                         <a href=""><i class="glyphicon glyphicon-user"></i> <span>Usuarios</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
@@ -221,70 +153,6 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <!-- li class="menu-list ">
-                                        <a href="#"><i class="ion ion-location"></i> <span>Maps</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
-                                        <ul class="sub-menu-list">
-                                            <li>
-                                                <a href="map_google.html">Google Maps</a>
-                                            </li>
-                                            <li>
-                                                <a href="map_vector.html">Vector maps</a>
-                                            </li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- <li class="nav-header">Application Pages</li>
-                                    <li class="menu-list ">
-                                        <a href=""><i class="ion ion-settings"></i> <span>App Pages</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
-                                        <ul class="sub-menu-list">
-                                            <li>
-                                                <a href="app_login.html">Login</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_signup.html">Signup</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_forgot_password.html">Recover password</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_social_login.html">Social login</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_profile.html">User profile</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_invoice.html">Invoice</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_settings.html">Settings</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_tour.html">App tour</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_timeline.html">Timeline</a>
-                                            </li>
-                                            <li>
-                                                <a href="app_support.html" target="_blank">Support</a>
-                                            </li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- <li class="menu-list ">
-                                        <a href=""><i class="ion ion-document"></i> <span>Extra Pages</span> <i class="ion ion-ios7-arrow-down pull-right"></i></a>
-                                        <ul class="sub-menu-list">
-                                            <li>
-                                                <a href="page_notifications.html">Notifications</a>
-                                            </li>
-                                            <li>
-                                                <a href="page_faq.html">FAQs</a>
-                                            </li>
-                                            <li>
-                                                <a href="404.html">404 Error</a>
-                                            </li>
-                                            <li>
-                                                <a href="500.html">500 Error</a>
-                                            </li>
-                                        </ul>
-                                    </li> -->
                                 </ul>
                                 <!--sidebar nav end-->
 

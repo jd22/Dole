@@ -56,14 +56,20 @@
                         <h3 class="panel-title">Lista de Tratamientos del Proyecto</h3>
                     </div>
                     <div class="panel-body">
-                        <table class="table table-bordered"  id="Trataments">
-                            <tr>
-                                <th style="color:white;background:#108CAE" >Nº Tratamiento</th>
-                                <th style="color:white;background:#108CAE">Cédula Aplicación</th>
-                                <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
-                            </tr>
-                        </table>
-                        <button class="btn btn-success btn-sm" style="float:right"  type="button" id="modalAgregarProductoExiste" data-toggle="modal" data-target="#NewTratamentExiste">Tratemiento Existente</button>
+                        <div class="starter-template">
+                            <div class="table-responsive">
+                                <table id="Trataments" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="color:white;background:#108CAE" >Nº Tratamiento</th>
+                                            <th style="color:white;background:#108CAE">Cédula Aplicación</th>
+                                            <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm" style="float:right"  type="button" onclick="cargarTratamientosExistentes()" id="modalAgregarProductoExiste" data-toggle="modal" data-target="#NewTratamentExiste">Tratemiento Existente</button>
                         <button class="btn btn-primary btn-sm" style="float:right" type="button" id="modalAgregarProducto" data-toggle="modal" data-target="#listaProductos">Nuevo Tratamiento</button>
                     </div>
                 </div>
@@ -79,7 +85,7 @@
         <div class="modal fade" id="calculos" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" data-keyboard="false">
             <div class="modal-dialog modal-xs" style="float: right;width:450px;margin-top: 3px;">
                 <div class="modal-content">
-                    <div class="modal-header  modal-header-info">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
                          <h4 style="color:white;" class="panel-title">Cálculos de Aplicación</h4>
                     </div>
@@ -312,7 +318,7 @@
         <div class="modal fade" id="listaProductos" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header  modal-header-info">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
                         <h4 style="color:white;" class="panel-title">Productos del Tratamiento</h4>
                     </div>
@@ -321,17 +327,24 @@
                         <div class="col-md-12">
                             <div class="panel panel-info panel-md">
                                 <div class="panel-body">
-                                    <table class="table table-striped table-y-border"  id="idproductos" name="tabla">
-                                        <tr>
-                                            <th style="color:white;background:#108CAE">Producto Comercial</th>
-                                            <th style="color:white;background:#108CAE">Ingrediente Activo</th>
-                                            <th style="color:white;background:#108CAE">Dosis</th>
-                                            <th style="color:white;background:#108CAE">Unidad</th>
-                                            <th style="color:white;background:#108CAE">Inter. Secado</th>
-                                            <th style="color:white;background:#108CAE">Inter. Cosecha</th>
-                                            <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
-                                        </tr>
-                                    </table>
+                                    <label><input id="idpredeterminado" type="checkbox" class="minimal-red"/> Predeterminado</label>
+                                    <div class="starter-template">
+                                        <div class="table-responsive">
+                                            <table id="idproductos" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:white;background:#108CAE">Producto Comercial</th>
+                                                        <th style="color:white;background:#108CAE">Ingrediente Activo</th>
+                                                        <th style="color:white;background:#108CAE">Dosis</th>
+                                                        <th style="color:white;background:#108CAE">Unidad</th>
+                                                        <th style="color:white;background:#108CAE">Inter. Secado</th>
+                                                        <th style="color:white;background:#108CAE">Inter. Cosecha</th>
+                                                        <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -350,7 +363,7 @@
         <div class="modal fade" id="AddProduct" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
-                    <div class="modal-header  modal-header-info">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
                         <h4 style="color:white;" class="panel-title">Agregar Producto</h4>
                     </div>
@@ -400,7 +413,7 @@
         <div class="modal fade" id="listanuevosProductos" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header  modal-header-info">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
                         <h4 style="color:white;" class="panel-title">Productos del Tratamiento</h4>
                     </div>
@@ -409,17 +422,24 @@
                         <div class="col-md-12">
                             <div class="panel panel-info panel-md">
                                 <div class="panel-body">
-                                    <table class="table table-striped table-y-border"  id="idtablanuevosproductos" name="tabla">
-                                        <tr>
-                                            <th style="color:white;background:#108CAE">Producto Comercial</th>
-                                            <th style="color:white;background:#108CAE">Ingrediente Activo</th>
-                                            <th style="color:white;background:#108CAE">Dosis</th>
-                                            <th style="color:white;background:#108CAE">Unidad</th>
-                                            <th style="color:white;background:#108CAE">Inter. Secado</th>
-                                            <th style="color:white;background:#108CAE">Inter. Cosecha</th>
-                                            <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
-                                        </tr>
-                                    </table>
+                                    <label><input id="idpredeterminadoNuevo" type="checkbox" class="minimal-red"/> Predeterminado</label>
+                                    <div class="starter-template">
+                                        <div class="table-responsive">
+                                            <table id="idtablanuevosproductos" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:white;background:#108CAE">Producto Comercial</th>
+                                                        <th style="color:white;background:#108CAE">Ingrediente Activo</th>
+                                                        <th style="color:white;background:#108CAE">Dosis</th>
+                                                        <th style="color:white;background:#108CAE">Unidad</th>
+                                                        <th style="color:white;background:#108CAE">Inter. Secado</th>
+                                                        <th style="color:white;background:#108CAE">Inter. Cosecha</th>
+                                                        <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>    
                                 </div>
                             </div>
                         </div>
@@ -438,7 +458,7 @@
         <div class="modal fade" id="AddProductNuevo" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
-                    <div class="modal-header  modal-header-info">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
                         <h4 style="color:white;" class="panel-title">Agregar Producto</h4>
                     </div>
@@ -488,7 +508,7 @@
         <div class="modal fade" id="EditProductNuevo" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
-                    <div class="modal-header  modal-header-info">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
                         <h4 style="color:white;" class="panel-title">Editar Producto</h4>
                     </div>
@@ -541,7 +561,7 @@
         <div class="modal fade" id="listaCedulas" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header  modal-header-info">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
                         <h4 style="color:white;" class="panel-title">Cedulas de Aplicacion</h4>
                     </div>
@@ -550,16 +570,20 @@
                         <div class="col-md-12">
                             <div class="panel panel-info panel-sm">
                                 <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table cellpadding="0" cellspacing="0" id="tablaCedulas" border="0" class="datatable table table-striped table-bordered">
-                                            <tr>
-                                                <th style="color:white;background:#108CAE">Nº Cedula Aplicación</th>
-                                                <th style="color:white;background:#108CAE">Descripción</th>
-                                                <th style="color:white;background:#108CAE">Sem. Aplicación</th>
-                                                <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
-                                                <th style="text-align: center;color:white;background:#108CAE">Descargar Documento</th>
-                                            </tr>
-                                        </table>
+                                    <div class="starter-template">
+                                        <div class="table-responsive">
+                                            <table id="tablaCedulas" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:white;background:#108CAE">Nº Cedula Aplicación</th>
+                                                        <th style="color:white;background:#108CAE">Descripción</th>
+                                                        <th style="color:white;background:#108CAE">Sem. Aplicación</th>
+                                                        <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
+                                                        <th style="text-align: center;color:white;background:#108CAE">Descargar Documento</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -573,6 +597,50 @@
                 </div>
             </div>
         </div>
+
+<!-- Modal Para agregar tratamientos existentes -->
+        <div class="modal fade" id="NewTratamentExiste" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #0F3D4E;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                        <h4 style="color:white;" class="panel-title">Tratamientos Predeterminados</h4>
+                    </div>
+
+                    <div class="model-body">
+                        
+                            <div class="panel panel-info panel-sm">
+                                <div class="panel-body">
+                                    <div class="starter-template">
+                                        <div class="table-responsive">
+                                            <table id="tablaTratamientoExistente" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:white;background:#108CAE">Nº Proyecto</th>
+                                                        <th style="color:white;background:#108CAE">Nº Tratamiento</th>
+                                                        <th style="color:white;background:#108CAE">Productos del Tratamiento</th>
+                                                        <th style="color:white;background:#108CAE">Nº Cedula Aplicación</th>
+                                                        <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+
+                    <!-- <div class="modal-footer">
+                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Cerrar Tratamientos</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+
+
+
 
     </div>
     </section>

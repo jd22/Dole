@@ -8,7 +8,6 @@ class cedula_model extends CI_Model
           $this->load->database();
      }
 
-
      function obtener_cedulas($id_tratamiento){
           $this->db->select('*');
           $this->db->from('cedula_aplicacion');
