@@ -27,6 +27,14 @@ $(document).ready(function () {
                         '<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
                         '<a style="color:red;font-size:12px;" href="#" onclick="eliminarTodoTratamiento('+(msg[i][0])+')">Eliminar</a>',
                     ]);
+                    // $('#Trataments tr:last').after('<tr class="default">'+
+                    //                                     '<th style="font-weight: normal;">'+'<a href="" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')" data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">'+'Tratamiento '+(i+1)+'</a>'+'</th>'+
+                    //                                     '<th style="font-weight: normal;">'+'<a href="" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
+                    //                                     '<a href="" style="color:green;float: right;" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>'+
+                    //                                     '<th style="font-weight: normal;text-align: center;">'
+                    //                                     +'<a style="color:red" data-toggle="modal" onclick="eliminarTratamiento(this,'+(msg[i][0])+')">Eliminar</a>'
+                    //                                     +'</th>'+
+                    //                                 '</tr>');
                 };
             },
             error: function (msg) {

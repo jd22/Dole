@@ -11,9 +11,9 @@ class Product extends CI_Controller {
 
     }
 
-	function index()
-	{
-		// $this->form_validation->set_rules('name', 'Username', 'trim|required|callback_insert_product');
+  function index()
+  {
+    // $this->form_validation->set_rules('name', 'Username', 'trim|required|callback_insert_product');
   //       $this->form_validation->set_rules('active', 'Name', 'trim|required');
   //       $this->form_validation->set_rules('unit', 'Email', 'trim|required');
   //       //$this->temporal_model->eli_temporal();
@@ -50,7 +50,7 @@ class Product extends CI_Controller {
                 $this->load->view('_Layout');
                 $this->load->view('agregar_producto');
                 $this->load->view('footerlayout');
-	}	
+  } 
 
 
     function listaProductos(){
