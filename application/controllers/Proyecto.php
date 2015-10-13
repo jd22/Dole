@@ -11,7 +11,7 @@ class Proyecto extends CI_Controller {
        $this->load->model('proyecto_model','',TRUE);
        $this->load->model('product_model','',TRUE);
        $this->load->model('tratamiento_model','',TRUE);
-       // $this->load->model('InformacionTratamiento_model','',TRUE);
+       $this->load->model('InformacionTratamiento_model','',TRUE);
        // $this->load->model('product_model','',TRUE);
        // // $this->load->model('tratament_model','',TRUE);
        $this->load->model('land_model','',TRUE);
@@ -100,13 +100,9 @@ class Proyecto extends CI_Controller {
     }
     
 
-   function CargarTratamientos()
+   function CargarTratamientos($numeroProyecto)
     {
-      $data = array(
-        '_numeroProyecto' => $this->input->post('_numeroProyecto')        
-      );
-
-     $linfoTratamientos = $this->tratamiento_model->obtener_tratamientos($data['_numeroProyecto']);
+     $linfoTratamientos = $this->tratamiento_model->obtener_tratamientos($numeroProyecto);
      $datos=array();
      foreach($linfoTratamientos->result() as $row)
       {
@@ -125,9 +121,10 @@ class Proyecto extends CI_Controller {
       $data = array(
         '_numeroProyecto' => $this->input->post('_numeroProyecto'),
         '_linfoTratamientos' =>$this->input->post('_linfoTratamientos'),
+        '_predeterminado' =>$this->input->post('_predeterminado'),
       );
       $idProyecto = $this->proyecto_model->getid_proyecto($data['_numeroProyecto']); 
-      $idTratamiento = $this->tratamiento_model->insertar_tratamiento($idProyecto);
+      $idTratamiento = $this->tratamiento_model->insertar_tratamiento($idProyecto,$data['_predeterminado']);
      
       $linfoTratamientos = $data['_linfoTratamientos'];
        foreach ($linfoTratamientos as $info) {
@@ -186,8 +183,50 @@ class Proyecto extends CI_Controller {
 
       $this->tratamiento_model->eliminar_tratamiento($data['_idTrat']);
       $datos3=array();
-        $datos3[]="ProductoEliminado";
-        echo json_encode($datos3);
+      $datos3[]="ProductoEliminado";
+      echo json_encode($datos3);
 
     }
+
+
+    function cargarTratamientosExistentes(){
+      // cargar tratamientos predeterminados
+      $datosPredeterminados=array();
+      $queryTratamientos = $this->tratamiento_model->get_tratamientospredeterminados();
+
+      foreach ($queryTratamientos->result() as $tratamientorow) {
+         $tratamientoPredeterminado=array();
+         $queryInfoProyectos = $this->proyecto_model->get_proyecto($tratamientorow->id_proyecto);// obtener el proyecto con el id del proyecto del tratamiento predeterminado
+          
+        foreach ($queryInfoProyectos as $proyectorow) {// se saca la informacion del proyecto que tiene el tratamiento predeterminado
+          $tratamientoPredeterminado[] = $proyectorow->numero_proyecto; // numero del proyecto
+          break;
+        }
+        $tratamientoPredeterminado[] = $tratamientorow->id_tratamiento; // id tratamiento
+
+             $queryInformacionTratamientos = $this->InformacionTratamiento_model->obtener_informacionT($tratamientorow->id_tratamiento); // todas las informaciones del tratamientos
+             $productosPredeterminados =array();
+             foreach ($queryInformacionTratamientos->result() as $informaciontratamiento) {// Buscar todos las informaciones del tratamiento
+               $queryProductos = $this->product_model->obtener_producto($informaciontratamiento->id_producto); // obtiena la informacion del producto con el id de informaciontratamiento
+                 foreach ($queryProductos->result() as $producto) {// Se obtiene el nombre del producto de la informacion del tratamiento
+                    $productosPredeterminados[] = $producto->name;
+                    break;
+                 }
+             }
+
+        
+
+        $tratamientoPredeterminado[] =$productosPredeterminados;
+        
+        $cantidad_cedulas = $this->cedula_model->cantidad_cedulas($tratamientorow->id_tratamiento);
+        $tratamientoPredeterminado[] = $cantidad_cedulas;
+        
+        $datosPredeterminados[] = $tratamientoPredeterminado;
+      }
+
+      // $queryInformacionTratamientos =
+      // $queryCedulaTrataminetos = 
+       echo json_encode($datosPredeterminados,JSON_UNESCAPED_UNICODE);
+    }
+
 }

@@ -18,29 +18,41 @@ class Tratamiento_model extends CI_Model
         $this->db->insert('products',$data);
      }
 
+     function get_predeterminado($id_tratamiento){
+        $this->db->select('*');
+        $this->db->from('tratamiento');
+        $this->db->where('id_tratamiento',$id_tratamiento);
+        $this->db->limit(1);// seleccionar solo uno
+        $query = $this->db->get();
+        foreach ($query->result() as $row) {
+            return $row->predeterminado;
+        }
+     }
 
-     function insertar_tratamiento($id_proyecto)
+     function eliminar_Tratamiento($id_tratamiento){
+          $this->db->where('id_tratamiento',$id_tratamiento);
+          $this->db->delete('informacion_tratamiento');
+
+          $this->db->where('id_tratamiento',$id_tratamiento);
+          $this->db->delete('cedula_aplicacion');
+
+          $this->db->where('id_tratamiento',$id_tratamiento);
+          $this->db->delete('tratamiento');
+
+          return true;
+     }
+
+     function insertar_tratamiento($id_proyecto,$predeterminado)
      {
         $data = array(
-          'id_proyecto' => $id_proyecto
+          'id_proyecto' => $id_proyecto,
+          'predeterminado' =>$predeterminado
           );
         $this->db->insert('tratamiento',$data);
         return $this->db->insert_id();// retorna el ultima id insertado
      }
-
-     function eliminar_tratamiento($idT)
-     {
-          $data = array(
-               'id_tratamiento' => $idT
-               );
-          $this->db->delete('informacion_tratamiento',$data);
-          $this->db->delete('cedula_aplicacion',$data);
-          $this->db->delete('tratamiento',$data);
-          return true;
-
-     }
-
-     function insertar_informaciontratamiento( $idTratamiento,$id_producto,$dosis,$plaga_nombre_comun,$plaga_nombre_cientifico,$secado,$cosecha)
+     
+     function insertar_informaciontratamiento($idTratamiento,$id_producto,$dosis,$plaga_nombre_comun,$plaga_nombre_cientifico,$secado,$cosecha)
      {
         $data = array(
           'id_tratamiento' => $idTratamiento,
@@ -52,8 +64,6 @@ class Tratamiento_model extends CI_Model
           'cosecha' => $cosecha
           );
         $this->db->insert('informacion_tratamiento',$data);
-        
-        return true;
      }
      function obtener_tratamientos($numeroProyecto)
      {
@@ -76,8 +86,26 @@ class Tratamiento_model extends CI_Model
       $this->db->where('id_producto',$idProducto);
       $query = $this->db->get();
       return $query;
+     }
+
+     // Devuelve trataminetos predeterminados en formato SQL
+    function get_tratamientospredeterminados()
+      {
+        $this->db->select('*');
+        $this->db->from('tratamiento');
+        $this->db->where('predeterminado','1');
+        $queryPredeterminados = $this->db->get();
+        return $queryPredeterminados;
+      }
 
 
+      function editar_predeterminado($id_tratamiento,$predeterminado)
+     {
+          $data = array(
+               'predeterminado' => $predeterminado
+          );
+          $this->db->where('id_tratamiento',$id_tratamiento);
+          $this->db->update('tratamiento',$data);
      }
  }
 
