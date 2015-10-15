@@ -8,7 +8,7 @@ class AddUser extends CI_Controller {
     {
        parent::__construct();
        $this->load->model('user_model','',TRUE);
-       $this->load->model('temporal_model','',TRUE);    
+       //$this->load->model('temporal_model','',TRUE);    
    }
 
 	function index()
@@ -16,7 +16,7 @@ class AddUser extends CI_Controller {
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|callback_insert_user');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('email', 'Email', 'trim|required');
-        $this->temporal_model->eli_temporal();
+        //  $this->temporal_model->eli_temporal();
         if($this->form_validation->run() == FALSE) 
         {
           

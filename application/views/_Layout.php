@@ -68,7 +68,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">Perfil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Cerrar Sesión</a></li>
+                                <li><a href="home/logout">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>
