@@ -22,7 +22,7 @@
 <div class="container-fluid container-padded">
     <div class="row">
             <div class="col-md-12 page-title">
-            <h2>Cronograma de Eventos</h2>
+            <h2>Programas de Aplicación</h2>
             <hr>
         </div> <!-- col end -->
     </div> <!-- row end -->

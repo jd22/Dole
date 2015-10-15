@@ -80,7 +80,51 @@
         
 
 
-    <!-- Modal Para los calculos de la cedula de aplicacion -->
+    
+
+        <!-- Modal Para agregar Productos -->
+        <div class="modal fade" id="listaCedulas" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                        <h4 style="color:white;" class="panel-title">Cedulas de Aplicacion <label style="float: right;margin-right: 9px;margin-top: 3px;color: rgb(54, 175, 208);font-size: 14px;" id="idtra">Tratamiento: </label> </h4>
+                    </div>
+
+                    <div class="model-body" style="margin-top:15px">
+                        <div class="col-md-12">
+                            <div class="panel panel-info panel-sm">
+                                <div class="panel-body">
+                                    <div class="starter-template">
+                                        <div class="table-responsive">
+                                            <table id="tablaCedulas" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:white;background:#108CAE">Nº Cedula Aplicación</th>
+                                                        <th style="color:white;background:#108CAE">Descripción</th>
+                                                        <th style="color:white;background:#108CAE">Sem. Aplicación</th>
+                                                        <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
+                                                        <th style="text-align: center;color:white;background:#108CAE">Descargar Documento</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!-- <button class=" btn btn-primary" type="button" id="agregarProducto">Agregar</button> -->
+                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Cerrar Lista</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal Para los calculos de la cedula de aplicacion -->
     <div class="col-md-12">
         <div class="modal fade" id="calculos" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" data-keyboard="false">
             <div class="modal-dialog modal-xs" style="float: right;width:450px;margin-top: 3px;">
@@ -145,13 +189,12 @@
             </div>
         </div>
 
-
         <!-- Creacion del modal para agregar una cedula de aplicacion -->
         <div class="modal fade" id="NuevaCedula" style="background-color: rgba(0, 0, 0, 0.26);" tabindex="1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-lg" style="margin-top: 3px;float: left;">
                 <div class="modal-content">
                     <div class="modal-header modal-header-success" style="background:#3E448A;">
-                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                         <button id ="cerrarcedula" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 style="color:white;text-align:center;" class="panel-title">Cédula de Aplicación</h4>
                     </div>
                     <div class="model-body" style="margin-top:5px;">
@@ -280,9 +323,9 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-inline">
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Cant. Tratamientos" id="idnumerotratamientos" name="idnumerotratamientos" required=""/>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Cant. Replicas" id="idnumeroreplicas" name="idnumeroreplicas" required=""/>
                                         </div>
@@ -304,7 +347,8 @@
                         </div>    
                     </div>
                     <div class="modal-footer">
-                        <button id="agregarCedula" class=" btn btn-primary" type="button" data-dismiss="modal">Crear Cédula</button>
+                        <button id="agregarCedula" class=" btn btn-primary" type="button">Crear Cédula</button>
+                        <button id="actualizarCedula" class=" btn btn-primary" type="button">Actualizar Cédula</button>
                         <!-- <button class=" btn btn-primary" type="button" id="cerrarTratamiento" data-dismiss="modal">Cerrar</button> -->
                     </div>
                 </div>
@@ -557,46 +601,7 @@
 
 
         <!-- Modal de cedulas -->
-<!-- Modal Para agregar Productos -->
-        <div class="modal fade" id="listaCedulas" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
-                        <h4 style="color:white;" class="panel-title">Cedulas de Aplicacion</h4>
-                    </div>
 
-                    <div class="model-body" style="margin-top:15px">
-                        <div class="col-md-12">
-                            <div class="panel panel-info panel-sm">
-                                <div class="panel-body">
-                                    <div class="starter-template">
-                                        <div class="table-responsive">
-                                            <table id="tablaCedulas" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="color:white;background:#108CAE">Nº Cedula Aplicación</th>
-                                                        <th style="color:white;background:#108CAE">Descripción</th>
-                                                        <th style="color:white;background:#108CAE">Sem. Aplicación</th>
-                                                        <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
-                                                        <th style="text-align: center;color:white;background:#108CAE">Descargar Documento</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <!-- <button class=" btn btn-primary" type="button" id="agregarProducto">Agregar</button> -->
-                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Cerrar Lista</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 <!-- Modal Para agregar tratamientos existentes -->
         <div class="modal fade" id="NewTratamentExiste" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
