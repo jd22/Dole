@@ -101,6 +101,23 @@ class Proyecto extends CI_Controller {
       // $this->load->view('footerlayout');
 
     }
+
+    function Programa(){
+      //$datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+      // por el momento se cargaran todos los proyectos
+      $this->load->view('_Layout');                     
+      $this->load->view('programas');
+      // $this->load->view('footerlayout');
+    }
+
+    function listaProgramas(){
+      $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+      // por el momento se cargaran todos los proyectos
+      $this->load->view('_Layout');                     
+      $this->load->view('lista_programas',$datos);
+      // $this->load->view('footerlayout');
+
+    }
     
 
    function CargarTratamientos($numeroProyecto)
