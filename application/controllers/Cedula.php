@@ -183,7 +183,7 @@ function Actualizar_cedula(){
 
 function generar_pdf($id_cedula,$numeroTratamiento)//$id_cedula
 {   
-  $informacionCedula = $this->cedula_model->obtener_cedula($id_cedula);
+  $informacionCedula = $this->cedula_model->obtener_unacedula($id_cedula);
 
   //$id_cedulaAplicacion
   $id_tratamiento='';
