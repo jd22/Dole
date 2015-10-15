@@ -29,14 +29,14 @@ class Tratamiento_model extends CI_Model
         }
      }
 
-     function eliminar_Tratamiento($id_tratamiento){
-          $this->db->where('id_tratamiento',$id_tratamiento);
+     function eliminar_Tratamiento($id_tratamiento){// se eliminan datos de 3 tablas
+          $this->db->where('id_tratamiento',$id_tratamiento); // se elimina la informacion del tratamiento (s)
           $this->db->delete('informacion_tratamiento');
 
-          $this->db->where('id_tratamiento',$id_tratamiento);
+          $this->db->where('id_tratamiento',$id_tratamiento); // se elimina la las cedulas del tratamiento
           $this->db->delete('cedula_aplicacion');
 
-          $this->db->where('id_tratamiento',$id_tratamiento);
+          $this->db->where('id_tratamiento',$id_tratamiento); // se elimina el tratamiento
           $this->db->delete('tratamiento');
 
           return true;

@@ -68,16 +68,8 @@ class Product_model extends CI_Model
       $this->db->from('products');
       $this->db->where('id_producto',$id);
       $this->db->limit(1);
-        $query = $this->db->get();
-        if($query->num_rows() == 1) 
-        {
-            return $query; 
-        } 
-        else 
-        {
-            return false; 
-        }
-
+      $query = $this->db->get();
+      return $query;
      }
 
      function insert_product($name,$active,$unit)
