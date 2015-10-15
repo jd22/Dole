@@ -6,10 +6,8 @@ class Cedula  extends CI_Controller
 	function __construct()
 	{
 	   parent::__construct();
-	   $this->load->model('cedula_model','',TRUE);
-       $this->load->model('aplication_model','',TRUE);
-       $this->load->model('tratament_model','',TRUE);
-       $this->load->model('dosis_model','',TRUE);
+	     $this->load->model('cedula_model','',TRUE);
+       $this->load->model('InformacionTratamiento_model','',TRUE);
        $this->load->model('land_model','',TRUE);
        $this->load->model('product_model','',TRUE);
 	}
@@ -17,35 +15,14 @@ class Cedula  extends CI_Controller
 
 	function index()
 	{
-  //       $this->temporal_model->eli_temporal();
-
-		// if($this->session->userdata('logged_in'))
-  //       {
-  //           $session_data = $this->session->userdata('logged_in');
-  //           $data['realname'] = $session_data['realname'];
-  //           $datos['users'] = $this->cedula_model->get_cedulas();
-  //           //$this->load->view('header/librerias');
-  //           //$this->load->view('header/header');
-  //           if($session_data['realname']=="Administrator")
-  //           {
-  //           	//$this->load->view('header/menu',$data);
-  //           }
-  //           else
-  //           {
-  //           	//$this->load->view('header/menu_user',$data);
-  //           }
-  //           $this->load->view('_Layout');
-  //           $this->load->view('lista_cedulas',$datos);
-  //          // $this->load->view('footerlayout');
-            
-	 //     	//$this->load->view('seecedulas_view',$datos);
-	 //     	//$this->load->view('footer');
-  //       } else {
-  //           redirect('Home', 'refresh');
-  //       }
 
 	}
-
+  function eliminar_cedula($id_cedula){
+    $this->cedula_model->eliminar_cedula($id_cedula);
+    $datos=array();
+    $datos[] = "eliminadacedula";
+    echo json_encode($datos,JSON_UNESCAPED_UNICODE);
+  }
     function CargarCantidadCedulas()
     {
       $data = array(
@@ -77,10 +54,43 @@ class Cedula  extends CI_Controller
         $datos3[]= $row->semana_aplicacion;
         $datos[] = $datos3;
       }
-      echo json_encode($datos,JSON_UNESCAPED_UNICODE);
+      echo json_encode($datos);
     }
 
-
+    function  obtener_unacedula($id_cedula){
+      $datos=array();
+      $queryCedula = $this->cedula_model->obtener_unacedula($id_cedula);
+      foreach ($queryCedula as $row) {
+        //$datos[]= $row->id_cedulaAplicacion;
+        $datos[]= $row->id_finca;
+        $datos[]= $row->descripcion_aplicacion;
+        $datos[]= $row->semana_aplicacion;
+        $datos[]= $row->fecha_programada;
+        $datos[]= $row->litros;
+        $datos[]= $row->presion;
+        $datos[]= $row->velocidad;
+        $datos[]= $row->rpm;
+        $datos[]= $row->marcha;
+        $datos[]= $row->tipo_boquilla;
+        $datos[]= $row->cultivo;
+        $datos[]= $row->variedad;
+        $datos[]= $row->lote;
+        $datos[]= $row->bloque;
+        $datos[]= $row->estadio;
+        $datos[]= $row->semana_siembra;
+        $datos[]= $row->area_bloque;
+        $datos[]= $row->area_proyecto;
+        $datos[]= $row->cantidad_camas;
+        $datos[]= $row->ancho_camas;
+        $datos[]= $row->longitud_parcelas;
+        $datos[]= $row->cantidad_parcelas;
+        $datos[]= $row->cantidad_replicas;
+        $datos[]= $row->volumen_aplicacion;
+        $datos[]= $row->modo_aplicacion;
+        $datos[]= $row->metodo_aplicacion;
+      }
+      echo json_encode($datos,JSON_UNESCAPED_UNICODE);
+    }
     function Agregar_cedula(){
         $data = array(
                          '_id_tratamiento'=>$this->input->post('_id_tratamiento'),
@@ -123,407 +133,466 @@ class Cedula  extends CI_Controller
         echo json_encode($datos3);
     }
 
-    function generar_pdf($id_cedula)//$id_cedula
-    {   $nombre_finca='';
-        $num_proyecto='';
-        $cedula = $this->cedula_model->get_cedula($id_cedula);
-        $volumen_tanque='';
-        $volumen_tanques='';
-        //Aplicacion
-        $Descripción='';
-        $Cultivo='';
-        $Ubicación='';
-        $Modo_Aplicacion='';
-        $fecha_programada='';
-        $variedad='';
-        $lote='';
-        $bloque='';
-        $sem_programada='';
-        $estadio='';
-        $sem_siembra='';
-        $Secado='';
-        $Cosecha='';
-        $num_replicas;
-        $presion;
-        $velocidad;
-        $rpm;
-        $marcha;
-        $boquilla;
-        $volumen;
+// <br>Intervalo de reingreso al área tratada:             ?            
+// <br>Intervalo entre la última aplicación y la cosecha:  ?
 
-        //Cedula
-        $area_aplicacion;
-        $area_x_replica;
-        $lts_agua;
-        $capacidad_tanque;
-        $area_buffer;
-        $tanque_reqeridos;
-        $num;
-        $productos='';
-        $int=1;
 
-        $litros_tanque=array();
-        if($cedula!=false)
-        {
-            foreach ($cedula as $row) 
-            {
-                $area_aplicacion=$row->area_aplicacion;
-                $area_x_replica=$row->area_por_replica;
-                $lts_agua=$row->Lts_Agua_Aplicacion;
-                $capacidad_tanque=$row->Capacidad_Tanque;
-                $area_buffer=$row->Area_Buffer;
-                $tanque_reqeridos=$row->Tanques_Requeridos;
-                $num=$row->num;
-                $x=$tanque_reqeridos;
-                if($x<1)
-                {
-                    $volumen_tanque=' <tr>
-                                        <td>Volumen Tanque 1:</td>
-                                        <td align="center">'.$x.'</td';
-                    $litros_tanque[0]=number_format($x*$capacidad_tanque+66,1,'.','');
-                    $x--;
-                }
-                else
-                {
-                    $volumen_tanque=' <tr>
-                                        <td>Volumen Tanque 1:</td>
-                                        <td align="center">1</td';
-                    $litros_tanque[0]=number_format(1*$capacidad_tanque+66,1,'.','');
-                    $x--;
-                    $int++;
-                }
-                while($x>0)
-                {
-                    if($x>1)
-                    {
-                        $volumen_tanques=$volumen_tanques.' <tr>
-                                            <td>Volumen Tanque '.$int.' :</td>
-                                            <td align="center">1</td
-                                          </tr>';
-                        $litros_tanque[$int-1]=number_format(1*$capacidad_tanque+66,1,'.','');
-                        $x--;
-                        $int++;
-                    }
-                    else
-                    {
-                        $volumen_tanques=$volumen_tanques.' <tr>
-                                            <td>Volumen Tanque '.$int.' :</td>
-                                            <td align="center">'.$x.'</td
-                                          </tr>';
-                        $litros_tanque[$int-1]=number_format($x*$capacidad_tanque+66,1,'.','');
-                        $x=$x-1;
-                    }
+function Actualizar_cedula(){
+        $data = array(
+                         '_id_cedula'=>$this->input->post('_id_cedula'),
+                         '_numero_proyecto'=>$this->input->post('_numero_proyecto'),
+                         '_id_finca'=>$this->input->post('_id_finca'),
+                         '_descripcion_aplicacion'=>$this->input->post('_descripcion_aplicacion'),
+                         '_semana_aplicacion'=>$this->input->post('_semana_aplicacion'),
+                         '_fecha_programada'=>$this->input->post('_fecha_programada'),
+                         '_litros'=>$this->input->post('_litros'),
+                         '_presion'=>$this->input->post('_presion'),
+                         '_velocidad'=>$this->input->post('_velocidad'),
+                         '_rpm'=>$this->input->post('_rpm'),
+                         '_marcha'=>$this->input->post('_marcha'),
+                         '_tipo_boquilla'=>$this->input->post('_tipo_boquilla'),
+                         '_cultivo'=>$this->input->post('_cultivo'),
+                         '_variedad'=>$this->input->post('_variedad'),
+                         '_lote'=>$this->input->post('_lote'),
+                         '_bloque'=>$this->input->post('_bloque'),
+                         '_estadio'=>$this->input->post('_estadio'),
+                         '_semana_siembra'=>$this->input->post('_semana_siembra'),
+                         '_area_bloque'=>$this->input->post('_area_bloque'),
+                         '_area_proyecto'=>$this->input->post('_area_proyecto'),
+                         '_cantidad_camas'=>$this->input->post('_cantidad_camas'),
+                         '_ancho_camas'=>$this->input->post('_ancho_camas'),
+                         '_longitud_parcelas'=>$this->input->post('_longitud_parcelas'),
+                         '_cantidad_parcelas'=>$this->input->post('_cantidad_parcelas'),
+                         '_cantidad_replicas'=>$this->input->post('_cantidad_replicas'),
+                         '_volumen_aplicacion'=>$this->input->post('_volumen_aplicacion'),
+                         '_modo_aplicacion'=>$this->input->post('_modo_aplicacion'),
+                         '_metodo_aplicacion'=>$this->input->post('_metodo_aplicacion')
+                         );
+        $this->cedula_model->editar_cedula($data['_id_cedula'],$data['_numero_proyecto'],$data['_id_finca'],$data['_descripcion_aplicacion'],
+                     $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
+                     $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
+                     $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
+                     $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
+                     $data['_modo_aplicacion'],$data['_metodo_aplicacion']);
+        $datos3=array();
+        $datos3[]="Exito";
+        echo json_encode($datos3);
+    }
 
-                }
 
-                $aplicacion=$this->aplication_model->get_aplication($row->id_aplicacion);
-                if($aplicacion!=false)
-                {
-                    foreach ($aplicacion as $row2) 
-                    {
-                        $num_proyecto=$row2->Número_Proyecto;
-                        $Descripción=$row2->Descripcion;
-                        $Cultivo=$row2->cultivo;
-                        $Modo_Aplicacion=$row2->Modo_Aplicacion;
-                        $fecha_programada=$row2->fecha_programada;
-                        $variedad=$row2->Variedad;
-                        $lote=$row2->Lote;
-                        $bloque=$row2->Bloque;
-                        $sem_programada=$row2->Semana_Aplicacion;
-                        $estadio=$row2->Estadio;
-                        $sem_siembra=$row2->Semana_Siembra;
-                        $num_replicas=$row2->Replicas;
-                        $presion=$row2->Presion;
-                        $velocidad=$row2->Velocidad;
-                        $rpm=$row2->rpm;
-                        $marcha=$row2->Marcha;
-                        $boquilla=$row2->Boquilla;
-                        $volumen=$row2->Volumen_Aplicacion;
-                        $finca=$this->land_model->get_land($row2->id_finca);
 
-                        $tiempo_replicas ='';
-                        for ($i=1; $i <=$num_replicas ; $i++) 
-                        { 
-                            $tiempo_replicas=$tiempo_replicas.'<tr>
-                                                                <td width="40%">Replica'.$i.'</td>
-                                                                <td width=60%></td>
-                                                               </tr> ';
-                        }
-                        if($finca!=false)
-                        {
-                            foreach ($finca->result() as $row3) 
-                            {
-                                $nombre_finca=$row3->name;
-                                $Ubicación=$row3->Location;
-                            }
-                        }    
-                    }
+function generar_pdf($id_cedula,$numeroTratamiento)//$id_cedula
+{   
+  $informacionCedula = $this->cedula_model->obtener_cedula($id_cedula);
 
-                }
-                $tratamiento=$this->tratament_model->get_tratamiento($row->id_tratamiento);
-                if($tratamiento!=false)
-                {
-                    foreach ($tratamiento->result() as $row4) 
-                    {
-                        $Secado=$row4->Secado;
-                        $Cosecha=$row4->Cosecha;
-                        $get_dosis=$this->dosis_model->get_dosis($row4->id);
-                        if ($get_dosis!=false)
-                        {
-                            foreach ($get_dosis->result() as $row5)
-                            {   
-                                $dosis=$row5->dosis;
-                                $producto=$this->product_model->get_product2($row5->id_product);
-                                if($producto!=false)
-                                {
-                                    foreach ($producto->result() as $row6) 
-                                    {
-                                        $productos=$productos.'<tr>
-                                                                <td>'.$row6->name.'</td>
-                                                                <td align="center">'.$row6->activecomponent.'</td>
-                                                                <td align="center">'.$dosis.'</td>';
-                                        for ($i=0; $i < count($litros_tanque); $i++) 
-                                        { 
-                                            $cal_tanque=bcdiv($litros_tanque[$i]*$dosis,$volumen,3);
-                                            $productos=$productos.'<td align="center">'.$cal_tanque.'</td>';
-                                        }
-                                        $productos=$productos.'<td align="center">'.$row6->unit.'</td>
-                                                               <td></td>
-                                                               </tr>';
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        $dosis_tanque='';
-        $total_mezcla='';
-        for ($i=0; $i < count($litros_tanque) ; $i++) { 
-            $galones=round($litros_tanque[$i]/3.785);
-            $total_mezcla=$total_mezcla.'<tr>
-                                <td align="center">'.$int.'</td>
-                                <td align="center">'.$litros_tanque[$i].'</td>
-                                <td align="center">'.$galones.'</td>
-                                <td></td>
-                            </tr>';
-            $id_tanque=$i+1;
-            $dosis_tanque=$dosis_tanque.'<td style="background-color: grey;" rowspan="2" align="center">Dosis Tanque '.$id_tanque.'</td>';
-        }
-        $int=$int+1;
+  //$id_cedulaAplicacion
+  $id_tratamiento='';
+  $numero_proyecto='';
+  $id_finca='';
+  $descripcion_aplicacion='';
+  $semana_aplicacion='';
+  $fecha_programada='';
+  $litros='';
+  $presion='';
+  $velocidad='';
+  $rpm='';
+  $marcha='';
+  $tipo_boquilla='';
+  $cultivo='';
+  $variedad='';
+  $lote='';
+  $bloque='';
+  $estadio='';
+  $semana_siembra='';
+  $area_bloque='';
+  $area_proyecto='';
+  $cantidad_camas='';
+  $ancho_camas='';
+  $longitud_parcelas='';
+  $cantidad_parcelas='';
+  $cantidad_replicas='';
+  $volumen_aplicacion='';
+  $modo_aplicacion='';
+  $metodo_aplicacion='';
 
-        $html=  '<html>
-                    <head>
-                        <meta charset="utf-8">
-                        <title>PDF</title>
-                    </head>
-                    <body>
-                       <table style="width:100%;font-size:11.5px" align="">
-                            <tr>
-                                <td>
-                                <img src="C:/xampp/htdocs/Dole/images/dole3.png">
-                                <br>
-                                <br><strong>Cedula de Aplicaciones Experimentales</strong></br>
-                                <br><strong>Agroindustrial Piñas del Bosque</strong></br>
-                                <br><strong>Departamento de Investigaciones</strong></br>
-                                <br><strong>Finca '.$nombre_finca.'</strong></br>
-                                </td>
-                                <td>
-                                <br>Cultivo:                                             '.$Cultivo.'</br>
-                                <br>Descripción de la Aplicación:                        '.$Descripción.'</br>
-                                <br>Modo de aplicación:                                  '.$Modo_Aplicacion.'</br>
-                                <br>Ubicación:                                           '.$Ubicación.'</br>
-                                <br>Intervalo de reingreso al área tratada:              '.$Secado.'</br>
-                                <br>Intervalo entre la última aplicación y la cosecha:   '.$Cosecha.'</br>
-                                </td>
-                            </tr>
-                        </table>         
-                        <br>
-                            <table style="width:100%;font-size:11.5px" align="" border=0.1>
-                                <tr>
-                                    <td width="10%"> Proyecto:  </td>
-                                    <td align="center" width="10%">'.$num_proyecto.'  </td>
-                                    <td> Fecha Programada:  </td>
-                                    <td align="center" width="12%">'.$fecha_programada.'</td>
-                                    <td> Variedad:  </td>
-                                    <td align="center">'.$variedad.'</td>
-                                    <td style="background-color: grey;" align="center"> Tratamiento </td>
-                                </tr>
-                                <tr>
-                                    <td> Lote:   </td>
-                                    <td align="center"> '.$lote.' </td>
-                                    <td> Fecha Aplicación:   </td>
-                                    <td>    </td>
-                                    <td> Estadio:   </td>
-                                    <td align="center"> '.$estadio.' </td>
-                                    <td rowspan="2" align="center">'.$num.'</td>
-                                </tr>
-                                <tr>
-                                    <td> Bloque:   </td>
-                                    <td align="center"> '.$bloque.' </td>
-                                    <td> Sem. Programada:   </td>
-                                    <td align="center"> '.$sem_programada.' </td>
-                                    <td> Sem Siembra:   </td>
-                                    <td align="center"> '.$sem_siembra.'</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div>
-                            <table style="width:100%;font-size:11.5px" align="" border=0.1>
-                                <tr>
-                                    <td style="background-color: grey;" colspan="2" align="center"> Calculos de Aplicación </td>
-                                    <td style="background-color: grey;" colspan="2" align="center"> Datos de Equipo y Calibración </td>
-                                    <td colspan="2" rowspan="2" align="centar">Nombre Operador del Tractor</td>
-                                </tr>
-                                <tr>
-                                    <td> Número de Replicas:</td>
-                                    <td align="center"> '.$num_replicas.' </td>
-                                    <td>Sección</td>
-                                    <td align="center"> 1   2   3   4 </td>
-                                </tr>
-                                <tr>
-                                    <td> Area de Aplicación (m2):</td>
-                                    <td align="center"> '.$area_aplicacion.' </td>
+  $htmlrowproductos = '';
+  foreach ($informacionCedula as $row) {
+      $id_tratamiento=$row->id_tratamiento;
+      $numero_proyecto=$row->numero_proyecto;
+      $id_finca=$row->id_finca;
+      $descripcion_aplicacion=$row->descripcion_aplicacion;
+      $semana_aplicacion=$row->semana_aplicacion;
+      $fecha_programada=$row->fecha_programada;
+      $litros=$row->litros;
+      $presion=$row->presion;
+      $velocidad=$row->velocidad;
+      $rpm=$row->rpm;
+      $marcha=$row->marcha;
+      $tipo_boquilla=$row->tipo_boquilla;
+      $cultivo=$row->cultivo;
+      $variedad=$row->variedad;
+      $lote=$row->lote;
+      $bloque=$row->bloque;
+      $estadio=$row->estadio;
+      $semana_siembra=$row->semana_siembra;
+      $area_bloque=$row->area_bloque;
+      $area_proyecto=$row->area_proyecto;
+      $cantidad_camas=$row->cantidad_camas;
+      $ancho_camas=$row->ancho_camas;
+      $longitud_parcelas=$row->longitud_parcelas;
+      $cantidad_parcelas=$row->cantidad_parcelas;
+      $cantidad_replicas=$row->cantidad_replicas;
+      $volumen_aplicacion=$row->volumen_aplicacion;
+      $modo_aplicacion=$row->modo_aplicacion;
+      $metodo_aplicacion=$row->metodo_aplicacion;
+  }
+  
+  $queryfinca = $this->land_model->get_finca($id_finca);
+  $nombreFinca='';
+  $ubicacionfinca='';
+  foreach ($queryfinca as $row) {
+    $nombreFinca = $row->nombre;
+    $ubicacionfinca = $row->ubicacion;
+  }
 
-                                    <td>Presión (psi)</td>
-                                    <td align="center">'.$presion.'</td>
-                                    <td colspan="2" rowspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td>Area calculada por Replc.(m2):</td>
-                                    <td align="center"> '.$area_x_replica.' </td>
+  // para los calculos
+  $NúmeroReplc = $cantidad_parcelas;
+  $AreacalculadaporReplica = $cantidad_camas*$ancho_camas*$longitud_parcelas;
+  $AreadeAplicación = $AreacalculadaporReplica*$NúmeroReplc;
+  $VolumendeApl = $volumen_aplicacion;
+  $LtsAguaxaplicación =$VolumendeApl/10000*$AreadeAplicación;
+  $CapacidadTanque= 200*3.785;
+  $AreaBuffer = $area_bloque-$area_proyecto;
+  $Tanquesrequeridos = $LtsAguaxaplicación/$CapacidadTanque;
+  $Volumentanque1 = $Tanquesrequeridos;
+  $Volumentanque2 = '';
 
-                                    <td>Velocidad (k/h)</td>
-                                    <td align="center">'.$velocidad.'</td>
-                                </tr>
-                                <tr>
-                                    <td> Volumen de Apl. (L ha-1):</td>
-                                    <td align="center"> '.$volumen.' </td>
 
-                                    <td>R.P.M</td>
-                                    <td align="center">'.$rpm.'</td>
-                                    <td colspan="2" rowspan="2">Nombre Operador del Spray Boom</td>
-                                </tr>
-                                <tr>
-                                    <td> Lts. Agua x aplicación:</td>
-                                    <td align="center"> '.$lts_agua.' </td>
+  // para html para la ultima columna
+  $columlitros = ($Volumentanque1*$CapacidadTanque)+66;
+  $columgalones = $columlitros/3.785;
+  $htmlvolumentotal = '<tr>
+                        <td align="center">1</td>
+                        <td align="center">'.$columlitros.'</td>
+                        <td align="center">'.$columgalones.'</td>
+                        <td>'.' '.'</td>
+                      </tr>';
+  
+  
+  //para todos los productos
+  $listainformaciontratamiento = $this->InformacionTratamiento_model->obtener_informacionT($id_tratamiento);
+  foreach ($listainformaciontratamiento->result() as $row) {
+    $queryproducto = $this->product_model->obtener_producto($row->id_producto);
+    $Nombrecomercial='';
+    $IngredienteActivo='';
+    $Unidad='';
+    $dosisTanque = ($columlitros*$row->dosis)/$VolumendeApl;//formula
 
-                                    <td>Marcha</td>
-                                    <td align="center">'.$marcha.'</td>
-                                </tr>
-                                <tr>
-                                    <td> Capacidad Tanque (L):</td>
-                                    <td align="center"> '.$capacidad_tanque.' </td>
+    foreach ($queryproducto->result() as $producto) { // para sacar todo los datos del producto de la informacion del tratamiento
+      $Nombrecomercial=$producto->name;
+      $IngredienteActivo=$producto->activecomponent;
+      $Unidad=$producto->unit;
+    }
+    $htmlrowproductos = $htmlrowproductos.
+                        '<tr>
+                          <td> '.$Nombrecomercial.' </td>
+                          <td> '.$IngredienteActivo.' </td>
+                          <td> '.$row->plaga_nombre_comun.' </td>
+                          <td> '.$row->plaga_nombre_cientifico.' </td>
+                          <td> '.$row->dosis.' </td>
+                          <td> '.$dosisTanque.' </td>
+                          <td> '.$Unidad.' </td>
+                          <td> Horas </td>
+                          <td> Días </td>
+                        </tr>';
+  }
 
-                                    <td>Tipo Boquilla</td>
-                                    <td align="center">'.$boquilla.'</td>
-                                    <td colspan="2" rowspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td> Area Buffer (m2):   </td>
-                                    <td align="center"> '.$area_buffer.'</td>
 
-                                    <td>Metodo de Aplicación</td>
-                                    <td> </td>
-                                </tr>
-                                <tr>
-                                    <td> Tanques requeridos:   </td>
-                                    <td align="center"> '.$tanque_reqeridos.' </td>
-                                    <td>Num. Tractor</td>
-                                    <td></td>
-                                </tr>'.$volumen_tanque.'
-                                    <td>Num. Spary Boom</td>
-                                    <td></td>
-                                </tr>'.$volumen_tanques.'
-                            </table>
-                        </div>
-                        <div>
-                            <table style="width:100%;font-size:11.5px" align="" border=0.1>
-                                <tr>
-                                    <td style="background-color: grey;" colspan="2" align="center">Momento de Aplicación</td>
-                                    <td style="background-color: grey;" colspan="2" align="center">Condiciones Climáticas</td>
-                                </tr>
-                                <tr>
-                                    <td width="40%">Día</td>
-                                    <td width="60%"></td>
-                                    <td width="40%">Soleado</td>
-                                    <td width="60%"></td>
-                                </tr>
-                                <tr>
-                                    <td>Noche</td>
-                                    <td></td>
-                                    <td>Nublado</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>Hora Inicio</td>
-                                    <td></td>
-                                    <td>Llovizna</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>Hora Final</td>
-                                    <td></td>
-                                    <td>Lluvia</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                            <table style="width:30%;font-size:11.5px" align="" border=0.1>
-                                <tr>
-                                    <td style="background-color: grey;" colspan="2" align="center">Tiempo de Aplicación</td>
-                                </tr>'.$tiempo_replicas.'
-                            </table>
-                        </div>
-                        <div>
-                            <table style="width:100%;font-size:11.5px" align="" border=0.1>
-                                <tr>
-                                    <td style="background-color: grey;" rowspan="2" align="center">Nombre Comercial</td>
-                                    <td style="background-color: grey;" rowspan="2" align="center">Ingrediente Activo</td>
-                                    <td style="background-color: grey;" rowspan="2" align="center">Dosis por hectarea</td>
-                                    '.$dosis_tanque.'
-                                    <td style="background-color: grey;" rowspan="2" align="center">Unidad</td>
-                                    <td style="background-color: grey;" rowspan="2" align="center">Lote fertilizante</td>
-                                </tr>
-                                <tr>
-                                </tr>'.$productos.'
-                            </table>
-                        </div>
-                        <div>
-                            <table style="width:100%;font-size:11.5px" align="" border=0.1>
-                                <tr>
-                                    <td rowspan="'.$int.'" align="center">Volumen Total de mezlca</td>
-                                    <td style="background-color: grey;" align="center">Tanque</td>
-                                    <td style="background-color: grey;" align="center">Litros</td>
-                                    <td style="background-color: grey;" align="center">Galones</td>
-                                    <td style="background-color: grey;" align="center">Total tanques</td>
-                                </tr>'.$total_mezcla.'
-                            </table>
-                        </div>
-                        <br>
-                        <div style="font-size:11.5px">
-                            <table style="width:100%;font-size:11.5px" align="">
-                                <tr>
-                                    <td>Observaciones</td>
-                                    <td>Encargados</td>
-                                </tr>
-                                <tr>
-                                    <td>________________________________________</td>
-                                    <td>________________________________________</td>
-                                </tr>
-                                <tr>
-                                    <td>________________________________________</td>
-                                    <td>________________________________________</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </body>
-                </html>';
+
+$html='<html>
+          <head>
+              <meta charset="utf-8">
+              <title>PDF</title>
+              <style>
+                body {margin: -35px;}
+              </style>
+          </head>
+          <body>
+              <table style="width:100%;font-size:11px" align="">
+                <tr>
+                    <td>
+                      <img src="C:/xampp/htdocs/Dole/images/dole3.png"><br>
+                      <strong>Cedula de Aplicaciones Experimentales</strong><br>
+                      <strong>Agroindustrial Piñas del Bosque</strong><br>
+                      <strong>Departamento de Investigaciones</strong><br>
+                      <strong>Finca: </strong> '.$nombreFinca.'<br>
+                    </td>
+                    <td>
+                      <br><strong>Cultivo:</strong>                                            '.$cultivo.'
+                      <br><strong>Descripción de la Aplicación:</strong>                       '.$descripcion_aplicacion.'                       
+                      <br><strong>Modo de aplicación:</strong>                                 '.$modo_aplicacion.'                     
+                      <br><strong>Ubicación:</strong>                                          '.$ubicacionfinca.'                     
+                      
+                  </td>
+                </tr>
+              </table>  
+              <div>       
+                  <table id="general_info" style="width:100%;font-size:11px" border=0.1>
+                    <tr>
+                      <td><strong>Proyecto: </strong>                   '.$numero_proyecto.'</td>
+                      <td><strong>Fecha programada: </strong>           '.$fecha_programada.'</td>
+                      <td><strong>Variedad: </strong>                   '.$variedad.'</td>
+                      <td align="center"><strong>Tratamiento:</strong></td>
+                    </tr>
+                    <tr>  
+                      <td><strong>Lote: </strong>                             '.$lote.'</td>
+                      <td><strong>Fecha Aplicación: </strong>                  </td>
+                      <td><strong>Sem Siembra / Sem cierre Cosecha: </strong> '.$semana_siembra.'</td>
+                      <td rowspan="2" align="center"><strong>                 '.$numeroTratamiento.' </strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Block: </strong>            '.$bloque.'</td>
+                      <td><strong>Estadío: </strong>          '.$estadio.'</td>
+                      <td><strong>Sem. Programada: </strong>  '.$semana_aplicacion.'</td>
+                    </tr>
+                  </table>
+              </div>
+              <div>
+                <table id="primerfila" style="width:100%;font-size:10px" align="" border=0>
+                    <tr>
+                      <td>
+                        <table id="calculos" style="width:100%;font-size:10px" align="" border=0.1>
+                          <tr>
+                            <td style="background-color: grey;" colspan="2" align="center">Cálculos de Aplicación</td>
+                          </tr>
+                          <tr><td><strong>Número Replc. </strong></td> <td align="right">'.$NúmeroReplc.'</td>
+                          </tr>
+                          <tr><td><strong>Area de Aplicación.  (m2) </strong></td> <td align="right">'.$AreadeAplicación.'</td>
+                          </tr>  
+                          <tr><td><strong>Area calculada por Replica  (m2) </strong></td> <td align="right">'.$AreacalculadaporReplica.'</td>
+                          </tr>
+                          <tr><td><strong>Volumen de Apl. (L ha-1) </strong></td> <td align="right">'.$VolumendeApl.'</td>
+                          </tr>
+                          <tr><td><strong>Lts. Agua x aplicación </strong></td> <td align="right">'.$LtsAguaxaplicación.'</td>
+                          </tr>
+                          <tr><td><strong>Capacidad Tanque (L) </strong></td> <td align="right">'.$CapacidadTanque.'</td>
+                          </tr>
+                          <tr><td><strong>Area Buffer (m2) </strong></td> <td align="right">'.$AreaBuffer.'</td>
+                          </tr>
+                          <tr><td><strong>Tanques requeridos </strong></td> <td align="right">'.$Tanquesrequeridos.'</td>
+                          </tr>
+                          <tr><td><strong>Volumen tanque 1 </strong></td> <td align="right">'.$Volumentanque1.'</td>
+                          </tr>
+                          <tr><td><strong>Volumen tanque 2 </strong></td> <td align="right">'.$Volumentanque2.'</td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td>
+                        <table id="datosequipo" style="width:100%;font-size:10px;margin-top:-20px" align="" border=0.1>
+                          <tr>
+                            <td style="background-color: grey;" colspan="5" align="center">Datos de Equipo y Calibración</td>
+                          </tr>
+                          <tr><td><strong>Sección</strong></td> 
+                              <td align="center"> 1</td>
+                              <td align="center"> 2</td>
+                              <td align="center"> 3</td>
+                              <td align="center"> 4</td>
+                          </tr>
+                          <tr><td><strong>Presión (psi)</strong></td> <td align="right" colspan="4">'.$presion.'</td>
+                          </tr>  
+                          <tr><td><strong>Velocidad (k/h)</strong></td> <td align="right" colspan="4">'.$velocidad.'</td>
+                          </tr>
+                          <tr><td><strong>r.p.m </strong></td> <td align="right" colspan="4">'.$rpm.'</td>
+                          </tr>
+                          <tr><td><strong>Marcha </strong></td> <td align="right" colspan="4">'.$marcha.'</td>
+                          </tr>
+                          <tr><td><strong>Tipo de boquilla</strong></td> <td align="right" colspan="4">'.$tipo_boquilla.'</td>
+                          </tr>
+                          <tr><td><strong>Metodo de Aplicación</strong></td> <td align="right" colspan="4">'.$metodo_aplicacion.'</td>
+                          </tr>
+                          <tr><td><strong>Num. Tractor</strong></td> <td align="right" colspan="4">104</td>
+                          </tr>
+                          <tr><td><strong>Num. Spray Boom </strong></td> <td align="right" colspan="4">416</td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td>
+                        <table id="otros" style="width:100%;font-size:10px;margin-top:-50px" align="" border=0.1>
+                          <tr>
+                            <td rowspan="2" align="center"><strong>Nombre operador del Tractor</strong></td>                            
+                          </tr>
+                          <tr></tr>
+                          <tr>
+                            <td rowspan="4"> </td>
+                          </tr>
+                          <tr></tr>
+                          <tr></tr>
+                          <tr></tr>
+                          <tr>
+                           <td rowspan="2" align="center"><strong>Nombre operador del Spray Boom</strong></td>                      
+                          </tr>  
+                          <tr></tr>
+                          <tr>
+                            <td rowspan="4"> </td>
+                          </tr>
+                          <tr></tr>
+                          <tr></tr>
+                          <tr></tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div>
+                  <table style="width:100%;font-size:10px;" align="center">
+                    <tr>
+                      <td style="">
+                        <table style="width:100%;font-size:10px;" align="" border=0.1>
+                          <tr>
+                            <td style="background-color: grey;" colspan="2" align="center">Momento de Aplicación</td>
+                          </tr>
+                          <tr><td><strong>Día</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Noche</strong></td> <td></td>
+                          </tr>  
+                          <tr><td><strong>Hora Inicio</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Hora Final</strong></td> <td></td>
+                          </tr>
+                        </table>
+                      </td>
+
+                      <td style="">
+                        <table style="width:100%;font-size:10px;" align="center" border=0.1>
+                          <tr>
+                            <td style="background-color: grey;" colspan="2" align="center">Condiciones climaticas</td>
+                          </tr>
+                          <tr><td><strong>Soleado</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Nublado</strong></td> <td></td>
+                          </tr>  
+                          <tr><td><strong>Llovizna</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Lluvia</strong></td> <td></td>
+                          </tr>
+                        </table>
+                      </td>
+
+                      <td rowspan="2">
+                        <img heigh="320px" width="400px" src="C:/xampp/htdocs/Dole/images/imagen.png">
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="">
+                        <table style="width:100%;font-size:10px;" align="" border=0.1>
+                          <tr>
+                            <td style="background-color: grey;" colspan="6" align="center">Condiciones camino</td>
+                          </tr>
+                          <tr><td><strong>Replica</strong></td> 
+                            <td align="center"> 1</td>
+                            <td align="center"> 2</td>
+                            <td align="center"> 3</td>
+                            <td align="center"> 4</td>
+                            <td align="center"> 5</td>
+                          </tr>
+                          <tr><td><strong>Seco</strong>       </td> <td colspan="5"></td>
+                          </tr>  
+                          <tr><td><strong>Mojado</strong>      </td> <td colspan="5"></td>
+                          </tr>
+                          <tr><td><strong>Fangoso</strong>     </td> <td colspan="5"></td>
+                          </tr>
+                          <tr><td><strong>Uniforme</strong>    </td> <td colspan="5"></td>
+                          </tr>
+                          <tr><td><strong>Desuniforme</strong> </td> <td colspan="5"></td>
+                          </tr>
+                          <tr><td><strong>Huecos</strong>      </td> <td colspan="5"></td>
+                          </tr>
+                          <tr><td><strong>Pedregoso</strong>   </td> <td colspan="5"></td>
+                          </tr
+                        </table>
+                      </td>
+                      <td style="">
+                        <table style="width:100%;font-size:10px;" align="" border=0.1>
+                          <tr>
+                            <td style="background-color: grey;" colspan="2" align="center">Tiempo de aplicación</td>
+                          </tr>
+                          <tr><td><strong>Replica 1</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Replica 2</strong></td> <td></td>
+                          </tr>  
+                          <tr><td><strong>Replica 3</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Replica 4</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Replica 5</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Replica 6</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Replica 7</strong></td> <td></td>
+                          </tr>
+                          <tr><td><strong>Replica 8</strong></td> <td></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+              </div>
+              <div>
+                  <table style="width:100%;font-size:10px;" align="center" border=0.1>
+                    <tr>
+                      <td style="background-color: grey;" align="center">Nombre comercial</td>
+                      <td style="background-color: grey;" align="center">Ingrediente Activo</td>
+                      <td style="background-color: grey;" align="center" colspan="2" align="center">Plaga / enfermedad / Malezas a controlar</td>
+                      <td style="background-color: grey;" align="center">Dosis por hectarea</td>
+                      <td style="background-color: grey;" align="center">Dosis tanque I</td>
+                      <td style="background-color: grey;" align="center">Unidad</td>
+                      <td style="background-color: grey;" align="center">Periodo de Reingreso (horas)</td>
+                      <td style="background-color: grey;" align="center">Intervalo a Cosecha (dias)</td>
+                    </tr>
+                    '.$htmlrowproductos.'
+                  </table>
+              </div>
+              <div>
+                  <table style="width:100%;font-size:10px;" align="center" border=0.1>
+                    <tr>
+                      <td style="background-color: grey;" rowspan="3" align="center">Volumen total de mezcla</td>
+                      <td style="background-color: grey;">Tanque</td>
+                      <td style="background-color: grey;">Litros</td>
+                      <td style="background-color: grey;">Galones</td>
+                      <td style="background-color: grey;">Total tanques</td>
+                    </tr>
+                    '.$htmlvolumentotal.'
+                  </table>
+              </div>
+               <div>
+                  <table style="width:100%;font-size:10px;">
+                    <tr>
+                      <td><strong>Observaciones</strong></td>
+                    </tr>
+                    <tr>
+                      <td>________________________________________</td>
+                      <td>Autorización Técnica Supervisor:</td>
+                      <td>________________________________________</td>
+                    </tr>
+                    <tr>
+                      <td>________________________________________</td>
+                      <td>Autorización Técnico Líder de Proyectos:</td>
+                      <td>________________________________________</td>
+                    </tr>
+                  </table>
+              </div>
+          </body>
+      </html>';
         $this->load->library("Dompdf_lib");
         $dompdf = new DOMPDF();
+
+        //$dompdf->set_paper('A4', 'portrait');
+
         $dompdf->load_html($html);
         $dompdf->render();
         $path="Cedula".$id_cedula."_".date('d-m-Y').".pdf";
+        //$path="Cedula.pdf";
         $dompdf->stream($path);
         
     }

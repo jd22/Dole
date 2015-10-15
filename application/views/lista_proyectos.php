@@ -69,7 +69,7 @@
                                                     <td><a href="<?=base_url()?>Proyecto/index/<?=$row->numero_proyecto?>"><?=$row->numero_proyecto?></a></td>
                                                     <td><?=$row->fecha_creacion?></td>
                                                     <td style="text-align:center">
-                                                        <a href="<?=base_url()?>">Eliminar</a> | <a href="<?=base_url()?>">Editar</a>
+                                                        <a href="" onclick="eliminarProyecto('<?=$row->numero_proyecto?>',<?=$row->id_proyecto?>)">Eliminar</a> | <a href="#" data-toggle="modal" onclick="editarP(<?=$row->id_proyecto?>,'<?=$row->numero_proyecto?>')" data-target="#editarProyectoModal">Editar</a>
                                                     </td>
                                                 </tr>
 
@@ -84,6 +84,37 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal Para agregar Productos -->
+        <div class="modal fade" id="editarProyectoModal" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                        <h4 style="color:white;" class="panel-title">Editar Proyecto</h4>
+                    </div>
+
+                    <div class="model-body" style="margin-top:15px">
+                        <div class="col-md-12">
+                            <div class="panel panel-info panel-md">
+                                <div class="panel-body">
+                                    <div class="form-inline">
+                                        <label>Numero de Proyecto</label>
+                                        <input type="text" class="form-control" placeholder="Numero de Proyecto" id="proyecton">
+                                        <input id="idproy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class=" btn btn-primary" type="button" onclick="actualizar_Proyecto()">Actualizar Proyecto</button>
+                        <button class=" btn btn-primary" type="button" onclick="actualizar_ListaP()">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         </section>
     </div>
 <!-- ===== JAVASCRIPT START ===== -->

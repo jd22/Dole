@@ -58,6 +58,24 @@ class Proyecto_model extends CI_Model
           return $query->result();
      }
 
+     function eliminar_proyecto($id_proyecto)// obtiene todos los proyectos de la base de datos
+     {
+          $this->db->where('id_proyecto',$id_proyecto);
+          $this->db->delete('proyecto');
+          
+     }
+
+
+     function editar_proyecto($idProyecto,$numero_proyecto)
+     {
+          $datos = array(
+                         'numero_proyecto'=>$numero_proyecto,
+                    );
+          $this->db->where('id_proyecto',$idProyecto);
+          $this->db->update('proyecto',$datos);
+          return $numero_proyecto;
+     }
+
 }
 
 ?>

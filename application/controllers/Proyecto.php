@@ -47,6 +47,26 @@ class Proyecto extends CI_Controller {
       $this->load->view('footerlayout');
     }
 
+    function actualizar_proyecto($idProyecto,$numero_proyecto){
+      $datos=array();
+      $numeroupdate = $this->proyecto_model->editar_proyecto($idProyecto,$numero_proyecto);
+      $datos[] = $numeroupdate;
+      //
+      echo json_encode($datos); 
+    }
+
+    function eliminar_proyecto($numProyecto,$idProyecto){
+      
+      $queryTratamientos = $this->tratamiento_model->obtener_tratamientos($numProyecto);
+      foreach ($queryTratamientos->result() as $row) {
+        $this->tratamiento_model->eliminar_Tratamiento($row->id_tratamiento);
+      }
+
+      $this->proyecto_model->eliminar_proyecto($idProyecto);
+      $datos=array();
+      echo json_encode($datos); 
+    }
+
     function existente($id_proyecto)
     {
       $datos['idproyecto']=$id_proyecto;
@@ -116,7 +136,7 @@ class Proyecto extends CI_Controller {
       }
       $datos3=array();
       $datos3[]="TratamientoCreado";
-      echo json_encode($datos3);
+      echo json_encode($datos3,JSON_UNESCAPED_UNICODE);
     }
 
     // Inserta el tratamiento y su informacion
@@ -135,7 +155,7 @@ class Proyecto extends CI_Controller {
           $info['_secado'],$info['_cosecha']);
       $datos3=array();
       $datos3[]="TratamientNuevooAgregado";
-      echo json_encode($datos3);
+      echo json_encode($datos3,JSON_UNESCAPED_UNICODE);
     }
 
 
@@ -156,7 +176,7 @@ class Proyecto extends CI_Controller {
       // $nombre = $this->input->post('_nombre');
       $datos3=array();
       $datos3[]="Exito";
-      echo json_encode($datos3);
+      echo json_encode($datos3,JSON_UNESCAPED_UNICODE);
     }
 
     function eliminar_tratamiento(){
@@ -167,7 +187,7 @@ class Proyecto extends CI_Controller {
       $this->tratamiento_model->eliminar_tratamiento($data['_idTrat']);
       $datos3=array();
       $datos3[]="ProductoEliminado";
-      echo json_encode($datos3);
+      echo json_encode($datos3,JSON_UNESCAPED_UNICODE);
 
     }
 
