@@ -8,7 +8,7 @@
 	"buffers":
 	[
 		{
-			"file": "application/views/loggin_nuevo.php",
+			"file": "application/views/login_view.php",
 			"settings":
 			{
 				"buffer_size": 5408,
@@ -73,7 +73,7 @@
 			}
 		},
 		{
-			"contents": "=> C:\\xampp\\htdocs\\Dole\\application\\controllers\\Home.php\n	|+| 1\n	|+| 18 -- \"Start Debugging\"\n	|+| 19\n	|+| 21\n	|+| 27\n=> C:\\xampp\\htdocs\\Dole\\application\\controllers\\verify_Login.php\n	|+| 10\n	|+| 15\n	|+| 26\n	|+| 35\n=> C:\\xampp\\htdocs\\Dole\\application\\views\\loggin_nuevo.php\n	|+| 34\n	|+| 41\n	|+| 52\n	|+| 55\n	|+| 64\n",
+			"contents": "=> C:\\xampp\\htdocs\\Dole\\application\\controllers\\Home.php\n	|+| 1\n	|+| 18 -- \"Start Debugging\"\n	|+| 19\n	|+| 21\n	|+| 27\n=> C:\\xampp\\htdocs\\Dole\\application\\controllers\\verify_Login.php\n	|+| 10\n	|+| 15\n	|+| 26\n	|+| 35\n=> C:\\xampp\\htdocs\\Dole\\application\\views\\login_view.php\n	|+| 34\n	|+| 41\n	|+| 52\n	|+| 55\n	|+| 64\n",
 			"settings":
 			{
 				"buffer_size": 313,
@@ -188,7 +188,7 @@
 			[
 				{
 					"buffer": 0,
-					"file": "application/views/loggin_nuevo.php",
+					"file": "application/views/login_view.php",
 					"semi_transient": false,
 					"settings":
 					{

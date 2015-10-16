@@ -12,6 +12,9 @@ class verify_Login extends CI_Controller {
    }
    
     function index() {
+        //This method will have the credentials validation
+        $this->load->library('form_validation');
+
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
   
@@ -19,7 +22,7 @@ class verify_Login extends CI_Controller {
         {
           //$this->load->view('header/header');
           //$this->load->view('header/librerias');
-          $this->load->view('loggin_nuevo');
+          $this->load->view('login_view');
           //$this->load->view('login_view');
           //$this->load->view('footer');
         } 
