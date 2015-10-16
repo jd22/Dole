@@ -23,28 +23,80 @@ class Proyecto extends CI_Controller {
 
     function index($id_proyecto)
     {
-      $datos['idproyecto']=$id_proyecto;
-      $datos['products']=$this->product_model->get_products();// se envian los productos a la vista
-      $datos['lands']=$this->land_model->get_lands();// se envian las fincas a la vista
-      $datos['descriptions']= array(
-                                        1 => 'Fertilización',
-                                        2 => 'Control Plagas Plantación',
-                                        3 => 'Control Plagas Fruta',
-                                        );// se envian los tipos de aplicacion a la vista
-      $datos['modo']= array(
-                                        1 => 'Apersión foliar',
-                                        2 => 'Granular',
-                                        3 => 'Manual',
-                                        );// se envian los modos de aplicacion a la vista
-      $datos['metodo']= array(
-                                        1 => 'Spray Boom',
-                                        2 => 'Stroller',
-                                        3 => 'Bomba espalda',
-                                        4 => 'Manual',
-                                        );// se envian los metodos de aplicacion a la vista
-      $this->load->view('_Layout');
-      $this->load->view('agregar_proyecto',$datos);
-      $this->load->view('footerlayout');
+      if($this->session->userdata('logged_in'))
+        {
+            $session_data = $this->session->userdata('logged_in');
+            $data['realname'] = $session_data['realname'];
+            $dato['id']=$session_data['id'];
+            $dato['dias']=$session_data['dias'];
+            $dato['msj1']='Primer inicio cambie su contraseña generica';
+            $dato['msj2']='Hace 3 meses realizo su último cambio de contraseña, por favor cambie su contraseña';
+            //$this->load->view('header/librerias');
+            //$this->load->view('header/header');
+
+            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            {
+                $this->load->view('header/menu_sin',$data);
+                $this->load->view('change_pass_ini_view',$dato); 
+                $this->load->view('footer');   
+            }
+            if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            {
+                $datos['idproyecto']=$id_proyecto;
+                $datos['products']=$this->product_model->get_products();// se envian los productos a la vista
+                $datos['lands']=$this->land_model->get_lands();// se envian las fincas a la vista
+                $datos['descriptions']= array(
+                                                  1 => 'Fertilización',
+                                                  2 => 'Control Plagas Plantación',
+                                                  3 => 'Control Plagas Fruta',
+                                                  );// se envian los tipos de aplicacion a la vista
+                $datos['modo']= array(
+                                                  1 => 'Apersión foliar',
+                                                  2 => 'Granular',
+                                                  3 => 'Manual',
+                                                  );// se envian los modos de aplicacion a la vista
+                $datos['metodo']= array(
+                                                  1 => 'Spray Boom',
+                                                  2 => 'Stroller',
+                                                  3 => 'Bomba espalda',
+                                                  4 => 'Manual',
+                                                  );// se envian los metodos de aplicacion a la vista
+                $this->load->view('_Layout');
+                $this->load->view('agregar_proyecto',$datos);
+                $this->load->view('footerlayout');
+                      
+            }
+            else if($session_data['realname']!="Administrator" and $session_data['primer_inicio']==0 )
+            {
+              $datos['idproyecto']=$id_proyecto;
+              $datos['products']=$this->product_model->get_products();// se envian los productos a la vista
+              $datos['lands']=$this->land_model->get_lands();// se envian las fincas a la vista
+              $datos['descriptions']= array(
+                                                1 => 'Fertilización',
+                                                2 => 'Control Plagas Plantación',
+                                                3 => 'Control Plagas Fruta',
+                                                );// se envian los tipos de aplicacion a la vista
+              $datos['modo']= array(
+                                                1 => 'Apersión foliar',
+                                                2 => 'Granular',
+                                                3 => 'Manual',
+                                                );// se envian los modos de aplicacion a la vista
+              $datos['metodo']= array(
+                                                1 => 'Spray Boom',
+                                                2 => 'Stroller',
+                                                3 => 'Bomba espalda',
+                                                4 => 'Manual',
+                                                );// se envian los metodos de aplicacion a la vista
+              $this->load->view('_Layout');
+              $this->load->view('agregar_proyecto',$datos);
+              $this->load->view('footerlayout');
+                
+            }
+            
+        } else {
+            redirect('login', 'refresh');
+        }
+      
     }
 
     function actualizar_proyecto($idProyecto,$numero_proyecto){
@@ -94,28 +146,132 @@ class Proyecto extends CI_Controller {
     }
 
     function listaProyectos(){
-      $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
-      // por el momento se cargaran todos los proyectos
-      $this->load->view('_Layout');                     
-      $this->load->view('lista_proyectos',$datos);
-      // $this->load->view('footerlayout');
+      if($this->session->userdata('logged_in'))
+        {
+            $session_data = $this->session->userdata('logged_in');
+            $data['realname'] = $session_data['realname'];
+            $dato['id']=$session_data['id'];
+            $dato['dias']=$session_data['dias'];
+            $dato['msj1']='Primer inicio cambie su contraseña generica';
+            $dato['msj2']='Hace 3 meses realizo su último cambio de contraseña, por favor cambie su contraseña';
+            //$this->load->view('header/librerias');
+            //$this->load->view('header/header');
 
+            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            {
+                $this->load->view('header/menu_sin',$data);
+                $this->load->view('change_pass_ini_view',$dato); 
+                $this->load->view('footer');   
+            }
+            else if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            {
+                $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+                // por el momento se cargaran todos los proyectos
+                $this->load->view('_Layout');                     
+                $this->load->view('lista_proyectos',$datos);
+                // $this->load->view('footerlayout');
+            
+            }
+            else if($session_data['realname']!="Administrator" and $session_data['primer_inicio']==0 )
+            {
+              $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+              // por el momento se cargaran todos los proyectos
+              $this->load->view('_Layout');                     
+              $this->load->view('lista_proyectos',$datos);
+              // $this->load->view('footerlayout');
+                
+            }
+            
+        } else {
+            redirect('login', 'refresh');
+        }
+      
     }
 
     function Programa(){
-      //$datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
-      // por el momento se cargaran todos los proyectos
-      $this->load->view('_Layout');                     
-      $this->load->view('programas');
-      // $this->load->view('footerlayout');
+      if($this->session->userdata('logged_in'))
+        {
+            $session_data = $this->session->userdata('logged_in');
+            $data['realname'] = $session_data['realname'];
+            $dato['id']=$session_data['id'];
+            $dato['dias']=$session_data['dias'];
+            $dato['msj1']='Primer inicio cambie su contraseña generica';
+            $dato['msj2']='Hace 3 meses realizo su último cambio de contraseña, por favor cambie su contraseña';
+            //$this->load->view('header/librerias');
+            //$this->load->view('header/header');
+
+            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            {
+                $this->load->view('header/menu_sin',$data);
+                $this->load->view('change_pass_ini_view',$dato); 
+                $this->load->view('footer');   
+            }
+            else if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            {
+                //$datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+                // por el momento se cargaran todos los proyectos
+                $this->load->view('_Layout');                     
+                $this->load->view('programas');
+                // $this->load->view('footerlayout');
+            
+            }
+            else if($session_data['realname']!="Administrator" and $session_data['primer_inicio']==0 )
+            {
+              //$datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+              // por el momento se cargaran todos los proyectos
+              $this->load->view('_Layout');                     
+              $this->load->view('programas');
+              // $this->load->view('footerlayout');
+                
+            }
+            
+        } else {
+            redirect('login', 'refresh');
+        }
+      
     }
 
     function listaProgramas(){
-      $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
-      // por el momento se cargaran todos los proyectos
-      $this->load->view('_Layout');                     
-      $this->load->view('lista_programas',$datos);
-      // $this->load->view('footerlayout');
+      if($this->session->userdata('logged_in'))
+        {
+            $session_data = $this->session->userdata('logged_in');
+            $data['realname'] = $session_data['realname'];
+            $dato['id']=$session_data['id'];
+            $dato['dias']=$session_data['dias'];
+            $dato['msj1']='Primer inicio cambie su contraseña generica';
+            $dato['msj2']='Hace 3 meses realizo su último cambio de contraseña, por favor cambie su contraseña';
+            //$this->load->view('header/librerias');
+            //$this->load->view('header/header');
+
+            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            {
+                $this->load->view('header/menu_sin',$data);
+                $this->load->view('change_pass_ini_view',$dato); 
+                $this->load->view('footer');   
+            }
+            else if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            {
+                $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+                // por el momento se cargaran todos los proyectos
+                $this->load->view('_Layout');                     
+                $this->load->view('lista_programas',$datos);
+                // $this->load->view('footerlayout');
+            
+            }
+            else if($session_data['realname']!="Administrator" and $session_data['primer_inicio']==0 )
+            {
+              $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
+              // por el momento se cargaran todos los proyectos
+              $this->load->view('_Layout');                     
+              $this->load->view('lista_programas',$datos);
+              // $this->load->view('footerlayout');
+                
+            }
+            
+        } else {
+            redirect('login', 'refresh');
+        }
+      
 
     }
     

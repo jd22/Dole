@@ -45,15 +45,15 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="<?=base_url()?>Home">Inicio</a></li>
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-bell"></i> <span class="notification-title">Notifications</span><span class="badge badge-info notification-badge">6</span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-bell"></i> <span class="notification-title">Notifications</span><span class="badge badge-info notification-badge">2</span></a>
                             <div class="dropdown-menu notification-menu">
                                 <div class="panel panel-plain m-bot0">
                                     <div class="list-group">
                                         <a href="#" class="list-group-item">
-                                            <i class="fa fa-ban text-danger"></i> Nikita Williams rejected an Action Step from you
+                                            <i class="fa fa-ban text-danger"></i> En desarrollo
                                         </a>
                                         <a href="#" class="list-group-item">
-                                            <i class="fa fa-check-circle text-success"></i> You accepted an Action Step from Scott Marshall
+                                            <i class="fa fa-check-circle text-success"></i> You accepted
                                         </a>
                                     </div>
                                     <div class="panel-footer p-0">
@@ -68,7 +68,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">Perfil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="home/logout">Cerrar Sesión</a></li>
+                                <li><a href="<?=base_url()?>Home/logout">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>

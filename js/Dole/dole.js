@@ -239,6 +239,7 @@ $('#crearTratamiento').click(function () {
         data: {_numeroProyecto: numeroProyecto,_linfoTratamientos:listaInformacionTratamientos,_predeterminado:predeterminado},
         dataType: 'json',
         success: function (msg) { // success callback
+            alert(JSON.stringify(msg));
             CargarTratamientos();
             listaInformacionTratamientos = [];
             
@@ -271,7 +272,7 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
     //                 });
     // tablaTratamientos.fnClearTable();
 
-    var tablaTratamientos = $('#tablaCedulas').DataTable({  
+    var tablaTratamientos = $('#Trataments').DataTable({  
                         "bRetrieve": true,
                         "aoColumns" : [
                             {  "sClass": "center" },
@@ -878,6 +879,7 @@ $('#agregarProyecto').click(function () {
             document.getElementById("nnumero").disabled = "true";
             document.getElementById("infoTratamientos").style.display = "initial";
             document.getElementById("agregarProyecto").style.display = "none";
+            CargarTratamientos();
         },
         error: function () {
             alert("El proyecto a agregar ya EXISTE!");

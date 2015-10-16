@@ -53,7 +53,7 @@
                             <div class="panel-body">        
                                 <div class="starter-template">
                                     <div class="table-responsive">
-                                        <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                        <table id="tabla_proyectos_li" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>Número del Proyecto</th>
