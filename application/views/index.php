@@ -38,11 +38,11 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="top-navbar">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="page_home.html">Features</a></li>
+                            <!-- <li class="active"><a href="page_home.html">Features</a></li>
                             <li><a href="page_pricing.html">Pricing</a></li>
                             <li><a href="page_about.html">About Us</a></li>
-                            <li><a href="page_contact.html">Contact Us</a></li>
-                            <li><a href="<?php echo base_url();?>index.php/verify_Login"><strong>Ingresar</strong></a></li>
+                            <li><a href="page_contact.html">Contact Us</a></li> -->
+                            <li class="active"><a href="<?php echo base_url();?>index.php/verify_Login"><strong>Ingresar</strong></a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -75,10 +75,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="list-inline">
-                            <li><a href="#">About Us</a></li>
+                            <!-- <li><a href="#">About Us</a></li>
                             <li><a href="#">FAQs</a></li>
                             <li><a href="#">Support</a></li>
-                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Blog</a></li> -->
                         </ul>
                         <ul class="list-inline">
                             <li><small>&copy; Dole Company - Tecnológico de Costa Rica</small></li>
