@@ -111,12 +111,6 @@
                                             <li>
                                                 <a href="<?=base_url()?>Proyecto/listaProyectos"><i class="glyphicon glyphicon-list"></i>Lista de Proyectos</a>
                                             </li>
-                                            <li>
-                                                <a href="<?=base_url()?>Proyecto/Programa"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo Programa</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?=base_url()?>Proyecto/listaProgramas"><i class="glyphicon glyphicon-list"></i>Lista de Programas</a>
-                                            </li>
                                         </ul>
                                     </li>
 

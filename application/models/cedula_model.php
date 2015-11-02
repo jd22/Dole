@@ -15,6 +15,26 @@ class cedula_model extends CI_Model
           $query = $this->db->get();
           return $query->result(); 
      }
+     function obtenertodas_cedulasytipo($id_tratamiento,$tipo){
+          $this->db->select('*');
+          $this->db->from('cedula_aplicacion');
+          $this->db->where('id_tratamiento',$id_tratamiento);
+          $this->db->where('tipoCedula',$tipo);
+          $query = $this->db->get();
+          return $query;
+     }
+
+     function obtener_cedulasytipo($id_tratamiento,$tipo){
+          $this->db->select('*');
+          $this->db->from('cedula_aplicacion');
+          $this->db->where('id_tratamiento',$id_tratamiento);
+          $this->db->where('tipoCedula',$tipo);
+          $this->db->limit(1);// seleccionar solo uno
+          $query = $this->db->get();
+          return $query; 
+     }
+     
+
      function cantidad_cedulas($id_tratamiento){
           $this->db->select('*');
           $this->db->from('cedula_aplicacion');
@@ -23,10 +43,19 @@ class cedula_model extends CI_Model
           return $query->num_rows();
      }
 
+     function insertar_dosis($id_cedula,$id_infotratamiento,$dosis){ // se inserta en la tabla de dosis
+          $datos = array(
+                         'id_cedula'=>$id_cedula,
+                         'id_infotratamiento'=>$id_infotratamiento,
+                         'dosis'=>$dosis,
+               );
+          $this->db->insert('dosis',$datos);   
+     }
+
      function insertar_cedula($id_tratamiento,$numero_proyecto,$id_finca,$descripcion_aplicacion,$semana_aplicacion,
                               $fecha_programada,$litros,$presion,$velocidad,$rpm,$marcha,$tipo_boquilla,$cultivo,$variedad,
                               $lote,$bloque,$estadio,$semana_siembra,$area_bloque,$area_proyecto,$cantidad_camas,$ancho_camas,$longitud_parcelas,
-                              $cantidad_parcelas,$cantidad_replicas,$volumen_aplicacion,$modo_aplicacion,$metodo_aplicacion)
+                              $cantidad_parcelas,$cantidad_replicas,$volumen_aplicacion,$modo_aplicacion,$metodo_aplicacion,$tipoCedula)
      {
           $datos = array(
                          'id_tratamiento'=>$id_tratamiento,
@@ -56,9 +85,11 @@ class cedula_model extends CI_Model
                          'cantidad_replicas'=>$cantidad_replicas,
                          'volumen_aplicacion'=>$volumen_aplicacion,
                          'modo_aplicacion'=>$modo_aplicacion,
-                         'metodo_aplicacion'=>$metodo_aplicacion
+                         'metodo_aplicacion'=>$metodo_aplicacion,
+                         'tipoCedula'=>$tipoCedula
                );
      $this->db->insert('cedula_aplicacion',$datos);   
+     return $this->db->insert_id();// retorna el ultima id insertado
      }
 
 

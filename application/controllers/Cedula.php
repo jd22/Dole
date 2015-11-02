@@ -57,6 +57,22 @@ class Cedula  extends CI_Controller
       echo json_encode($datos);
     }
 
+    function obtener_cedulasportipo($id_tratamiento,$tipo)
+    {
+     $linfoCedulas = $this->cedula_model->obtenertodas_cedulasytipo($id_tratamiento,$tipo);
+     $datos=array();
+     foreach($linfoCedulas->result() as $row)
+      {
+        $datos3=array();
+        $datos3[]= $row->id_cedulaAplicacion;
+        $datos3[]= $row->descripcion_aplicacion;
+        $datos3[]= $row->semana_aplicacion;
+        $datos[] = $datos3;
+      }
+      echo json_encode($datos);
+    }
+
+
     function  obtener_unacedula($id_cedula){
       $datos=array();
       $queryCedula = $this->cedula_model->obtener_unacedula($id_cedula);
@@ -120,14 +136,57 @@ class Cedula  extends CI_Controller
                          '_cantidad_replicas'=>$this->input->post('_cantidad_replicas'),
                          '_volumen_aplicacion'=>$this->input->post('_volumen_aplicacion'),
                          '_modo_aplicacion'=>$this->input->post('_modo_aplicacion'),
-                         '_metodo_aplicacion'=>$this->input->post('_metodo_aplicacion')
+                         '_metodo_aplicacion'=>$this->input->post('_metodo_aplicacion'),
+                         '_tipo'=>$this->input->post('_tipo')
+                         
                          );
+        if($data['_tipo']!='PC-A'){
+          $this->cedula_model->insertar_cedula($data['_id_tratamiento'],$data['_numero_proyecto'],$data['_id_finca'],$data['_descripcion_aplicacion'],
+                             $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
+                             $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
+                             $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
+                             $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
+                             $data['_modo_aplicacion'],$data['_metodo_aplicacion'],'PC-A');
+        }
+        if($data['_tipo']!='PC-B'){
+          $this->cedula_model->insertar_cedula($data['_id_tratamiento'],$data['_numero_proyecto'],$data['_id_finca'],$data['_descripcion_aplicacion'],
+                             $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
+                             $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
+                             $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
+                             $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
+                             $data['_modo_aplicacion'],$data['_metodo_aplicacion'],'PC-B');
+        }
+        if($data['_tipo']!='PC-C'){
+          $this->cedula_model->insertar_cedula($data['_id_tratamiento'],$data['_numero_proyecto'],$data['_id_finca'],$data['_descripcion_aplicacion'],
+                             $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
+                             $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
+                             $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
+                             $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
+                             $data['_modo_aplicacion'],$data['_metodo_aplicacion'],'PC-C');
+        }
+        if($data['_tipo']!='PC-D'){
+          $this->cedula_model->insertar_cedula($data['_id_tratamiento'],$data['_numero_proyecto'],$data['_id_finca'],$data['_descripcion_aplicacion'],
+                             $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
+                             $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
+                             $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
+                             $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
+                             $data['_modo_aplicacion'],$data['_metodo_aplicacion'],'PC-D');
+        }
+        if($data['_tipo']!='POST-FORZA'){
+          $this->cedula_model->insertar_cedula($data['_id_tratamiento'],$data['_numero_proyecto'],$data['_id_finca'],$data['_descripcion_aplicacion'],
+                             $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
+                             $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
+                             $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
+                             $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
+                             $data['_modo_aplicacion'],$data['_metodo_aplicacion'],'POST-FORZA');
+        }
         $this->cedula_model->insertar_cedula($data['_id_tratamiento'],$data['_numero_proyecto'],$data['_id_finca'],$data['_descripcion_aplicacion'],
-                     $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
-                     $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
-                     $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
-                     $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
-                     $data['_modo_aplicacion'],$data['_metodo_aplicacion']);
+                             $data['_semana_aplicacion'],$data['_fecha_programada'],$data['_litros'],$data['_presion'],$data['_velocidad'],$data['_rpm'],
+                             $data['_marcha'],$data['_tipo_boquilla'],$data['_cultivo'],$data['_variedad'],$data['_lote'],$data['_bloque'],$data['_estadio'],
+                             $data['_semana_siembra'],$data['_area_bloque'],$data['_area_proyecto'],$data['_cantidad_camas'],$data['_ancho_camas'],
+                             $data['_longitud_parcelas'],$data['_cantidad_parcelas'],$data['_cantidad_replicas'],$data['_volumen_aplicacion'],
+                             $data['_modo_aplicacion'],$data['_metodo_aplicacion'],$data['_tipo']);
+        
         $datos3=array();
         $datos3[]="Exito";
         echo json_encode($datos3);

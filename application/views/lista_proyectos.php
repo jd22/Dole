@@ -59,6 +59,7 @@
                                                     <th>Número del Proyecto</th>
                                                     <th>Fecha de Creación</th>
                                                     <th style="text-align:center">Opciones Extras</th>
+                                                    <th style="text-align:center">Programas</th>
                                                 </tr>
                                             </thead>
                                             <?php
@@ -71,6 +72,7 @@
                                                     <td style="text-align:center">
                                                         <a href="" onclick="eliminarProyecto('<?=$row->numero_proyecto?>',<?=$row->id_proyecto?>)">Eliminar</a> | <a href="#" data-toggle="modal" onclick="editarP(<?=$row->id_proyecto?>,'<?=$row->numero_proyecto?>')" data-target="#editarProyectoModal">Editar</a>
                                                     </td>
+                                                    <td style="text-align:center"><a href="<?=base_url()?>Programa/programa_tratamiento/<?=$row->id_proyecto?>/<?=$row->numero_proyecto?>">Programa de Tratamientos</a></td>
                                                 </tr>
 
                                             <?php
@@ -181,6 +183,6 @@ $(document).ready(function() {
 });
 </script>
 
-        <!-- Theme script -->
-        <script src="<?=base_url()?>js/scripts.js" type="text/javascript"></script>
-        <script src="<?=base_url()?>js/Dole/dole.js" type="text/javascript"></script>
+<!-- Theme script -->
+<script src="<?=base_url()?>js/scripts.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/Dole/dole.js" type="text/javascript"></script>
