@@ -59,6 +59,7 @@ class Tratamiento extends CI_Controller {
 	        $datos3[] = $row->plaga_nombre_cientifico;
           $datos3[] = $row->id_informaciontratamiento;
           $datos3[] = $predeterminado;
+          $datos3[] = $row->tipoCedula;
 	        $datos[] = $datos3;
 	    }
        echo json_encode($datos,JSON_UNESCAPED_UNICODE);
@@ -187,7 +188,18 @@ class Tratamiento extends CI_Controller {
     $datos3[]=$idtratamientoexistente;
     echo json_encode($datos3);
   }
-
+  function actualizarDosis(){
+    $data = array(
+        '_listadosis'=> $this->input->post('_listadosis'),
+    );
+    $listaDosis = $data['_listadosis'];
+    foreach ($listaDosis as $x) {
+        $this->InformacionTratamiento_model->actualizarDosis($x['id_info'],$x['valordosis'],$x['semana_aplicacion']);
+    }
+    $datos3=array();
+    $datos3[]="actualizadaDosis";
+    echo json_encode($datos3);
+  }
 }
 
 ?>

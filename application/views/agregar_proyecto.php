@@ -379,7 +379,7 @@
                                                     <tr>
                                                         <th style="color:white;background:#108CAE">Producto Comercial</th>
                                                         <th style="color:white;background:#108CAE">Ingrediente Activo</th>
-                                                        <th style="color:white;background:#108CAE">Dosis</th>
+                                                        <th style="color:white;background:#108CAE" hidden >Dosis</th>
                                                         <th style="color:white;background:#108CAE">Unidad</th>
                                                         <th style="color:white;background:#108CAE">Inter. Secado</th>
                                                         <th style="color:white;background:#108CAE">Inter. Cosecha</th>
@@ -421,7 +421,7 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <?php echo form_dropdown("selProduct",$products,'','class="form-control" id="selectproducts" placeholder="Productos"') ?>
-                                        <input  type="text" class="form-control" placeholder="Dosis" id="iddosis" name="dosis" required/>
+                                        <input  type="text" class="form-control" placeholder="Dosis" id="iddosis" name="dosis" style="display: none;"/>
                                         <input type="text" class="form-control" placeholder="Nombre Común" id="idnombrecomun" name="nombrecomun" required/>
                                         <input type="text" class="form-control" placeholder="Nombre Científico" id="idnombrecientifico" name="nombrecientifico" required/>            
                                     </div>
@@ -474,7 +474,7 @@
                                                     <tr>
                                                         <th style="color:white;background:#108CAE">Producto Comercial</th>
                                                         <th style="color:white;background:#108CAE">Ingrediente Activo</th>
-                                                        <th style="color:white;background:#108CAE">Dosis</th>
+                                                        <!-- <th style="color:white;background:#108CAE">Dosis</th> -->
                                                         <th style="color:white;background:#108CAE">Unidad</th>
                                                         <th style="color:white;background:#108CAE">Inter. Secado</th>
                                                         <th style="color:white;background:#108CAE">Inter. Cosecha</th>
@@ -516,7 +516,7 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <?php echo form_dropdown("selProduct",$products,'','class="form-control" id="selectproductsnuevo" placeholder="Productos"') ?>
-                                        <input  type="text" class="form-control" placeholder="Dosis" id="iddosisnuevo" name="iddosisnuevo" required/>
+                                        <input  type="text" class="form-control" placeholder="Dosis" id="iddosisnuevo" name="iddosisnuevo" style="display: none;" />
                                         <input type="text" class="form-control" placeholder="Nombre Común" id="idnombrecomunnuevo" name="idnombrecomunnuevo" required/>
                                         <input type="text" class="form-control" placeholder="Nombre Científico" id="idnombrecientificonuevo" name="idnombrecientificonuevo" required/>            
                                     </div>
@@ -567,7 +567,7 @@
                                     <div class="form-group">
                                         <!-- <input  type="text" class="form-control" placeholder="Producto" id="editselectproducts" readonly="readonly" name="product" required/> -->
                                         <?php echo form_dropdown("selProduct",$products,'','class="form-control" id="editselectproducts" placeholder="Productos"') ?>
-                                        <input  type="text" class="form-control" placeholder="Dosis" id="editiddosis" name="editiddosis" required/>
+                                        <input  type="text" class="form-control" placeholder="Dosis" id="editiddosis" name="editiddosis" style="display: none;"/>
                                         <input type="text" class="form-control" placeholder="Nombre Común" id="editidnombrecomun" name="editidnombrecomun" required/>
                                         <input type="text" class="form-control" placeholder="Nombre Científico" id="editidnombrecientifico" name="editidnombrecientifico" required/>            
                                     </div>

@@ -911,7 +911,7 @@
 
                 // add week number
                 if (this.showWeekNumbers)
-                    html += '<td class="week">' + calendar[row][0].week() + '</td>';
+                    html += '<td class="week">' + (calendar[row][0].week()-1) + '</td>';
 
                 for (var col = 0; col < 7; col++) {
                     var cname = 'available ';
