@@ -8,6 +8,15 @@ class InformacionTratamiento_model extends CI_Model
           $this->load->database();
      }
 
+     function actualizarDosis($id_info,$valordosis,$semana_aplicacion){
+          $data = array(
+               'dosis' => $valordosis,
+               'semana_aplicacion' => $semana_aplicacion
+               );
+          $this->db->where('id_informaciontratamiento',$id_info);
+          $this->db->update('informacion_tratamiento',$data);
+     }
+
      function eliminar_informacionT($id_informaciontratamiento,$id_tratamiento)
      {
           // $dataidinfo = array(

@@ -67,6 +67,7 @@ $('#idfechaprogramada').daterangepicker({
     startDate: fechaInicial
 });
 
+<<<<<<< HEAD
 function mostrarImagen(idTrata){
     document.getElementById("idTrata").value  = idTrata;
     //alert(idTrata);
@@ -79,6 +80,12 @@ function guardaImagen() {
 
 
 
+=======
+$('#idfechaprogramada').change(function () {
+  //do something, like clearing an input
+  alert();
+});
+>>>>>>> refs/remotes/origin/master
 function eliminarTodoTratamiento(idtratamiento){
     $.ajax({
         url: BASE_URL+'Tratamiento/eliminar_todoeltratamiento/'+idtratamiento,
@@ -594,10 +601,13 @@ function CargarProductosDelTratamiento(id_tratamiento) {
                 var pncomun = data[i][7];
                 var pncientifico = data[i][8];
                 var idinformaciontratamiento = data[i][9];
-                $('#idtablanuevosproductos tr:last').after('<tr class="default" id="'+idinformaciontratamiento+'">'+
+                var tipoCedula = data[i][11];
+                //alert(tipoCedula);
+               //if(tipoCedula == 'GENERAL'){// solo se muestran las cedulas pc-a
+                    $('#idtablanuevosproductos tr:last').after('<tr class="default" id="'+idinformaciontratamiento+'">'+
                                     '<th style="font-weight: normal;">'+producto+'</th>'+
                                     '<th style="font-weight: normal;">'+activo+'</th>'+
-                                    '<th style="font-weight: normal;">'+dosis+'</th>'+
+                                    //'<th style="font-weight: normal;">'+dosis+'</th>'+
                                     '<th style="font-weight: normal;">'+unidad+'</th>'+
                                     '<th style="font-weight: normal;">'+secado+'</th>'+
                                     '<th style="font-weight: normal;">'+cosecha+'</th>'+
@@ -606,6 +616,7 @@ function CargarProductosDelTratamiento(id_tratamiento) {
                                     +'<a href="#" data-toggle="modal" data-target="#EditProductNuevo" onclick="editarProductoGuardado('+idinformaciontratamiento+','+id_tratamiento+','+idProduct+')">Editar</a>'
                                     +'</th>'+
                                 '</tr>');
+                //}
             };
         },
         error: function(data) {
@@ -628,7 +639,7 @@ function editarProductoGuardado(idinformaciontratamiento,id_tratamiento,idProduc
                 var producto = data[i][0];
                 var activo = data[i][1]; // Este se saca del id del producto
                 var unidad = data[i][2]; // Este se saca del id del producto
-                var idProduct = data[i][3]
+                var idProduct = data[i][3];
                 var dosis = data[i][4];
                 var secado = data[i][5];
                 var cosecha = data[i][6];
@@ -741,7 +752,6 @@ $('#agregarProducto').click(function () {
     numerico = numerico+1;
     var infotratamiento = {// Contiene la estructura de la tabla de la la base de datos para mejor y mas facil manejo
           'numerico':numerico,
-          // 'productoselect':productoselect,
           'id_tratamiento': '',
           'id_producto': productoid,
           'dosis': dosis,
@@ -749,8 +759,10 @@ $('#agregarProducto').click(function () {
           'plaga_nombre_cientifico':ncientifico,
           'secado':secado,
           'cosecha':cosecha,
+          'tipoCedula':'GENERAL'
           };
     listaInformacionTratamientos.push(infotratamiento);
+   
     
     $.ajax({ // ajax para consultar algunos datos del producto seleccionado
         url: BASE_URL+'Product/product/'+productoid, // se manda solo con el id no ocupa mas datos
@@ -765,7 +777,7 @@ $('#agregarProducto').click(function () {
                 $('#idproductos tr:last').after('<tr class="default" id="'+numerico+'">'+
                                     '<th style="font-weight: normal;">'+productoselect+'</th>'+
                                     '<th style="font-weight: normal;">'+activo+'</th>'+
-                                    '<th style="font-weight: normal;">'+dosis+'</th>'+
+                                    // '<th style="font-weight: normal;">'+dosis+'</th>'+
                                     '<th style="font-weight: normal;">'+unidad+'</th>'+
                                     '<th style="font-weight: normal;">'+secado+'</th>'+
                                     '<th style="font-weight: normal;">'+cosecha+'</th>'+
@@ -808,12 +820,13 @@ $('#agregarProductoNuevo').click(function () {
     var ncientifico = document.getElementById("idnombrecientificonuevo").value;
     var secado = document.getElementById("idsecadonuevo").value;
     var cosecha = document.getElementById("idcosechanuevo").value;
+    var tipoCedula = 'GENERAL';
     $.ajax({ // ajax para consultar algunos datos del producto seleccionado
         url: BASE_URL+'Proyecto/AgregarProductoATratamientoExistente',
         async: false,
         type: "POST",
         data: {_idTratamientogeneral:idTratamientogeneralaux,_productoid:productoid,_dosis:dosis,_ncomun:ncomun,_ncientifico:ncientifico,
-                _secado:secado,_cosecha:cosecha},
+                _secado:secado,_cosecha:cosecha,_tipoCedula:tipoCedula},
         dataType: 'json',
         success: function(data) {
             CargarProductosDelTratamiento(idTratamientogeneralaux);// Para refrescar la lista de productos del tratamiento

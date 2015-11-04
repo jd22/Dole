@@ -306,7 +306,16 @@ class Proyecto extends CI_Controller {
       $linfoTratamientos = $data['_linfoTratamientos'];
        foreach ($linfoTratamientos as $info) {
           $this->tratamiento_model->insertar_informaciontratamiento($idTratamiento,$info['id_producto'],$info['dosis'],$info['plaga_nombre_comun'],$info['plaga_nombre_cientifico'],
-            $info['secado'],$info['cosecha']);
+            $info['secado'],$info['cosecha'],$info['tipoCedula']);
+
+          // $this->tratamiento_model->insertar_informaciontratamiento($idTratamiento,$info['id_producto'],$info['dosis'],$info['plaga_nombre_comun'],$info['plaga_nombre_cientifico'],
+          //   $info['secado'],$info['cosecha'],'PC-B');
+          // $this->tratamiento_model->insertar_informaciontratamiento($idTratamiento,$info['id_producto'],$info['dosis'],$info['plaga_nombre_comun'],$info['plaga_nombre_cientifico'],
+          //   $info['secado'],$info['cosecha'],'PC-C');
+          // $this->tratamiento_model->insertar_informaciontratamiento($idTratamiento,$info['id_producto'],$info['dosis'],$info['plaga_nombre_comun'],$info['plaga_nombre_cientifico'],
+          //   $info['secado'],$info['cosecha'],'PC-D');
+          // $this->tratamiento_model->insertar_informaciontratamiento($idTratamiento,$info['id_producto'],$info['dosis'],$info['plaga_nombre_comun'],$info['plaga_nombre_cientifico'],
+          //   $info['secado'],$info['cosecha'],'POST-FORZA');
       }
       $datos3=array();
       $datos3[]="TratamientoCreado";
@@ -358,9 +367,18 @@ class Proyecto extends CI_Controller {
         '_ncientifico'=> $this->input->post('_ncientifico'),
         '_secado'=> $this->input->post('_secado'),
         '_cosecha'=> $this->input->post('_cosecha'),
+        '_tipoCedula'=> $this->input->post('_tipoCedula'),
       );
       $this->tratamiento_model->insertar_informaciontratamiento($info['_idTratamientogeneral'],$info['_productoid'],$info['_dosis'],$info['_ncomun'],$info['_ncientifico'],
-          $info['_secado'],$info['_cosecha']);
+          $info['_secado'],$info['_cosecha'],$info['_tipoCedula']);
+      // $this->tratamiento_model->insertar_informaciontratamiento($info['_idTratamientogeneral'],$info['_productoid'],$info['_dosis'],$info['_ncomun'],$info['_ncientifico'],
+      //     $info['_secado'],$info['_cosecha'],'PC-B');
+      // $this->tratamiento_model->insertar_informaciontratamiento($info['_idTratamientogeneral'],$info['_productoid'],$info['_dosis'],$info['_ncomun'],$info['_ncientifico'],
+      //     $info['_secado'],$info['_cosecha'],'PC-C');
+      // $this->tratamiento_model->insertar_informaciontratamiento($info['_idTratamientogeneral'],$info['_productoid'],$info['_dosis'],$info['_ncomun'],$info['_ncientifico'],
+      //     $info['_secado'],$info['_cosecha'],'PC-D');
+      // $this->tratamiento_model->insertar_informaciontratamiento($info['_idTratamientogeneral'],$info['_productoid'],$info['_dosis'],$info['_ncomun'],$info['_ncientifico'],
+      //     $info['_secado'],$info['_cosecha'],'POST-FORZA');
       $datos3=array();
       $datos3[]="TratamientNuevooAgregado";
       echo json_encode($datos3,JSON_UNESCAPED_UNICODE);
