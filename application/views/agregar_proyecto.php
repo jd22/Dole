@@ -1,3 +1,29 @@
+<link rel="stylesheet" href="<?=base_url()?>css/lib/bootstrap/bootstrap.css" />
+
+<!-- Font Awesome style sheet -->
+<link rel="stylesheet" href="<?=base_url()?>css/lib/font-awesome/font-awesome.min.css">
+
+<!-- Ionicons style sheet -->
+<link rel="stylesheet" href="<?=base_url()?>css/lib/ionicons/ionicons.min.css">
+
+<!-- Date range picker style sheet -->
+<link rel="stylesheet" href="<?=base_url()?>css/lib/daterangepicker/daterangepicker-bs3.css" />
+
+<!-- Page specific style sheet -->
+
+<link href="css/lib/clockpicker/clockpicker.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<?=base_url()?>css/lib/jasny/jasny-bootstrap.min.css" />
+<link rel="stylesheet" href="<?=base_url()?>css/lib/slider/slider.css" />
+<link rel="stylesheet" href="<?=base_url()?>css/lib/daterangepicker/daterangepicker-bs3.css" />
+<link href="<?=base_url()?>css/lib/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>
+<link href="<?=base_url()?>css/lib/iCheck/all.css" rel="stylesheet" type="text/css" />
+
+<!-- Tab drop style sheets -->
+<link rel="stylesheet" href="<?=base_url()?>css/lib/tabdrop/tabdrop.css" />
+
+<!-- Theme specific style sheets -->
+<link rel="stylesheet" href="<?=base_url()?>css/styles.css" id="theme-css" />
+
 <div class="container-fluid container-padded dash-controls">
     <div class="row">
         <div class="col-md-12">
@@ -63,6 +89,7 @@
                                         <tr>
                                             <th style="color:white;background:#108CAE" >Nº Tratamiento</th>
                                             <th style="color:white;background:#108CAE">Cédula Aplicación</th>
+                                            <th style="color:white;background:#108CAE">Mapa</th>
                                             <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
                                         </tr>
                                     </thead>
@@ -372,7 +399,9 @@
                             <div class="panel panel-info panel-md">
                                 <div class="panel-body">
                                     <label><input id="idpredeterminado" type="checkbox" class="minimal-red"/> Predeterminado</label>
+                                         
                                     <div class="starter-template">
+
                                         <div class="table-responsive">
                                             <table id="idproductos" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
                                                 <thead>
@@ -388,6 +417,7 @@
                                                 </thead>
                                             </table>
                                         </div>
+                                         
                                     </div>
                                 </div>
                             </div>
@@ -401,6 +431,101 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Modal Para agregar imagen -->
+        <div class="modal fade" id="agregaImagen" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                        <h4 style="color:white;" class="panel-title">Mapa del terreno</h4>
+                    </div>
+
+                    <div class="model-body" style="margin-top:15px">
+                        <div class="col-md-12">
+                            <div class="panel panel-info panel-md">
+                                <div class="panel-body">
+                                    <div class="starter-template">
+
+                                   <!-- <div class="panel panel-primary panel-md">
+                                        <!-- <div class="panel-heading"> 
+                                       <!--  <div >
+                                            <div>
+                                                <div > 
+                                                    
+                                                    <div class="col-md-6">
+                                        <div class="panel panel-default">
+                                            <!-- <div class="panel-heading">
+                                                <h3 class="panel-title">File input</h3>
+                                            </div> 
+                                            <div class="panel-body">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                        <!-- <label class="col-md-3 control-label">Preview</label>
+                                                        <div class="col-md-9">
+                                                            
+                                                            <div class="fileinput fileinput-new" data-provides="fileinput" name="foto">
+                                                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                                                <div >
+                                                                <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+                                                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                                </div>
+                                                            </div>
+                                                            <form action=<?php echo base_url("Proyecto/cargar_archivo")?> method="post" enctype="multipart/form-data">
+                                                            <input type="file" name="foto" />
+                                                            <br/>
+                                                            <input type="submit" value="Upload"/>
+                                                        </form>
+                                                        </div>
+                                                    </div>
+                                            </div> <!-- panel body end 
+                                        </div> <!-- panel end 
+                                    </div> <!-- col end 
+                                    </div>-->
+
+                            
+                                
+                                    <?php echo form_open_multipart('Proyecto/upload/');?>
+
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="filename" class="control-label">Seleccione la imagen del mapa</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="fileinput fileinput-new" data-provides="fileinput" name="foto">
+                                            <div>
+                                                <input type="text" id="idTrata" name="id_trata"  style="visibility:hidden"></input>
+                                                <img id"imagenView" heigh="320px" width="400px" src="<?=base_url()?>images/"+$_POST['id_trata']+"png")>
+                                            </div>                                            
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <input type="file" name="filename" size="20" id="filena"/>
+                                                    <span class="text-danger"><?php if (isset($error)) { echo $error; } ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" value="Guardar mapa" style="margin-left:10px" class="btn btn-primary"/>
+                        <?php echo form_close(); ?>
+                                    <?php if (isset($success_msg)) { echo $success_msg; } ?>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- cierre modal agregar imagen -->
 
 
         <!-- Modal Para agregar Productos -->
@@ -451,6 +576,8 @@
             </div>
         </div>
         <!-- Cierre del modal de productos -->
+
+
 
 
 <!-- Modal Para agregar Nuevos Productos al tratamiento -->
@@ -650,3 +777,16 @@
     </div>
     </section>
 </div>
+<script src="<?=base_url()?>js/lib/jquery/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/pages/form_advanced.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/tabdrop/bootstrap-tabdrop.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/jasny/jasny-bootstrap.min.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/mask/jquery.mask.min.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/slider/bootstrap-slider.js" type="text/javascript"></script>
+
+<script src="<?=base_url()?>js/lib/momentjs/moment.min.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/timepicker/bootstrap-timepicker.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/icheck/icheck.min.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/clockpicker/clockpicker.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/lib/tagsinput/bootstrap-tagsinput.min.js" type="text/javascript"></script>
