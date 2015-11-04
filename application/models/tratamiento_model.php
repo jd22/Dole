@@ -51,6 +51,15 @@ class Tratamiento_model extends CI_Model
         $this->db->insert('tratamiento',$data);
         return $this->db->insert_id();// retorna el ultima id insertado
      }
+
+     function insertar_imagen_tratamiento($id_tratamiento,$imagen){
+         $data = array(
+          'imagen' =>$imagen
+          );
+         $this->db->where('id_tratamiento',$id_tratamiento);
+        $this->db->update('tratamiento',$data);
+        //return $this->db->insert_id();// retorna el ultima id insertado
+     }
      
      function insertar_informaciontratamiento($idTratamiento,$id_producto,$dosis,$plaga_nombre_comun,$plaga_nombre_cientifico,$secado,$cosecha)
      {

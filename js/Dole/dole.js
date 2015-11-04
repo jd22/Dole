@@ -17,7 +17,8 @@ $(document).ready(function () {
                         "bRetrieve": true,
                         "aoColumns" : [
                             { "sClass": "center" },
-                            { "sClass": "left"  },
+                            { "sClass": "center"  },
+                            { "sClass": "center"  },
                             { "sClass": "center"  },
                         ] 
                     });
@@ -33,8 +34,9 @@ $(document).ready(function () {
                 for (var i = 0; msg.length-1 >= i; i++) {
                     tablaTratamientos.fnAddData([
                         '<a style="font-size:12px;color:#282892;" href="#"" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listanuevosProductos"  data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">'+'Tratamiento '+(i+1)+'</a>',
-                        '<a style="font-size:12px;" href="#" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+','+(i+1)+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
-                        '<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
+                        '<a style="font-size:12px;" href="#" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+','+(i+1)+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>',
+                        //'<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
+                        '<a style="color:green;font-size:12px;" href="#" onclick="mostrarImagen('+(msg[i][0])+')" data-toggle="modal" data-target="#agregaImagen"  data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">Agregar Mapa</a>',
                         '<a style="color:red;font-size:12px;" href="#" onclick="eliminarTodoTratamiento('+(msg[i][0])+')">Eliminar</a>',
                     ]);
                     // $('#Trataments tr:last').after('<tr class="default">'+
@@ -64,6 +66,17 @@ $('#idfechaprogramada').daterangepicker({
     format: 'YYYY-MM-DD',
     startDate: fechaInicial
 });
+
+function mostrarImagen(idTrata){
+    document.getElementById("idTrata").value  = idTrata;
+    //alert(idTrata);
+}
+
+function guardaImagen() {
+    alert(document.getElementById("idTrata"));
+    alert(document.getElementById("filena"));
+}
+
 
 
 function eliminarTodoTratamiento(idtratamiento){
@@ -215,6 +228,7 @@ $('#agregarCedula').click(function () {
 });
 
 
+
 $('#crearTratamiento').click(function () {
     var predeterminado = 0;//Quiere deceir que el tratamiento no es predeterminado
     if ($('#idpredeterminado').is(":checked"))
@@ -294,7 +308,8 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
                 tablaTratamientos.fnAddData([
                         '<a style="font-size:12px;color:#282892;" href="#" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listanuevosProductos"  data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">'+'Tratamiento '+(i+1)+'</a>',
                         '<a style="font-size:12px;" href="#" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+','+(i+1)+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
-                        '<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
+                        //'<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
+                        '<a style="color:green;font-size:12px;" href="#" onclick="mostrarImagen('+(msg[i][0])+')" data-toggle="modal" data-target="#agregaImagen"  data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">Agregar Mapa</a>',
                         '<a style="color:red;font-size:12px;" href="#" onclick="eliminarTodoTratamiento('+(msg[i][0])+')">Eliminar</a>',
                     ]);
             };

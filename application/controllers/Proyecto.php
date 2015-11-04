@@ -34,13 +34,13 @@ class Proyecto extends CI_Controller {
             //$this->load->view('header/librerias');
             //$this->load->view('header/header');
 
-            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            if($session_data['primer_inicio']==1)
             {
                 $this->load->view('header/menu_sin',$data);
                 $this->load->view('change_pass_ini_view',$dato); 
                 $this->load->view('footer');   
             }
-            if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            if($session_data['realname']=="Administrator")
             {
                 $datos['idproyecto']=$id_proyecto;
                 $datos['products']=$this->product_model->get_products();// se envian los productos a la vista
@@ -299,6 +299,7 @@ class Proyecto extends CI_Controller {
         '_linfoTratamientos' =>$this->input->post('_linfoTratamientos'),
         '_predeterminado' =>$this->input->post('_predeterminado'),
       );
+
       $idProyecto = $this->proyecto_model->getid_proyecto($data['_numeroProyecto']); 
       $idTratamiento = $this->tratamiento_model->insertar_tratamiento($idProyecto,$data['_predeterminado']);
      
@@ -310,6 +311,40 @@ class Proyecto extends CI_Controller {
       $datos3=array();
       $datos3[]="TratamientoCreado";
       echo json_encode($datos3,JSON_UNESCAPED_UNICODE);
+    }
+
+    //file upload function
+    function upload()
+    {
+      //set preferences
+      $config['upload_path'] = 'C:/xampp/htdocs/Dole/images/';
+      $config['allowed_types'] = '*';
+      $config['overwrite'] = "TRUE";
+      $config['file_name'] = $_POST['id_trata']; 
+        
+      $message = $_POST['id_trata'];
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('filename'))
+        {
+            // case - failure
+            $upload_error = array('error' => $this->upload->display_errors());
+            echo "<script type='text/javascript'>alert('$upload_error');</script>";
+            //$this->load->view('agregar_proyecto', $upload_error);
+            
+        }
+        else
+        {
+            // case - success
+            $upload_data = $this->upload->data();
+            $data['success_msg'] = '<div class="alert alert-success text-center">Your file <strong>' . $upload_data['file_name'] . '</strong> was successfully uploaded!</div>';
+             $this->tratamiento_model->insertar_imagen_tratamiento($message,$message);
+            //$this->load->view('agregar_proyecto', $message);
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            
+         //   echo "base_url(Proyecto/index/1)";
+        }
     }
 
     // Inserta el tratamiento y su informacion
