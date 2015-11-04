@@ -67,7 +67,6 @@ $('#idfechaprogramada').daterangepicker({
     startDate: fechaInicial
 });
 
-<<<<<<< HEAD
 function mostrarImagen(idTrata){
     document.getElementById("idTrata").value  = idTrata;
     //alert(idTrata);
@@ -80,12 +79,12 @@ function guardaImagen() {
 
 
 
-=======
+
 $('#idfechaprogramada').change(function () {
   //do something, like clearing an input
   alert();
 });
->>>>>>> refs/remotes/origin/master
+
 function eliminarTodoTratamiento(idtratamiento){
     $.ajax({
         url: BASE_URL+'Tratamiento/eliminar_todoeltratamiento/'+idtratamiento,
