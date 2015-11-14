@@ -24,13 +24,13 @@ class Calendar extends CI_Controller {
             //$this->load->view('header/librerias');
             //$this->load->view('header/header');
 
-            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            if($session_data['primer_inicio']==1)
             {
                 $this->load->view('header/menu_sin',$data);
                 $this->load->view('change_pass_ini_view',$dato); 
                 $this->load->view('footer');   
             }
-            if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            if($session_data['realname']=="Administrator")
             {
                 
                 $this->load->view('_Layout');

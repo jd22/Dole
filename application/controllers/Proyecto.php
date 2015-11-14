@@ -157,13 +157,13 @@ class Proyecto extends CI_Controller {
             //$this->load->view('header/librerias');
             //$this->load->view('header/header');
 
-            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            if($session_data['primer_inicio']==1)
             {
                 $this->load->view('header/menu_sin',$data);
                 $this->load->view('change_pass_ini_view',$dato); 
                 $this->load->view('footer');   
             }
-            else if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            else if($session_data['realname']=="Administrator")
             {
                 $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
                 // por el momento se cargaran todos los proyectos
@@ -200,13 +200,13 @@ class Proyecto extends CI_Controller {
             //$this->load->view('header/librerias');
             //$this->load->view('header/header');
 
-            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            if($session_data['primer_inicio']==1)
             {
                 $this->load->view('header/menu_sin',$data);
                 $this->load->view('change_pass_ini_view',$dato); 
                 $this->load->view('footer');   
             }
-            else if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            else if($session_data['realname']=="Administrator")
             {
                 //$datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
                 // por el momento se cargaran todos los proyectos
@@ -243,13 +243,13 @@ class Proyecto extends CI_Controller {
             //$this->load->view('header/librerias');
             //$this->load->view('header/header');
 
-            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            if($session_data['primer_inicio']==1)
             {
                 $this->load->view('header/menu_sin',$data);
                 $this->load->view('change_pass_ini_view',$dato); 
                 $this->load->view('footer');   
             }
-            else if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            else if($session_data['realname']=="Administrator")
             {
                 $datos['proyectos'] = $this->proyecto_model->get_proyectos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
                 // por el momento se cargaran todos los proyectos
@@ -351,9 +351,11 @@ class Proyecto extends CI_Controller {
              $this->tratamiento_model->insertar_imagen_tratamiento($message,$message);
             //$this->load->view('agregar_proyecto', $message);
             header('Location: ' . $_SERVER['HTTP_REFERER']);
+            echo "<script type='text/javascript'>alert('$message);</script>";
             
          //   echo "base_url(Proyecto/index/1)";
         }
+        
     }
 
     // Inserta el tratamiento y su informacion

@@ -448,41 +448,7 @@
                                 <div class="panel-body">
                                     <div class="starter-template">
 
-                                   <!-- <div class="panel panel-primary panel-md">
-                                        <!-- <div class="panel-heading"> 
-                                       <!--  <div >
-                                            <div>
-                                                <div > 
-                                                    
-                                                    <div class="col-md-6">
-                                        <div class="panel panel-default">
-                                            <!-- <div class="panel-heading">
-                                                <h3 class="panel-title">File input</h3>
-                                            </div> 
-                                            <div class="panel-body">
-                                                <form class="form-horizontal" role="form">
-                                                    <div class="form-group">
-                                                        <!-- <label class="col-md-3 control-label">Preview</label>
-                                                        <div class="col-md-9">
-                                                            
-                                                            <div class="fileinput fileinput-new" data-provides="fileinput" name="foto">
-                                                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-                                                                <div >
-                                                                <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
-                                                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                                                </div>
-                                                            </div>
-                                                            <form action=<?php echo base_url("Proyecto/cargar_archivo")?> method="post" enctype="multipart/form-data">
-                                                            <input type="file" name="foto" />
-                                                            <br/>
-                                                            <input type="submit" value="Upload"/>
-                                                        </form>
-                                                        </div>
-                                                    </div>
-                                            </div> <!-- panel body end 
-                                        </div> <!-- panel end 
-                                    </div> <!-- col end 
-                                    </div>-->
+
 
                             
                                 
@@ -500,7 +466,7 @@
                                         <div class="fileinput fileinput-new" data-provides="fileinput" name="foto">
                                             <div>
                                                 <input type="text" id="idTrata" name="id_trata"  style="visibility:hidden"></input>
-                                                <img id"imagenView" heigh="320px" width="400px" src="<?=base_url()?>images/"+$_POST['id_trata']+"png")>
+                                                <!--<img id"imagen_View" heigh="320px" width="400px" src="<?=base_url()?>images/user2.png">-->
                                             </div>                                            
                                         </div>
 

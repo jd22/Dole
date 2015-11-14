@@ -24,13 +24,13 @@ class Product extends CI_Controller {
             //$this->load->view('header/librerias');
             //$this->load->view('header/header');
 
-            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            if($session_data['primer_inicio']==1)
             {
                 $this->load->view('header/menu_sin',$data);
                 $this->load->view('change_pass_ini_view',$dato); 
                 $this->load->view('footer');   
             }
-            if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            if($session_data['realname']=="Administrator")
             {
                 
                 //$this->load->view('_Layout');
@@ -92,13 +92,13 @@ class Product extends CI_Controller {
             //$this->load->view('header/librerias');
             //$this->load->view('header/header');
 
-            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            if($session_data['primer_inicio']==1)
             {
                 $this->load->view('header/menu_sin',$data);
                 $this->load->view('change_pass_ini_view',$dato); 
                 $this->load->view('footer');   
             }
-            else if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            else if($session_data['realname']=="Administrator")
             {
                 $datos['productos'] = $this->product_model->get_productos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
                 // por el momento se cargaran todos los proyectos
@@ -120,10 +120,6 @@ class Product extends CI_Controller {
         } else {
             redirect('login', 'refresh');
         }
-      $datos['productos'] = $this->product_model->get_productos();// hay que cambiar esto por la parte de los usuarios para cuales proyectos pertenecen a cada quien
-      // por el momento se cargaran todos los proyectos
-      $this->load->view('_Layout');                     
-      $this->load->view('lista_productos',$datos);
       // $this->load->view('footerlayout');
 
     }
