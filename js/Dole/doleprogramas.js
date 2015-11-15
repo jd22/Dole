@@ -86,126 +86,126 @@ var n = 0;
 var m = 0;
 
 
-function agregarCedulafuncion(nproyecto){
-    var numero_proyecto = nproyecto;
-    var tipo = tipoCedulaGlobal;
-    var finca = document.getElementById("idfinca");
-    var fincaid = finca.options[finca.selectedIndex].value;
-    var descripcionindex = document.getElementById("iddescripcion");
-    var idmodoaplicacionindex = document.getElementById("idmodoaplicacion");
-    var idmetodoaplicacionindex = document.getElementById("idmetodoaplicacion");
+// function agregarCedulafuncion(nproyecto){
+//     var numero_proyecto = nproyecto;
+//     var tipo = tipoCedulaGlobal;
+//     var finca = document.getElementById("idfinca");
+//     var fincaid = finca.options[finca.selectedIndex].value;
+//     var descripcionindex = document.getElementById("iddescripcion");
+//     var idmodoaplicacionindex = document.getElementById("idmodoaplicacion");
+//     var idmetodoaplicacionindex = document.getElementById("idmetodoaplicacion");
 
-    var id_tratamiento = idGenerakTratamiento;
-    //var numero_proyecto = document.getElementById("nnumero").value;
+//     var id_tratamiento = idGenerakTratamiento;
+//     //var numero_proyecto = document.getElementById("nnumero").value;
 
-    var id_finca = fincaid;
-    var descripcion_aplicacion = descripcionindex.options[descripcionindex.selectedIndex].text;
+//     var id_finca = fincaid;
+//     var descripcion_aplicacion = descripcionindex.options[descripcionindex.selectedIndex].text;
 
-    var semana_aplicacion = document.getElementById("idsemanaaplicacion").value;
-    if(semana_aplicacion==''){document.getElementById("idsemanaaplicacion").style.border = "thin dotted red";return;}else{document.getElementById("idsemanaaplicacion").style.border="";}
+//     var semana_aplicacion = document.getElementById("idsemanaaplicacion").value;
+//     if(semana_aplicacion==''){document.getElementById("idsemanaaplicacion").style.border = "thin dotted red";return;}else{document.getElementById("idsemanaaplicacion").style.border="";}
     
-    var fecha_programada = document.getElementById("idfechaprogramada").value;
-    if(fecha_programada==''){document.getElementById("idfechaprogramada").style.border = "thin dotted red";return;}else{document.getElementById("idfechaprogramada").style.border="";}
+//     var fecha_programada = document.getElementById("idfechaprogramada").value;
+//     if(fecha_programada==''){document.getElementById("idfechaprogramada").style.border = "thin dotted red";return;}else{document.getElementById("idfechaprogramada").style.border="";}
     
-    var litros = document.getElementById("idlitros").value;
-    if(litros==''){document.getElementById("idlitros").style.border = "thin dotted red";return;}else{document.getElementById("idlitros").style.border="";}
+//     var litros = document.getElementById("idlitros").value;
+//     if(litros==''){document.getElementById("idlitros").style.border = "thin dotted red";return;}else{document.getElementById("idlitros").style.border="";}
     
-    var presion = document.getElementById("idpresion").value;
-    if(presion==''){document.getElementById("idpresion").style.border = "thin dotted red";return;}else{document.getElementById("idpresion").style.border="";}
+//     var presion = document.getElementById("idpresion").value;
+//     if(presion==''){document.getElementById("idpresion").style.border = "thin dotted red";return;}else{document.getElementById("idpresion").style.border="";}
     
-    var velocidad = document.getElementById("idvelocidad").value;
-    if(velocidad==''){document.getElementById("idvelocidad").style.border = "thin dotted red";return;}else{document.getElementById("idvelocidad").style.border="";}
+//     var velocidad = document.getElementById("idvelocidad").value;
+//     if(velocidad==''){document.getElementById("idvelocidad").style.border = "thin dotted red";return;}else{document.getElementById("idvelocidad").style.border="";}
     
-    var rpm = document.getElementById("idr_p_m").value;
-    if(rpm==''){document.getElementById("idr_p_m").style.border = "thin dotted red";return;}else{document.getElementById("idr_p_m").style.border="";}
+//     var rpm = document.getElementById("idr_p_m").value;
+//     if(rpm==''){document.getElementById("idr_p_m").style.border = "thin dotted red";return;}else{document.getElementById("idr_p_m").style.border="";}
     
-    var marcha = document.getElementById("idmarcha").value;
-    if(marcha==''){document.getElementById("idmarcha").style.border = "thin dotted red";return;}else{document.getElementById("idmarcha").style.border="";}
+//     var marcha = document.getElementById("idmarcha").value;
+//     if(marcha==''){document.getElementById("idmarcha").style.border = "thin dotted red";return;}else{document.getElementById("idmarcha").style.border="";}
     
-    var tipo_boquilla = document.getElementById("idboquilla").value;
-    if(tipo_boquilla==''){document.getElementById("idboquilla").style.border = "thin dotted red";return;}else{document.getElementById("idboquilla").style.border="";}
+//     var tipo_boquilla = document.getElementById("idboquilla").value;
+//     if(tipo_boquilla==''){document.getElementById("idboquilla").style.border = "thin dotted red";return;}else{document.getElementById("idboquilla").style.border="";}
     
-    var cultivo = document.getElementById("idcultivonombrecientifico").value;
-    if(cultivo==''){document.getElementById("idcultivonombrecientifico").style.border = "thin dotted red";return;}else{document.getElementById("idcultivonombrecientifico").style.border="";}
+//     var cultivo = document.getElementById("idcultivonombrecientifico").value;
+//     if(cultivo==''){document.getElementById("idcultivonombrecientifico").style.border = "thin dotted red";return;}else{document.getElementById("idcultivonombrecientifico").style.border="";}
     
-    var variedad = document.getElementById("idvariedadcultivo").value;
-    if(variedad==''){document.getElementById("idvariedadcultivo").style.border = "thin dotted red";return;}else{document.getElementById("idvariedadcultivo").style.border="";}
+//     var variedad = document.getElementById("idvariedadcultivo").value;
+//     if(variedad==''){document.getElementById("idvariedadcultivo").style.border = "thin dotted red";return;}else{document.getElementById("idvariedadcultivo").style.border="";}
     
-    var lote = document.getElementById("idlote").value;
-    if(lote==''){document.getElementById("idlote").style.border = "thin dotted red";return;}else{document.getElementById("idlote").style.border="";}
+//     var lote = document.getElementById("idlote").value;
+//     if(lote==''){document.getElementById("idlote").style.border = "thin dotted red";return;}else{document.getElementById("idlote").style.border="";}
     
-    var bloque = document.getElementById("idbloque").value;
-    if(bloque==''){document.getElementById("idbloque").style.border = "thin dotted red";return;}else{document.getElementById("idbloque").style.border="";}
+//     var bloque = document.getElementById("idbloque").value;
+//     if(bloque==''){document.getElementById("idbloque").style.border = "thin dotted red";return;}else{document.getElementById("idbloque").style.border="";}
     
-    var estadio = document.getElementById("idestadio").value;
-    if(estadio==''){document.getElementById("idestadio").style.border = "thin dotted red";return;}else{document.getElementById("idestadio").style.border="";}
+//     var estadio = document.getElementById("idestadio").value;
+//     if(estadio==''){document.getElementById("idestadio").style.border = "thin dotted red";return;}else{document.getElementById("idestadio").style.border="";}
     
-    var semana_siembra = document.getElementById("idsemanasiembra").value;
-    if(semana_siembra==''){document.getElementById("idsemanasiembra").style.border = "thin dotted red";return;}else{document.getElementById("idsemanasiembra").style.border="";}
+//     var semana_siembra = document.getElementById("idsemanasiembra").value;
+//     if(semana_siembra==''){document.getElementById("idsemanasiembra").style.border = "thin dotted red";return;}else{document.getElementById("idsemanasiembra").style.border="";}
     
-    var area_bloque = document.getElementById("idareabloque").value;
-    if(area_bloque==''){document.getElementById("idareabloque").style.border = "thin dotted red";return;}else{document.getElementById("idareabloque").style.border="";}
+//     var area_bloque = document.getElementById("idareabloque").value;
+//     if(area_bloque==''){document.getElementById("idareabloque").style.border = "thin dotted red";return;}else{document.getElementById("idareabloque").style.border="";}
     
-    var area_proyecto = document.getElementById("idareaproyecto").value;
-    if(area_proyecto==''){document.getElementById("idareaproyecto").style.border = "thin dotted red";return;}else{document.getElementById("idareaproyecto").style.border="";}
+//     var area_proyecto = document.getElementById("idareaproyecto").value;
+//     if(area_proyecto==''){document.getElementById("idareaproyecto").style.border = "thin dotted red";return;}else{document.getElementById("idareaproyecto").style.border="";}
     
-    var cantidad_camas = document.getElementById("idnumerocamas").value;
-    if(cantidad_camas==''){document.getElementById("idnumerocamas").style.border = "thin dotted red";return;}else{document.getElementById("idnumerocamas").style.border="";}
+//     var cantidad_camas = document.getElementById("idnumerocamas").value;
+//     if(cantidad_camas==''){document.getElementById("idnumerocamas").style.border = "thin dotted red";return;}else{document.getElementById("idnumerocamas").style.border="";}
     
-    var ancho_camas = document.getElementById("idanchocamas").value;
-    if(ancho_camas==''){document.getElementById("idanchocamas").style.border = "thin dotted red";return;}else{document.getElementById("idanchocamas").style.border="";}
+//     var ancho_camas = document.getElementById("idanchocamas").value;
+//     if(ancho_camas==''){document.getElementById("idanchocamas").style.border = "thin dotted red";return;}else{document.getElementById("idanchocamas").style.border="";}
     
-    var longitud_parcelas = document.getElementById("idlongitudparcelas").value;
-    if(longitud_parcelas==''){document.getElementById("idlongitudparcelas").style.border = "thin dotted red";return;}else{document.getElementById("idlongitudparcelas").style.border="";}
+//     var longitud_parcelas = document.getElementById("idlongitudparcelas").value;
+//     if(longitud_parcelas==''){document.getElementById("idlongitudparcelas").style.border = "thin dotted red";return;}else{document.getElementById("idlongitudparcelas").style.border="";}
     
-    var cantidad_parcelas = document.getElementById("idnumeroparcelas").value;
-    if(cantidad_parcelas==''){document.getElementById("idnumeroparcelas").style.border = "thin dotted red";return;}else{document.getElementById("idnumeroparcelas").style.border="";}
+//     var cantidad_parcelas = document.getElementById("idnumeroparcelas").value;
+//     if(cantidad_parcelas==''){document.getElementById("idnumeroparcelas").style.border = "thin dotted red";return;}else{document.getElementById("idnumeroparcelas").style.border="";}
     
-    var cantidad_replicas = document.getElementById("idnumeroreplicas").value;
-    if(cantidad_replicas==''){document.getElementById("idnumeroreplicas").style.border = "thin dotted red";return;}else{document.getElementById("idnumeroreplicas").style.border="";}
+//     var cantidad_replicas = document.getElementById("idnumeroreplicas").value;
+//     if(cantidad_replicas==''){document.getElementById("idnumeroreplicas").style.border = "thin dotted red";return;}else{document.getElementById("idnumeroreplicas").style.border="";}
     
-    var volumen_aplicacion = document.getElementById("idvolumenaplicacion").value;
-    if(volumen_aplicacion==''){document.getElementById("idvolumenaplicacion").style.border = "thin dotted red";return;}else{document.getElementById("idvolumenaplicacion").style.border="";}
+//     var volumen_aplicacion = document.getElementById("idvolumenaplicacion").value;
+//     if(volumen_aplicacion==''){document.getElementById("idvolumenaplicacion").style.border = "thin dotted red";return;}else{document.getElementById("idvolumenaplicacion").style.border="";}
     
-    var modo_aplicacion = idmodoaplicacionindex.options[idmodoaplicacionindex.selectedIndex].text;
-    var metodo_aplicacion = idmetodoaplicacionindex.options[idmetodoaplicacionindex.selectedIndex].text;
+//     var modo_aplicacion = idmodoaplicacionindex.options[idmodoaplicacionindex.selectedIndex].text;
+//     var metodo_aplicacion = idmetodoaplicacionindex.options[idmetodoaplicacionindex.selectedIndex].text;
     
-    // se hace un ciclo para crear todas las cedulas
+//     // se hace un ciclo para crear todas las cedulas
 
-    var lista_pca = intervalo1.split(",");
-    for (var i = lista_pca.length - 1; i >= 0; i--) {
-        alert(lista_pca[i]);
-    };
+//     var lista_pca = intervalo1.split(",");
+//     for (var i = lista_pca.length - 1; i >= 0; i--) {
+//         alert(lista_pca[i]);
+//     };
 
-    // Usar ajax para mandar datos a la base de datos
-    $.ajax({
-        url: BASE_URL+'Cedula/Agregar_cedula',
-        async: false,
-        type: "POST",
-        data: {_id_tratamiento:id_tratamiento,_numero_proyecto:numero_proyecto,_id_finca:id_finca,_descripcion_aplicacion:descripcion_aplicacion,
-                         _semana_aplicacion:semana_aplicacion,_fecha_programada:fecha_programada,_litros:litros,
-                         _presion:presion,_velocidad:velocidad,_rpm:rpm,_marcha:marcha,_tipo_boquilla:tipo_boquilla,_cultivo:cultivo,
-                         _variedad:variedad,_lote:lote,_bloque:bloque,_estadio:estadio,_semana_siembra:semana_siembra,_area_bloque:area_bloque,
-                         _area_proyecto:area_proyecto,_cantidad_camas:cantidad_camas,_ancho_camas:ancho_camas,
-                         _longitud_parcelas:longitud_parcelas,_cantidad_parcelas:cantidad_parcelas,_cantidad_replicas:cantidad_replicas,
-                         _volumen_aplicacion:volumen_aplicacion,_modo_aplicacion:modo_aplicacion,_metodo_aplicacion:metodo_aplicacion,_tipo:tipo},
-        dataType: 'json',
-        success: function (msg) { // success callback
-            //alert(JSON.stringify(msg));
-            alert("Nueva Cedula Agregada al Tratamiento");
-            $('#calculos').modal('hide');
-            $('#NuevaCedula').modal('hide');
-            //CargarTratamientos();
-            //listaInformacionTratamientos = [];
-            actualizarDosis(semana_aplicacion);
+//     // Usar ajax para mandar datos a la base de datos
+//     $.ajax({
+//         url: BASE_URL+'Cedula/Agregar_cedula',
+//         async: false,
+//         type: "POST",
+//         data: {_id_tratamiento:id_tratamiento,_numero_proyecto:numero_proyecto,_id_finca:id_finca,_descripcion_aplicacion:descripcion_aplicacion,
+//                          _semana_aplicacion:semana_aplicacion,_fecha_programada:fecha_programada,_litros:litros,
+//                          _presion:presion,_velocidad:velocidad,_rpm:rpm,_marcha:marcha,_tipo_boquilla:tipo_boquilla,_cultivo:cultivo,
+//                          _variedad:variedad,_lote:lote,_bloque:bloque,_estadio:estadio,_semana_siembra:semana_siembra,_area_bloque:area_bloque,
+//                          _area_proyecto:area_proyecto,_cantidad_camas:cantidad_camas,_ancho_camas:ancho_camas,
+//                          _longitud_parcelas:longitud_parcelas,_cantidad_parcelas:cantidad_parcelas,_cantidad_replicas:cantidad_replicas,
+//                          _volumen_aplicacion:volumen_aplicacion,_modo_aplicacion:modo_aplicacion,_metodo_aplicacion:metodo_aplicacion,_tipo:tipo},
+//         dataType: 'json',
+//         success: function (msg) { // success callback
+//             //alert(JSON.stringify(msg));
+//             alert("Nueva Cedula Agregada al Tratamiento");
+//             $('#calculos').modal('hide');
+//             $('#NuevaCedula').modal('hide');
+//             //CargarTratamientos();
+//             //listaInformacionTratamientos = [];
+//             actualizarDosis(semana_aplicacion);
             
-        },
-        error: function (msg) {
-             alert(JSON.stringify(msg));
-        }
-    });
+//         },
+//         error: function (msg) {
+//              alert(JSON.stringify(msg));
+//         }
+//     });
 
-}
+// }
 
 
 var idGenerakTratamiento="";
@@ -773,7 +773,7 @@ var idtratamientoapredeterminar = "";
 
 function CargarProductosDelTratamientoSinId(idTratamientogeneral,tipo) {
     //$('#idpredeterminadoNuevo').prop('checked', false);
-    idTratamientogeneral=idGenerakTratamiento;
+    //idTratamientogeneral=idGenerakTratamiento;
     tipoCedulaGlobal = tipo;
     var TableProductos = document.getElementById("idtablanuevosproductos");
     var filas = TableProductos.rows.length;
