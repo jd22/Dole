@@ -63,24 +63,116 @@
 <script src="<?=base_url()?>js/lib/tabdrop/bootstrap-tabdrop.js" type="text/javascript"></script>
 <script src="<?=base_url()?>js/lib/jquery/jquery-ui.custom.min.js" type="text/javascript"></script>
 <script src="<?=base_url()?>js/lib/fullcalendar/fullcalendar.js" type="text/javascript"></script>
-<script src="<?=base_url()?>js/pages/ui_calendar.js" type="text/javascript"></script>
-<script src="<?=base_url()?>js/pages/lang-all.js" type="text/javascript"></script>
+
 
 <!-- Theme script -->
 <script src="<?=base_url()?>js/scripts.js" type="text/javascript"></script>
-<script src="<?=base_url()?>js/Dole/dole.js" type="text/javascript"></script>
+<script src="<?=base_url()?>js/randomColor.js" type="text/javascript"></script>
 
  <script>
 $(document).ready(function () {
-    var date = new Date();
-    var d = date.getDate(),
-        m = date.getMonth(),
-        y = date.getFullYear();
-$('#calendar').fullCalendar('renderEvent', {
-       title: 'All Day Event',
-        start: new Date(y, m, 1),
-        backgroundColor: "#f56954", //red 
-        borderColor: "#f56954" //red
-    }, true);
+    
 });
+var BASE_URL = location.protocol + "//" + location.hostname + '/Dole/';
+Date.prototype.addDays = function(days) {
+    this.setDate(this.getDate() + parseInt(days));
+    return this;
+};
+var eventos = [];
+function cargarFechas(){
+    $.ajax({ // ajax para consultar las cedulas del tratamiento seleccionado
+        url: BASE_URL+'Calendar/obtenerCedulas/', // se manda solo con el id no ocupa mas datos
+        async: false,
+        type: "POST",
+        dataType: 'json',
+        success: function(listacedulas) {
+             for (var i = 0; listacedulas.length - 1 >= i; i++) {
+                var data=listacedulas[i];
+                var color = randomColor({luminosity: 'dark', count: 27});
+                for (var j= 0; data.length - 1 >= j; j++) {
+                    var fecha = new Date(data[j][4]);
+                    fecha.addDays(1); // evaluar por que hay q agregar uno  a la fuerza no agarra bien la fecha de la bd
+                    var evento = {
+                                "id": data[j][1],
+                                "title": " Semana de Aplicación: " + data[j][3],
+                                "description": "Proyecto: "+ data[j][1]+ ", Cedula tipo: " + data[j][5] + ", Descripcion de Aplicación: " + data[j][2],
+                                "start": fecha,
+                                "backgroundColor": color[1], //Primary (light-blue)
+                                "borderColor":  color[1]//Primary (light-blue)
+                             };
+                    eventos.push(evento);
+                 
+                }  
+            };           
+        },
+        error: function(data) {
+            alert(JSON.stringify(data));
+        }
+    });   
+}
+cargarFechas();
+
+$('#calendar').fullCalendar({
+     header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+    buttonText: {//This is to add icons to the visible buttons
+        prev: "<span class='fa fa-caret-left'></span>",
+        next: "<span class='fa fa-caret-right'></span>",
+        today: 'today',
+        month: 'month',
+        week: 'week',
+        day: 'day'
+    },
+    events: eventos,
+    eventRender: function (event, element) {
+        $(element).find(".fc-event-time").remove();
+        $(element).popover({
+            title: '<div class="text-info" style="text-align:center"><strong>' + event.title + '</strong></div>',
+            placement: 'auto',
+            html: true,
+            trigger: 'hover',
+            animation: 'true',
+            content: '<div class="text-info">Descripción de la cedula: </div>' + '<div>' + event.description + '</div>' +
+                      '<div class="text-info">Fecha Programada: </div>' + event.start.getFullYear()+'-'+event.start.getMonth()+'-'+event.start.getDate() + '<div> </div>' +
+                      '</div>',
+            container: 'body'
+        });
+        $('.popover.in').remove();
+    },
+    editable: true,
+        droppable: true, // this allows things to be dropped onto the calendar !!!
+        drop: function(date, allDay) { // this function is called when something is dropped
+
+            // retrieve the dropped element's stored Event Object
+            var originalEventObject = $(this).data('eventObject');
+
+            // we need to copy it, so that multiple events don't have a reference to the same object
+            var copiedEventObject = $.extend({}, originalEventObject);
+
+            // assign it the date that was reported
+            copiedEventObject.start = date;
+            copiedEventObject.allDay = allDay;
+            copiedEventObject.backgroundColor = $(this).css("background-color");
+            copiedEventObject.borderColor = $(this).css("border-color");
+
+            // render the event on the calendar
+            // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+            // is the "remove after drop" checkbox checked?
+            if ($('#drop-remove').is(':checked')) {
+                // if so, remove the element from the "Draggable Events" list
+                $(this).remove();
+            }
+
+        },
+        eventClick: function (calEvent, jsEvent, view) {
+            
+            document.location.href=BASE_URL+'Proyecto/index/'+calEvent.id;
+        },
+});
+
 </script>

@@ -8,6 +8,13 @@ class cedula_model extends CI_Model
           $this->load->database();
      }
 
+     function obtenerCedulas(){
+          $this->db->select('*');
+          $this->db->from('cedula_aplicacion');
+          $query = $this->db->get();
+          return $query->result(); 
+     }
+
      function obtener_cedulas($id_tratamiento){
           $this->db->select('*');
           $this->db->from('cedula_aplicacion');
@@ -15,6 +22,7 @@ class cedula_model extends CI_Model
           $query = $this->db->get();
           return $query->result(); 
      }
+
      function obtenertodas_cedulasytipo($id_tratamiento,$tipo){
           $this->db->select('*');
           $this->db->from('cedula_aplicacion');
