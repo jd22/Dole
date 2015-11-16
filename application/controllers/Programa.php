@@ -57,7 +57,7 @@ function crearPrograma(){
     $lista_dosis = $value['dosis'];
     $cedula = $value['cedula'];   
     
-
+    $datos3[] = $cedula['_fecha_programada'];
     $idcedulaactual = $this->cedula_model->insertar_cedula($cedula['_id_tratamiento'],$cedula['_numero_proyecto'],$cedula['_id_finca'],$cedula['_descripcion_aplicacion'],
                              $cedula['_semana_aplicacion'],$cedula['_fecha_programada'],$cedula['_litros'],$cedula['_presion'],$cedula['_velocidad'],$cedula['_rpm'],
                              $cedula['_marcha'],$cedula['_tipo_boquilla'],$cedula['_cultivo'],$cedula['_variedad'],$cedula['_lote'],$cedula['_bloque'],$cedula['_estadio'],

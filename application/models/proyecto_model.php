@@ -47,7 +47,19 @@ class Proyecto_model extends CI_Model
           return $query->result(); 
      }
 
-    
+
+     function getunico_proyecto($id)
+     {
+          $this->db->select('*');
+          $this->db->from('proyecto');
+          $this->db->where('id_proyecto',$id);
+          $this->db->limit(1);
+          $query = $this->db->get();
+          foreach ($query->result() as $row) 
+          {
+               return $row->numero_proyecto;
+          } 
+     }
 
 
      function get_proyectos()// obtiene todos los proyectos de la base de datos

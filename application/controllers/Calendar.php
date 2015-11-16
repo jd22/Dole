@@ -9,6 +9,9 @@ class Calendar extends CI_Controller {
        $this->load->model('aplication_model','',TRUE);
        $this->load->model('product_model','',TRUE);
        $this->load->model('tratament_model','',TRUE);
+       $this->load->model('Proyecto_model','',TRUE);
+       $this->load->model('cedula_model','',TRUE);
+       $this->load->model('Tratamiento_model','',TRUE);
     }
 
   function index()
@@ -24,13 +27,13 @@ class Calendar extends CI_Controller {
             //$this->load->view('header/librerias');
             //$this->load->view('header/header');
 
-            if($session_data['primer_inicio']==1 or $session_data['dias']>=30)
+            if($session_data['primer_inicio']==1)
             {
                 $this->load->view('header/menu_sin',$data);
                 $this->load->view('change_pass_ini_view',$dato); 
                 $this->load->view('footer');   
             }
-            if($session_data['realname']=="Administrator" and $session_data['dias']<30)
+            if($session_data['realname']=="Administrator")
             {
                 
                 $this->load->view('_Layout');
@@ -51,20 +54,30 @@ class Calendar extends CI_Controller {
             //$this->load->view('calendario');
   }
 
-
-    function addEvents()
-    {
-        if($this->input->is_ajax_request())
-        {
-            $events = $this->aplication_model->get_eventos();
-            echo json_encode(
-                array(
-                    "success" => 1,
-                    "result" => $events
-                )
-            );
+function obtenerCedulas(){ // por cada tratamiento para ver por colores el calendario
+    
+    $datos=array();
+    $tratamientos =$this->Tratamiento_model->get_tratamientos();
+    foreach ($tratamientos->result() as $tra) {
+        $cedulas =array();
+        $cedulasdetratamiento = $this->cedula_model->obtener_cedulas($tra->id_tratamiento);   
+        foreach ($cedulasdetratamiento as $ced) {
+            $datos3=array();
+            $datos3[] = $ced->id_tratamiento;
+            $datos3[] = $this->Proyecto_model->getunico_proyecto($ced->numero_proyecto); // en realidad es el id del proyecto 
+            $datos3[] = $ced->descripcion_aplicacion;
+            $datos3[] = $ced->semana_aplicacion;
+            $datos3[] = $ced->fecha_programada;
+            $datos3[] = $ced->tipoCedula;
+            $datos3[] = $ced->id_cedulaAplicacion;
+            $cedulas[] = $datos3;
         }
-    } 
+        $datos[]=$cedulas;
+    }
+    echo json_encode($datos,JSON_UNESCAPED_UNICODE);
+}
+
+
 }
 
 ?>

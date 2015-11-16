@@ -17,7 +17,8 @@ $(document).ready(function () {
                         "bRetrieve": true,
                         "aoColumns" : [
                             { "sClass": "center" },
-                            { "sClass": "left"  },
+                            { "sClass": "center"  },
+                            { "sClass": "center"  },
                             { "sClass": "center"  },
                         ] 
                     });
@@ -33,8 +34,9 @@ $(document).ready(function () {
                 for (var i = 0; msg.length-1 >= i; i++) {
                     tablaTratamientos.fnAddData([
                         '<a style="font-size:12px;color:#282892;" href="#"" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listanuevosProductos"  data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">'+'Tratamiento '+(i+1)+'</a>',
-                        '<a style="font-size:12px;" href="#" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+','+(i+1)+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
-                        '<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
+                        '<a style="font-size:12px;" href="#" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+','+(i+1)+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>',
+                        //'<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
+                        '<a style="color:green;font-size:12px;" href="#" onclick="mostrarImagen('+(msg[i][0])+')" data-toggle="modal" data-target="#agregaImagen"  data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">Agregar Mapa</a>',
                         '<a style="color:red;font-size:12px;" href="#" onclick="eliminarTodoTratamiento('+(msg[i][0])+')">Eliminar</a>',
                     ]);
                     // $('#Trataments tr:last').after('<tr class="default">'+
@@ -65,10 +67,23 @@ $('#idfechaprogramada').daterangepicker({
     startDate: fechaInicial
 });
 
+function mostrarImagen(idTrata){
+    document.getElementById("idTrata").value  = idTrata;    
+}
+
+function guardaImagen() {
+    alert(document.getElementById("idTrata"));
+    alert(document.getElementById("filena"));
+}
+
+
+
+
 $('#idfechaprogramada').change(function () {
   //do something, like clearing an input
   alert();
 });
+
 function eliminarTodoTratamiento(idtratamiento){
     $.ajax({
         url: BASE_URL+'Tratamiento/eliminar_todoeltratamiento/'+idtratamiento,
@@ -218,6 +233,7 @@ $('#agregarCedula').click(function () {
 });
 
 
+
 $('#crearTratamiento').click(function () {
     var predeterminado = 0;//Quiere deceir que el tratamiento no es predeterminado
     if ($('#idpredeterminado').is(":checked"))
@@ -229,6 +245,7 @@ $('#crearTratamiento').click(function () {
                         "aoColumns" : [
                             {  },
                             {  },
+                            { "sClass": "center" },
                             { "sClass": "center" },
                         ] 
                     });
@@ -281,6 +298,7 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
                             {  "sClass": "center" },
                             { "sClass": "center"  },
                             { "sClass": "center"  },
+                            { "sClass": "center"  },
                         ] 
                     });
     tablaTratamientos.fnClearTable();
@@ -296,8 +314,9 @@ function CargarTratamientos() { // Esto es para la parte visual de la tabla prin
             for (var i = 0; msg.length-1 >= i; i++) {
                 tablaTratamientos.fnAddData([
                         '<a style="font-size:12px;color:#282892;" href="#" onclick="CargarProductosDelTratamiento('+(msg[i][0])+')" data-toggle="modal" data-target="#listanuevosProductos"  data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">'+'Tratamiento '+(i+1)+'</a>',
-                        '<a style="font-size:12px;" href="#" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+','+(i+1)+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>'+
-                        '<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
+                        '<a style="font-size:12px;" href="#" onclick="CargarCedulasDelTratamiento('+(msg[i][0])+','+(i+1)+')" data-toggle="modal" data-target="#listaCedulas  "data-toggle="tooltip" data-placement="bottom" title="Click para ver la lista de cedulas">'+(msg[i][1])+' Cedulas de Aplicacion</a>',
+                        //'<a style="font-size:12px; float:right; color:#1A8C1A" href="#" onclick="CargarIdTratamiento('+(msg[i][0])+','+i+')" data-toggle="modal">Agregar Cedula</a>',
+                        '<a style="color:green;font-size:12px;" href="#" onclick="mostrarImagen('+(msg[i][0])+')" data-toggle="modal" data-target="#agregaImagen"  data-toggle="tooltip" data-placement="bottom" title="Click para ver Detalles">Agregar Mapa</a>',
                         '<a style="color:red;font-size:12px;" href="#" onclick="eliminarTodoTratamiento('+(msg[i][0])+')">Eliminar</a>',
                     ]);
             };
@@ -729,50 +748,54 @@ $('#agregarProducto').click(function () {
     document.getElementById("idnombrecientifico").value = "";
     document.getElementById("idsecado").value = "";
     document.getElementById("idcosecha").value = "";
-
-    numerico = numerico+1;
-    var infotratamiento = {// Contiene la estructura de la tabla de la la base de datos para mejor y mas facil manejo
-          'numerico':numerico,
-          'id_tratamiento': '',
-          'id_producto': productoid,
-          'dosis': dosis,
-          'plaga_nombre_comun':ncomun,
-          'plaga_nombre_cientifico':ncientifico,
-          'secado':secado,
-          'cosecha':cosecha,
-          'tipoCedula':'GENERAL'
-          };
-    listaInformacionTratamientos.push(infotratamiento);
-   
-    
-    $.ajax({ // ajax para consultar algunos datos del producto seleccionado
-        url: BASE_URL+'Product/product/'+productoid, // se manda solo con el id no ocupa mas datos
-        async: false,
-        type: "POST",
-        dataType: 'json',
-        success: function(data) {
-            if (data!=false) 
-            {
-                activo = data[0][0];
-                unidad = data[0][1];
-                $('#idproductos tr:last').after('<tr class="default" id="'+numerico+'">'+
-                                    '<th style="font-weight: normal;">'+productoselect+'</th>'+
-                                    '<th style="font-weight: normal;">'+activo+'</th>'+
-                                    // '<th style="font-weight: normal;">'+dosis+'</th>'+
-                                    '<th style="font-weight: normal;">'+unidad+'</th>'+
-                                    '<th style="font-weight: normal;">'+secado+'</th>'+
-                                    '<th style="font-weight: normal;">'+cosecha+'</th>'+
-                                    '<th style="font-weight: normal;">'
-                                    +'<a href="#" data-toggle="modal"  onclick="eliminarProductoTemporal('+numerico+')">Eliminar</a>'
-                                    +'</th>'+
-                                '</tr>');
+    if(secado!="" && cosecha!=""){
+        numerico = numerico+1;
+        var infotratamiento = {// Contiene la estructura de la tabla de la la base de datos para mejor y mas facil manejo
+              'numerico':numerico,
+              'id_tratamiento': '',
+              'id_producto': productoid,
+              'dosis': dosis,
+              'plaga_nombre_comun':ncomun,
+              'plaga_nombre_cientifico':ncientifico,
+              'secado':secado,
+              'cosecha':cosecha,
+              'tipoCedula':'GENERAL'
+              };
+        listaInformacionTratamientos.push(infotratamiento);
+       
+        
+        $.ajax({ // ajax para consultar algunos datos del producto seleccionado
+            url: BASE_URL+'Product/product/'+productoid, // se manda solo con el id no ocupa mas datos
+            async: false,
+            type: "POST",
+            dataType: 'json',
+            success: function(data) {
+                if (data!=false) 
+                {
+                    activo = data[0][0];
+                    unidad = data[0][1];
+                    $('#idproductos tr:last').after('<tr class="default" id="'+numerico+'">'+
+                                        '<th style="font-weight: normal;">'+productoselect+'</th>'+
+                                        '<th style="font-weight: normal;">'+activo+'</th>'+
+                                        // '<th style="font-weight: normal;">'+dosis+'</th>'+
+                                        '<th style="font-weight: normal;">'+unidad+'</th>'+
+                                        '<th style="font-weight: normal;">'+secado+'</th>'+
+                                        '<th style="font-weight: normal;">'+cosecha+'</th>'+
+                                        '<th style="font-weight: normal;">'
+                                        +'<a href="#" data-toggle="modal"  onclick="eliminarProductoTemporal('+numerico+')">Eliminar</a>'
+                                        +'</th>'+
+                                    '</tr>');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Error');
             }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert('Error');
-        }
-    });
-    fila++;
+        });
+        fila++;
+    }
+    else{
+        alert('CAmpos obligatorios están vacíos');
+    }
 });
 
 $('#modalAgregarProducto').click(function () { // limpiar la tabla de productos al crear el modal
@@ -845,21 +868,40 @@ $('#editarProducto').click(function () {
     var edsecado = document.getElementById("editidsecado").value;
     var edcosecha = document.getElementById("editidcosecha").value;
 
-    var _url = BASE_URL+'Tratamiento/editar_producto_informaciontratamiento/'+idinformaciontratamientoGeneralAeditar;
-    $.ajax({
-        url: _url,
-        async: false,
-        type: "POST",
-        data: {_productoid:productoid,_eddosis:eddosis,_edncomun:edncomun,_edncientifico:edncientifico,_edsecado:edsecado,_edcosecha:edcosecha},
-        dataType: 'json',
-        success: function (msg) { // success callback
-            CargarProductosDelTratamiento(msg[0]);
-        },
-        error: function (msg) {
-            alert("Error al editar el producto");
+    if(edsecado!="" && edcosecha !="" && edsecado>0 && edcosecha>0 && !isNaN(edsecado) && !isNaN(edcosecha)){
+        var _url = BASE_URL+'Tratamiento/editar_producto_informaciontratamiento/'+idinformaciontratamientoGeneralAeditar;
+        $.ajax({
+            url: _url,
+            async: false,
+            type: "POST",
+            data: {_productoid:productoid,_eddosis:eddosis,_edncomun:edncomun,_edncientifico:edncientifico,_edsecado:edsecado,_edcosecha:edcosecha},
+            dataType: 'json',
+            success: function (msg) { // success callback
+                CargarProductosDelTratamiento(msg[0]);
+            },
+            error: function (msg) {
+                alert("Error al editar el producto");
+            }
+        });
+    }
+    else{
+        if(edsecado<0){
+            alert("Secado no puede ser negativo");
         }
-    });
-
+        else if(edcosecha<0){
+            alert("Cosecha no puede ser negativo");
+        }
+        else if(isNaN(edsecado)){
+            alert("Secado no puede ser letras");
+        }
+        else if(isNaN(edcosecha)){
+            alert("Cosecha no puede ser letras");
+        }
+        else{
+            alert("Campos obligatorios estan vacíos");
+        }
+        
+    }
 });
 
 $('#modalAgregarProducto').click(function () { // limpiar la tabla de productos al crear el modal
@@ -875,25 +917,29 @@ $('#agregarProyecto').click(function () {
     var nnumero = document.getElementById("nnumero").value;
 
     document.getElementById("numProyecto").innerHTML="Proyecto Nº: "+nnumero;
-    
-    var _url = BASE_URL+'Proyecto/CrearProyecto';
-    $.ajax({
-        url: _url,
-        async: false,
-        type: "POST",
-        data: {_numero: nnumero,_fecha_creacion:fechaInicial},
-        dataType: 'json',
-        success: function (msg) { // success callback
-            //alert("Proyecto agregado");
-            document.getElementById("nnumero").disabled = "true";
-            document.getElementById("infoTratamientos").style.display = "initial";
-            document.getElementById("agregarProyecto").style.display = "none";
-            CargarTratamientos();
-        },
-        error: function () {
-            alert("El proyecto a agregar ya EXISTE!");
-        }
-    });
+    if(nnumero != ''){
+        var _url = BASE_URL+'Proyecto/CrearProyecto';
+        $.ajax({
+            url: _url,
+            async: false,
+            type: "POST",
+            data: {_numero: nnumero,_fecha_creacion:fechaInicial},
+            dataType: 'json',
+            success: function (msg) { // success callback
+                //alert("Proyecto agregado");
+                document.getElementById("nnumero").disabled = "true";
+                document.getElementById("infoTratamientos").style.display = "initial";
+                document.getElementById("agregarProyecto").style.display = "none";
+                CargarTratamientos();
+            },
+            error: function () {
+                alert("El proyecto a agregar ya EXISTE!");
+            }
+        });
+    }
+    else {
+        alert("Indique el número del proyecto");
+    }
 });
 
 function cargarProducto(idProducto){
@@ -991,20 +1037,25 @@ function editarP(idP,n_p){
 function actualizar_Proyecto(){
     var numero_p = document.getElementById("proyecton").value;
     var idProy = document.getElementById("idproy").value;
-    $.ajax({
-        url: BASE_URL+'Proyecto/actualizar_proyecto/'+idProy+'/'+numero_p,
-        async: false,
-        type: "POST",
-        // data: {_name: name,_active:active,_unit:unit},
-        dataType: 'json',
-        success: function (msg) { // success callback
-            alert("Proyecto Actualizado");
-            document.getElementById("proyecton").value = msg[0];
-        },
-        error: function (msg) {
-            alert("Error al actualizar el proyecto");
-        }
-    });
+    if(numero_p != "" && idProy != ""){
+        $.ajax({
+            url: BASE_URL+'Proyecto/actualizar_proyecto/'+idProy+'/'+numero_p,
+            async: false,
+            type: "POST",
+            // data: {_name: name,_active:active,_unit:unit},
+            dataType: 'json',
+            success: function (msg) { // success callback
+                alert("Proyecto Actualizado");
+                document.getElementById("proyecton").value = msg[0];
+            },
+            error: function (msg) {
+                alert("Error al actualizar el proyecto");
+            }
+        });
+    }
+    else{
+        alert("No se pueden dejar campos vacíos");
+    }
 }
 //Refrescar pagina de proyectos lista
 function actualizar_ListaP(){
@@ -1086,3 +1137,38 @@ $('#idvolumenaplicacion').change(function(){
     document.getElementById("idvolaplicacion").value = document.getElementById("idvolumenaplicacion").value;
     calcular();
 });
+
+$('#nuevoProducto').click(function () { // agregar solo productos
+    var name = document.getElementById("nameproducto").value;
+    var active = document.getElementById("activeproducto").value;
+    var unit = document.getElementById("unitproducto").value;
+    if(name != "" && active != "" && unit != ""){
+        $.ajax({
+            url: 'http://localhost/Dole/Product/insert_product',
+            async: false,
+            type: "POST",
+            data: {_name: name,_active:active,_unit:unit},
+            dataType: 'json',
+            success: function (msg) { // success callback
+                document.getElementById("nameproducto").value="";
+                document.getElementById("activeproducto").value="";
+                document.getElementById("unitproducto").value="";
+                
+            },
+            error: function () {
+                alert("Error al insertar el producto");
+            }
+        });
+    }
+    else{
+        if(name == ""){
+            alert("Nombre es obligatorio");
+        }
+        else if(active == ""){
+            alert("Activo es obligatorio");
+        }
+        else if(unit == ""){
+            alert("Unidad es obligatorio");
+        }
+    }
+}); 

@@ -12,10 +12,20 @@ Date.prototype.getWeek = function() {
     return (Math.ceil((((this - firstOfYear ) / 86400000) +
     firstOfYear .getDay() + 1) / 7)-1);
 }
-Date.prototype.addDays = function(days) {
-    this.setDate(this.getDate() + parseInt(days));
+
+Date.prototype.addMonth = function(months) {
+    this.setMonth(this.getMonth() + parseInt(months));
     return this;
 };
+Date.prototype.addDays = function(days) {
+    this.setDate(this.getDate() + parseInt(days));
+    // if(this.getDate()>30 && (this.getMonth()==3 || this.getMonth()==5 || this.getMonth()==8 || this.getMonth()==10)){
+    //     this.setDate(this.getDate() + parseInt(1));
+    // }
+    return this;
+};
+
+
 var fechaInicial = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
 
 var semanaapp = "";
@@ -28,16 +38,15 @@ $("#idsemanasiembra").daterangepicker({
     showWeekNumbers:true,
     locale: {
         firstDay: 1
-
         },
     },
     function(start, end, label) {
-        var fecha = new Date(start);        
-        fecha_semana_siembra_general=start;
+        var fecha = new Date(start);      
+        fecha_semana_siembra_general= start;
         document.getElementById("idsemanasiembra").value= fecha.getWeek() +'-'+fecha.getFullYear();
         fecha.addDays(intervaloinicial);
         document.getElementById("idsemanaaplicacion").value= fecha.getWeek() +'-'+fecha.getFullYear();
-        document.getElementById("idfechaprogramada").value=   fecha.getFullYear()+'-'+ fecha.getMonth()+'-'+fecha.getDate() ;
+        document.getElementById("idfechaprogramada").value=   fecha.getFullYear()+'-'+ (fecha.getMonth()+1) +'-'+fecha.getDate() ;
     }
 );
 
@@ -392,7 +401,7 @@ function crearPrograma(idTabla,nproyecto){
         if(lista_Programa.length != 0){
             var fecha_cambiante = new Date(fecha_semana_siembra_general); // fecha inicial de la semana siembre de la cedula actual
             fecha_cambiante.addDays(lista_pca[i]);
-            cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+fecha_cambiante.getMonth()+'-'+fecha_cambiante.getDate();
+            cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+(fecha_cambiante.getMonth()+1) +'-'+fecha_cambiante.getDate();
             cedula["_semana_aplicacion"] = fecha_cambiante.getWeek() +'-'+ fecha_cambiante.getFullYear();
         }
         var cedula_y_dosis = { // cedula con sus respectivas dosis
@@ -418,7 +427,7 @@ function crearPrograma(idTabla,nproyecto){
         if(lista_Programa.length != 0){
             var fecha_cambiante = new Date(fecha_semana_siembra_general); // fecha inicial de la semana siembre de la cedula actual
             fecha_cambiante.addDays(lista_pcb[i]);
-            cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+fecha_cambiante.getMonth()+'-'+fecha_cambiante.getDate();
+            cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+(fecha_cambiante.getMonth()+1) +'-'+fecha_cambiante.getDate();
             cedula["_semana_aplicacion"] = fecha_cambiante.getWeek() +'-'+ fecha_cambiante.getFullYear();
         }
         var cedula_y_dosis = { // cedula con sus respectivas dosis
@@ -444,7 +453,7 @@ function crearPrograma(idTabla,nproyecto){
         if(lista_Programa.length != 0){
             var fecha_cambiante = new Date(fecha_semana_siembra_general); // fecha inicial de la semana siembre de la cedula actual
             fecha_cambiante.addDays(lista_pcc[i]);
-            cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+fecha_cambiante.getMonth()+'-'+fecha_cambiante.getDate();
+            cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+(fecha_cambiante.getMonth()+1) +'-'+fecha_cambiante.getDate();
             cedula["_semana_aplicacion"] = fecha_cambiante.getWeek() +'-'+ fecha_cambiante.getFullYear();
         }
         var cedula_y_dosis = { // cedula con sus respectivas dosis
@@ -471,7 +480,7 @@ function crearPrograma(idTabla,nproyecto){
         if(lista_Programa.length != 0){
             var fecha_cambiante = new Date(fecha_semana_siembra_general); // fecha inicial de la semana siembre de la cedula actual
             fecha_cambiante.addDays(lista_pcd[i]);
-            cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+fecha_cambiante.getMonth()+'-'+fecha_cambiante.getDate();
+            cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+(fecha_cambiante.getMonth()+1) +'-'+fecha_cambiante.getDate();
             cedula["_semana_aplicacion"] = fecha_cambiante.getWeek() +'-'+ fecha_cambiante.getFullYear();
         }
         var cedula_y_dosis = { // cedula con sus respectivas dosis
@@ -479,23 +488,22 @@ function crearPrograma(idTabla,nproyecto){
             "dosis":lista_de_dosis_pcd,
         }
         lista_Programa.push(cedula_y_dosis);
-        // alert(JSON.stringify(lista_Programa));        
     };
     // Usar ajax para mandar datos a la base de datos
-    $.ajax({
-        url: BASE_URL+'Programa/crearPrograma',
-        async: false,
-        type: "POST",
-        data: {_lista_Programa:lista_Programa},
-        dataType: 'json',
-        success: function (msg) { // success callback
-            alert("programa Creado");
-            alert(msg);
+     $.ajax({
+         url: BASE_URL+'Programa/crearPrograma',
+         async: false,
+         type: "POST",
+         data: {_lista_Programa:lista_Programa},
+         dataType: 'json',
+         success: function (msg) { // success callback
+             alert("programa Creado");
+             alert(msg);
             
-        },
-        error: function (msg) {
-             alert(JSON.stringify(msg));
-        }
+         },
+         error: function (msg) {
+              alert(JSON.stringify(msg));
+         }
     });
 }
 
