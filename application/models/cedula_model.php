@@ -60,6 +60,15 @@ class cedula_model extends CI_Model
           $this->db->insert('dosis',$datos);   
      }
 
+     function obtener_dosis($id_cedula,$id_infotratamiento){ // se inserta en la tabla de dosis
+          $this->db->select('*');
+          $this->db->from('dosis');
+          $this->db->where('id_cedula',$id_cedula);
+          $this->db->where('id_infotratamiento',$id_infotratamiento);
+          $query = $this->db->get();
+          return $query;
+     }
+
      function insertar_cedula($id_tratamiento,$numero_proyecto,$id_finca,$descripcion_aplicacion,$semana_aplicacion,
                               $fecha_programada,$litros,$presion,$velocidad,$rpm,$marcha,$tipo_boquilla,$cultivo,$variedad,
                               $lote,$bloque,$estadio,$semana_siembra,$area_bloque,$area_proyecto,$cantidad_camas,$ancho_camas,$longitud_parcelas,
@@ -169,5 +178,4 @@ class cedula_model extends CI_Model
           return $query->result(); 
      }
 }
-
 ?>

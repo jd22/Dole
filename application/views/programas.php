@@ -53,11 +53,12 @@
                         $idDias = 1;
                         foreach ($tratamientos->result() as $row) 
                             {
+                                if($row->cedula != "Si"){
                         ?>
                         <div class="panel-heading" style="color: white;background-color: #3688B8;">
                                 <strong style="text-align: left;" > Tratamiento <?=$row->id_tratamiento?></strong>
 
-                                <a style="float: right;color:white"  href="#" onclick="CargarIdTratamiento(<?=$row->id_tratamiento?>,0,'PC-A')" data-toggle="modal" data-target="#NuevaCedula" class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Agregar Cédula">Cédula</a>
+                                <a style="float: right;color:white"  href="#" onclick="CargarIdTratamiento(<?=$row->id_tratamiento?>,0,'PC-A')" class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Agregar Cédula">Cédula</a>
                             </div>
                             <div class="panel-body">        
                                 <div class="starter-template">
@@ -155,8 +156,8 @@
                                                 <tr>
                                                     <td> Intervalo de aplicación (días)</td>
                                                     
-                                                    <td colspan="4"> <input onchange="idintervalo(<?=$row->id_tratamiento?>)" type="number" min="0" class="form-control" style="text-align:center" placeholder="Invertalo"> </td>
-                                                    <td> <input type="number" class="form-control" style="text-align:center" placeholder="Días"></td>
+                                                    <td colspan="4"> <input onchange="idintervalo(<?=$row->id_tratamiento?>)" id="interFecha" type="number" min="0" class="form-control" style="text-align:center" placeholder="Invertalo"> </td>
+                                                    <td> <input onchange="idintervalo2(<?=$row->id_tratamiento?>)" type="number" class="form-control" style="text-align:center" placeholder="Días"></td>
                                                 </tr>
                                             </table>
                                             <div> 
@@ -166,7 +167,124 @@
                                 </div>
                             </div>
                             <?php
+                                }
+                                else{
+                                ?>
+
+                                <div class="panel-heading" style="color: white;background-color: #3688B8;">
+                                <strong style="text-align: left;" > Tratamiento <?=$row->id_tratamiento?></strong>
+
+                                <!-- <a style="float: right;color:white"  href="#" onclick="CargarIdTratamiento(<?=$row->id_tratamiento?>,0,'PC-A')" class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Agregar Cédula">Cédula</a> -->
+                            </div>
+                            <div class="panel-body">        
+                                <div class="starter-template">
+                                    <div class="table-responsive">
+                                            <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered" id="<?=$row->id_tratamiento?>">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="2" style="text-align:center">Fase de Fertilización <br> Fertilizantes</th>
+                                                        <th rowspan="2" style="text-align:center">Orden de <br>Mezclado</th> 
+                                                        <th rowspan="2" style="text-align:center">Pre-Siembra <br>kg/ha</th>
+                                                        <th style="text-align:center">
+                                                            PC-A 
+                                                        </th>
+                                                        <th style="text-align:center">
+                                                            PC-B
+                                                        </th>
+                                                        <th style="text-align:center">
+                                                            PC-C
+                                                        </th>
+                                                        <th style="text-align:center">
+                                                            PC-D
+                                                        </th>
+                                                        <th style="text-align:center">
+                                                            Post-Forza 
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="5" style="text-align:center">kg de fertilizante/ha/ciclo de aplicación</th>
+                                                    </tr>
+                                                </thead>
+                                                <?php
+                                                    $ci = &get_instance();
+                                                    $ci->load->model("InformacionTratamiento_model");
+                                                    $ci->load->model("product_model");
+                                                    $infoTratamientos = $ci->InformacionTratamiento_model->obtener_informacionT($row->id_tratamiento);
+                                                foreach ($infoTratamientos->result() as $infoT) 
+                                                    {
+                                                    if($infoT->tipoCedula =='GENERAL'){
+                                                        $producto = $ci->product_model->obtener_producto($infoT->id_producto);
+                                                        $nombre = '';
+                                                        foreach ($producto->result() as $infoP) 
+                                                        {
+                                                            $nombre = $infoP->name;
+                                                        }
+                                                    ?>
+                                                    <tr>
+                                                        <td><?=$nombre?></td>
+                                                        <td style="text-align:center">0</td>
+                                                        <td style="text-align:center">0</td>
+                                                        <td style="text-align:center"><input disabled="true" style="text-align:center" type="number" min="0" class="form-control" value="0" id="<?=$infoT->id_informaciontratamiento?>"></td>
+                                                        <td style="text-align:center"><input disabled="true" style="text-align:center" type="number" min="0" class="form-control" value="0" id="<?=$infoT->id_informaciontratamiento?>"></td>
+                                                        <td style="text-align:center"><input disabled="true" style="text-align:center" type="number" min="0" class="form-control" value="0" id="<?=$infoT->id_informaciontratamiento?>"></td>
+                                                        <td style="text-align:center"><input disabled="true" style="text-align:center" type="number" min="0" class="form-control" value="0" id="<?=$infoT->id_informaciontratamiento?>"></td>
+                                                        <td style="text-align:center"><input style="text-align:center" type="number" min="0" class="form-control" value="0" id="<?=$infoT->id_informaciontratamiento?>"></td>
+                                                    </tr>
+
+                                                    
+                                                <?php
+                                                    }
+                                                }    
+                                                ?>
+                                                <tr>
+                                                    <td>Volumen de aplicación (L/ha)</td>
+                                                    <td colspan="2" rowspan="3"> </td>
+                                                    <!-- <td colspan="5"> <input type="number" class="form-control" style="text-align:center" placeholder="Cantidad de Litros"> -->
+                                                        <?php
+                                                                    $ci = &get_instance();
+                                                                    $ci->load->model("cedula_model");
+                                                                    $cedulas = $ci->cedula_model->obtener_cedulasytipo($row->id_tratamiento,'GENERAL');//obtiene las cedulas del tratamiento
+                                                            if($cedulas->num_rows()>=1){
+                                                                foreach ($cedulas->result() as $ce) {
+                                                                ?>       
+                                                                <td colspan="5"> <input disabled="true" type="number" class="form-control" style="text-align:center" placeholder="Cantidad de Litros" value="<?=$ce->volumen_aplicacion?>"> </td>             
+                                                            <?php
+                                                                break;
+                                                                } 
+                                                            }
+                                                            else {
+                                                                ?>
+                                                                    <td colspan="5"> <input disabled="true" type="number" class="form-control" style="text-align:center" placeholder="Cantidad de Litros"> </td>             
+                                                                <?php
+                                                                }
+                                                                ?> 
+                                                </tr>
+                                                <tr>
+                                                    <td>Momento de aplicación (DDS)</td>
+                                                    
+                                                    <td> <input disabled="true" type="text" class="form-control" style="text-align:center" placeholder="Días" value="0" ></td>
+                                                    <td> <input disabled="true" type="text" class="form-control" style="text-align:center" placeholder="Días" value="0" ></td>
+                                                    <td> <input disabled="true" type="text" class="form-control" style="text-align:center" placeholder="Días" value="0" ></td>
+                                                    <td> <input disabled="true" type="text" class="form-control" style="text-align:center" placeholder="Días" value="0" ></td>
+                                                    <td> <input type="text" class="form-control" style="text-align:center" placeholder="Días" value="0" ></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td> Intervalo de aplicación (días)</td>
+                                                    
+                                                    <td colspan="4"> <input disabled="true" onchange="idintervalo(<?=$row->id_tratamiento?>)" id="interFecha" type="number" min="0" class="form-control" style="text-align:center" placeholder="Invertalo" value=<?=$row->intervalo?>> </td>
+                                                    <td> <input onchange="idintervalo2(<?=$row->id_tratamiento?>)" type="number" class="form-control" style="text-align:center" placeholder="Días"></td>
+                                                </tr>
+                                            </table>
+                                            <div> 
+                                                <button class=" btn btn-success" style="float:right" type="button" onclick="agregarPostPrograma(<?=$row->id_tratamiento?>,<?=$row->id_proyecto?>,<?=$row->ultima_sem_apl?>)">Agregar Post Forza</button>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <?php
                                 }    
+                            }
                             ?>
                         </div>
                     </div>
@@ -225,7 +343,9 @@
                 <div class="modal-content">
                     <div class="modal-header modal-header-success" style="background:#0E2C62;">
                          <!-- <button id ="cerrarcedula" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-                         <h4 style="color:white;text-align:center;" class="panel-title">CÉDULA DE APLICACIÓN <label id="tipoCedula"></label> <a href="#" data-toggle="modal" data-target="#listanuevosProductos" onclick="CargarProductosDelTratamientoSinId()" style="float:right">DOSIS</a></h4>
+                         <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button> -->
+                         <button id ="cerrarcedula" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                         <h4 style="color:white;text-align:center;" class="panel-title">Cédula de Aplicación</h4>
                     </div>
                     <div class="model-body" style="margin-top:5px;">
                         <!-- Opciones Generales -->
@@ -377,9 +497,9 @@
                         </div>    
                     </div>
                     <div class="modal-footer">
-                        <button id="agregarCedula" onclick="agregarCedulafuncion(<?php echo $IDproyecto;?>)" class=" btn btn-primary" type="button">Crear Cédula</button>
-                        <button id="actualizarCedula" class=" btn btn-primary" type="button">Actualizar Cédula</button>
-                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Cancelar</button>
+                        <!-- <button id="agregarCedula" onclick="agregarCedulafuncion(<?php echo $IDproyecto;?>)" class=" btn btn-primary" type="button">Crear Cédula</button>
+                        <button id="actualizarCedula" class=" btn btn-primary" type="button">Actualizar Cédula</button> -->
+                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Listo</button>
                         <!-- <button class=" btn btn-primary" type="button" id="cerrarTratamiento" data-dismiss="modal">Cerrar</button> -->
                     </div>
 

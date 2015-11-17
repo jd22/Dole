@@ -42,6 +42,7 @@ class Cedula  extends CI_Controller
       $datos[] = $cantidadCedulas;
       echo json_encode($datos,JSON_UNESCAPED_UNICODE);
     }
+
     function obtener_cedulas($id_tratamiento)
     {
      $linfoCedulas = $this->cedula_model->obtener_cedulas($id_tratamiento);
@@ -345,6 +346,7 @@ function generar_pdf($id_cedula,$numeroTratamiento)//$id_cedula
     $Nombrecomercial='';
     $IngredienteActivo='';
     $Unidad='';
+    $dosisD='';
     $dosisTanque = ($columlitros*$row->dosis)/$VolumendeApl;//formula
 
     foreach ($queryproducto->result() as $producto) { // para sacar todo los datos del producto de la informacion del tratamiento
@@ -352,13 +354,17 @@ function generar_pdf($id_cedula,$numeroTratamiento)//$id_cedula
       $IngredienteActivo=$producto->activecomponent;
       $Unidad=$producto->unit;
     }
+    $queryproducto2 = $this->cedula_model->obtener_dosis($id_cedula,$row->id_informaciontratamiento);
+    foreach ($queryproducto2->result() as $numdosis) { // para sacar todo los datos del producto de la informacion del tratamiento
+      $dosisD=$numdosis->dosis;
+    }
     $htmlrowproductos = $htmlrowproductos.
                         '<tr>
                           <td> '.$Nombrecomercial.' </td>
                           <td> '.$IngredienteActivo.' </td>
                           <td> '.$row->plaga_nombre_comun.' </td>
                           <td> '.$row->plaga_nombre_cientifico.' </td>
-                          <td> '.$row->dosis.' </td>
+                          <td> '.$row->dosisD.' </td>
                           <td> '.$dosisTanque.' </td>
                           <td> '.$Unidad.' </td>
                           <td> Horas </td>

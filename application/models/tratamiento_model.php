@@ -136,6 +136,15 @@ class Tratamiento_model extends CI_Model
           $this->db->where('id_tratamiento',$id_tratamiento);
           $this->db->update('tratamiento',$data);
      }
+
+     function editar_cedula($id_tratamiento,$cedula,$intervalo,$ultima_sem_apl){
+        $data = array(
+          'cedula' => $cedula,
+          'intervalo' => $intervalo,
+          'ultima_sem_apl' => $ultima_sem_apl);
+        $this->db->where('id_tratamiento',$id_tratamiento);
+        $this->db->update('tratamiento',$data);
+     }
  }
 
 ?>
