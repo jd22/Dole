@@ -388,6 +388,9 @@
                                             <input type="number" class="form-control" placeholder="Litros" id="idlitros" name="idlitros" required/>
                                         </div>
                                         <div class="form-group">
+                                            <input type="number" class="form-control" placeholder="Litros Extra" id="idlitrosextras" name="idlitrosextras"  required/>
+                                        </div>
+                                        <div class="form-group">
                                             <input type="number" class="form-control" placeholder="Presion(PSI)" id="idpresion" name="idpresion" required/>
                                         </div>
                                         <div class="form-group">

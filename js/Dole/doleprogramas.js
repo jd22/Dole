@@ -252,7 +252,7 @@ function CargarIdTratamiento(id,numerotratamiento,tipo){
     }
     if(interFecha != ""){
         $("#NuevaCedula").modal('show');
-        document.getElementById("tipoCedula").innerHTML = tipo;
+        //document.getElementById("tipoCedula").innerHTML = tipo;
         document.getElementById("actualizarCedula").style.display = "none";
         document.getElementById("agregarCedula").style.display = "initial";
         tipoCedulaGlobal=tipo;
@@ -289,6 +289,7 @@ function DescargarPDF(idcedula){
 
 
 function crearPrograma(idTabla,nproyecto){
+    idGenerakTratamiento =idTabla;
     var lista_de_dosis_pca = []; var lista_de_dosis_pcb = []; 
     var lista_de_dosis_pcc = []; var lista_de_dosis_pcd = []; 
     var lista_de_dosis_pcforza = []; 
@@ -355,9 +356,15 @@ function crearPrograma(idTabla,nproyecto){
     var fecha_programada = document.getElementById("idfechaprogramada").value;
     if(fecha_programada==''){document.getElementById("idfechaprogramada").style.border = "thin dotted red";return;}else{document.getElementById("idfechaprogramada").style.border="";}
     
-    var litros = document.getElementById("idlitros").value;
-    if(litros==''){document.getElementById("idlitros").style.border = "thin dotted red";return;}else{document.getElementById("idlitros").style.border="";}
-    
+    var litros1 = document.getElementById("idlitros").value;
+    if(litros1==''){document.getElementById("idlitros").style.border = "thin dotted red";return;}else{document.getElementById("idlitros").style.border="";}
+
+    var litrosextra = document.getElementById("idlitrosextras").value;
+    if(litrosextra==''){document.getElementById("idlitrosextras").style.border = "thin dotted red";return;}else{document.getElementById("idlitrosextras").style.border="";}
+
+    var litros;
+    litros = parseInt(litros1)+parseInt(litrosextra);
+
     var presion = document.getElementById("idpresion").value;
     if(presion==''){document.getElementById("idpresion").style.border = "thin dotted red";return;}else{document.getElementById("idpresion").style.border="";}
     
@@ -518,8 +525,8 @@ function crearPrograma(idTabla,nproyecto){
             fecha_cambiante.addDays(lista_pcd[i]);
             cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+(fecha_cambiante.getMonth()+1) +'-'+fecha_cambiante.getDate();
             cedula["_semana_aplicacion"] = fecha_cambiante.getWeek() +'-'+ fecha_cambiante.getFullYear();
-            ult_fecha_prog  = cedula["_fecha_programada"];
         }
+        ult_fecha_prog  = cedula["_fecha_programada"];
         var cedula_y_dosis = { // cedula con sus respectivas dosis
             "cedula":cedula,
             "dosis":lista_de_dosis_pcd,
@@ -537,7 +544,7 @@ function crearPrograma(idTabla,nproyecto){
          dataType: 'json',
          success: function (msg) { // success callback
              alert("programa Creado");
-             alert(msg);
+             //alert(msg);
             
          },
          error: function (msg) {
@@ -720,7 +727,7 @@ function agregarPostPrograma(idTabla,nproyecto,ultisemanaapli){
          dataType: 'json',
          success: function (msg) { // success callback
              alert("Post-Forza añadido");
-             alert(msg);
+             //alert(msg);
             
          },
          error: function (msg) {
@@ -848,6 +855,8 @@ $('#actualizarCedula').click(function () {
     var litros = document.getElementById("idlitros").value;
     if(litros==''){document.getElementById("idlitros").style.border = "thin dotted red";return;}else{document.getElementById("idlitros").style.border="";}
     
+    
+
     var presion = document.getElementById("idpresion").value;
     if(presion==''){document.getElementById("idpresion").style.border = "thin dotted red";return;}else{document.getElementById("idpresion").style.border="";}
     
