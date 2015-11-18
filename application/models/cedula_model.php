@@ -177,5 +177,13 @@ class cedula_model extends CI_Model
           $query = $this->db->get();
           return $query->result(); 
      }
+
+     function obtener_dosis_de_una_cedula($id_cedula){ // todas las dosis de la cedula
+          $this->db->select('*');
+          $this->db->from('dosis');
+          $this->db->where('id_cedula',$id_cedula);
+          $query = $this->db->get();
+          return $query->result(); 
+     }
 }
 ?>
