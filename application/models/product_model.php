@@ -82,6 +82,24 @@ class Product_model extends CI_Model
           );
         $this->db->insert('products',$data);
      }
+
+     function editar_product($id_producto,$name,$active,$unit)
+     {
+      $data = array(
+          'id_producto'=>$id_producto,
+          'name' => $name,
+          'activecomponent' => $active,
+          'unit'=> $unit);
+        $this->db->where('id_producto',$id_producto);
+        $this->db->update('products',$data);
+
+        $data = array(
+          'name' => $name,
+          'activecomponent' => $active,
+          'unit'=> $unit
+          );
+        $this->db->insert('products',$data);
+     }
  }
 
 ?>

@@ -963,8 +963,27 @@ function cargarProducto(idProducto){
 }
 
 $("#actualizarP").click(function(){
-    alert(document.getElementById("idPro").value);
+    var idProducto =document.getElementById("idPro").value;
+    var name =document.getElementById("nameproductoedit").value;
+    var active =document.getElementById("activeproductoedit").value;
+    var unit =document.getElementById("unitproductoedit").value;
+    $.ajax({
+            url: 'http://localhost/Dole/Product/editar_producto',
+            async: false,
+            type: "POST",
+            data: {_idProducto:idProducto,_name: name,_active:active,_unit:unit},
+            dataType: 'json',
+            success: function (msg) { // success callback
+                document.getElementById("nameproductoedit").value="";
+                document.getElementById("activeproductoedit").value="";
+                document.getElementById("unitproductoedit").value="";
+            },
+            error: function () {
+                alert("Error al insertar el producto");
+            }
+        });
 });
+
 function cargarTratamientosExistentes(){ // funcion que llena la tabla tablaTratamientoExistente. Carga los tratamientos existentes en la interfaz
     //$('#tablaTratamientoExistente').DataTable().fnClearTable();
     var tablaTratamientoExistente = $('#tablaTratamientoExistente').DataTable({  
@@ -1172,3 +1191,4 @@ $('#nuevoProducto').click(function () { // agregar solo productos
         }
     }
 }); 
+

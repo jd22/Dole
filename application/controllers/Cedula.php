@@ -563,7 +563,7 @@ $html='<html>
                       </td>
 
                       <td rowspan="2">
-                        <img heigh="320px" width="400px" src="C:/xampp/htdocs/Dole/images/'.$id_tratamiento.'.png">
+                        <img heigh="320px" width="400px" src="C:/xampp/htdocs/Dole/images/'.$id_tratamiento.'.jpg">
                       </td>
                     </tr>
 
