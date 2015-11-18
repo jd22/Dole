@@ -185,5 +185,14 @@ class cedula_model extends CI_Model
           $query = $this->db->get();
           return $query->result(); 
      }
+
+     function editar_dosis($id,$dosis){
+     $datos = array(
+                    'id_dosis'=>$id,
+                    'dosis'=>$dosis,
+          );
+          $this->db->where('id_dosis',$id);
+          $this->db->update('dosis',$datos);
+     }
 }
 ?>

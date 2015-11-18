@@ -106,8 +106,7 @@
         </div>
         
 
-
-    
+       
 
         <!-- Modal Para agregar Productos -->
         <div class="modal fade" id="listaCedulas" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -130,6 +129,7 @@
                                                         <th style="color:white;background:#108CAE">Nº Cedula Aplicación</th>
                                                         <th style="color:white;background:#108CAE">Descripción</th>
                                                         <th style="color:white;background:#108CAE">Sem. Aplicación</th>
+                                                        <th style="color:white;background:#108CAE">Productos</th>
                                                         <th style="text-align: center;color:white;background:#108CAE">Opciones Extras</th>
                                                         <th style="text-align: center;color:white;background:#108CAE">Descargar Documento</th>
                                                     </tr>
@@ -150,6 +150,45 @@
             </div>
         </div>
 
+ <!-- Modal Para agregar Productos -->
+        <div class="modal fade" id="listaProductosDosis" style="background:rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog" aria-labelleby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header  modal-header-info" style="background-color: #0F3D4E;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;</button>
+                    </div>
+
+                    <div class="model-body" style="margin-top:15px">
+                        <div class="col-md-12">
+                            <div class="panel panel-info panel-sm">
+                                <div class="panel-body">
+                                    <div class="starter-template">
+                                        <div class="table-responsive">
+                                            <table id="tablaProductosDosis" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:white;background:#108CAE">Producto</th>
+                                                        <th style="color:white;background:#108CAE">Unidad</th>
+                                                        <th style="color:white;background:#108CAE">Dosis</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class=" btn btn-primary" type="button" onclick="updateDosis()">Actualizar Dosis</button>
+                        <button class=" btn btn-primary" type="button" data-dismiss="modal">Cerrar Lista</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
 
         <!-- Modal Para los calculos de la cedula de aplicacion -->
     <div class="col-md-12">

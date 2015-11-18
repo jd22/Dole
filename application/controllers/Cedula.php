@@ -240,6 +240,43 @@ function Actualizar_cedula(){
     }
 
 
+function actualizar_dosis($id_dosis,$dosis){
+  $this->cedula_model->editar_dosis($id_dosis,$dosis);
+  $datos3=array();
+  $datos3[]="Exito";
+  echo json_encode($datos3);
+}
+
+function datos_dosis($id_cedula){
+    $listadosisdecedulas = $this->cedula_model->obtener_dosis_de_una_cedula($id_cedula); // lista de dosis de la cedula
+    $datos=array();
+    foreach ($listadosisdecedulas as $valuedosis) {
+      $datos3=array();
+      $infoTratamiento = $this->InformacionTratamiento_model->obtener_informacionTratamiento($valuedosis->id_infotratamiento);
+      $Nombrecomercial='';
+      $IngredienteActivo='';
+      $Unidad='';
+      foreach ($infoTratamiento as $value) {
+          $queryproducto = $this->product_model->obtener_producto($value->id_producto);
+          $plaga_nombre_comun = $value->plaga_nombre_comun;
+          $plaga_nombre_cientifico = $value->plaga_nombre_cientifico;
+        foreach ($queryproducto->result() as $producto) { // para sacar todo los datos del producto de la informacion del tratamiento
+            $Nombrecomercial=$producto->name;
+            $IngredienteActivo=$producto->activecomponent;
+            $Unidad=$producto->unit;
+        }
+        break;
+      }
+      $datos3[]=$id_cedula;
+      $datos3[]=$Nombrecomercial;
+      $datos3[]=$Unidad;
+      $datos3[]=$valuedosis->dosis;
+      $datos3[]=$valuedosis->id_dosis;
+      $datos[] = $datos3;
+  }
+  echo json_encode($datos);
+}
+
 
 function generar_pdf($id_cedula,$numeroTratamiento)//$id_cedula
 {   

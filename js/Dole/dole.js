@@ -354,6 +354,7 @@ function CargarCedulasDelTratamiento(id_tratamiento,numero) { // cargar cedula d
                             { "sClass": "center"  },
                             { "sClass": "center"  },
                             { "sClass": "center"  },
+                            { "sClass": "center"  },
                             { "sClass": "center"  }
                         ] 
                     });
@@ -365,14 +366,17 @@ function CargarCedulasDelTratamiento(id_tratamiento,numero) { // cargar cedula d
         dataType: 'json',
         success: function(data) {
             // alert(JSON.stringify(data));
+            var aux = 0;
             for (var i = 0; data.length-1 >= i; i++) {
+                aux = aux+1;
                 var idcedula = data[i][0];
                 var descripcion = data[i][1]; 
                 var semana_aplicacion = data[i][2];
                 tablaCedulas.fnAddData( [
-                    'Cedula '+ (i+1),
+                    'Cedula ' + aux,
                     descripcion,
                     semana_aplicacion,
+                    '<a href="#" onclick="cargarDosis('+idcedula+')">Productos</a>',
                     '<a href="#" onclick="eliminarCedula('+idcedula+')">Eliminar</a>|'+
                     '<a href="#" onclick="editarCedula('+idcedula+')"  data-toggle="tooltip" data-placement="bottom" title="Click para editar Cédula">Editar</a>',
                     '<a href="'+BASE_URL+'Cedula/generar_pdf/'+idcedula+'/'+numero+'" data-toggle="tooltip" data-toggle="tooltip" title="Descargar Documento"><img src="'+BASE_URL+'images/pdfdocumento.png"></a>'
@@ -387,6 +391,70 @@ function CargarCedulasDelTratamiento(id_tratamiento,numero) { // cargar cedula d
     });
 }
 
+
+function cargarDosis(id_cedula){
+    
+    var tablaProductosDosis = $('#tablaProductosDosis').DataTable({  
+                        "bRetrieve": true,
+                        "aoColumns" : [
+                            {  "sClass": "center" },
+                            { "sClass": "center"  },
+                            { "sClass": "center"  }
+                        ] 
+                    });
+    tablaProductosDosis.fnClearTable();
+    $.ajax({
+        url: BASE_URL+'Cedula/datos_dosis/'+id_cedula,
+        async: false,
+        type: "POST",
+        dataType: 'json',
+        success: function (data) { // success callback
+            // alert(JSON.stringify(data));
+            for (var i = 0; data.length-1 >= i; i++) {
+                var idcedula = data[i][0];
+                var Nombrecomercial = data[i][1]; 
+                var Unidad = data[i][2];
+                var dosis = data[i][3];
+                var iddosis = data[i][4];
+                tablaProductosDosis.fnAddData( [
+                    Nombrecomercial,
+                    Unidad,
+                    '<input type="number" class="form-control" value="'+dosis+'" id="'+iddosis+'" >',
+                    
+                ]);
+            };
+           $('#listaProductosDosis').modal('show');
+        },
+        error: function (data) {
+             alert(JSON.stringify(data));
+        }
+    });
+
+}
+
+function updateDosis(){
+    var table = document.getElementById("tablaProductosDosis");
+    
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        //alert(table.rows[i].cells[0].innerHTML);
+        var dosis = table.rows[i].cells[2].childNodes[0].value;
+        var id = table.rows[i].cells[2].childNodes[0].id;
+        $.ajax({
+            url: BASE_URL+'Cedula/actualizar_dosis/'+id+'/'+dosis,
+            async: false,
+            type: "POST",
+            dataType: 'json',
+            success: function (data) { // success callback
+                // alert(JSON.stringify(data));
+            },
+            error: function (data) {
+                 alert(JSON.stringify(data));
+            }
+        });
+    }
+    alert("correctamente Actualizada");
+    $('#listaProductosDosis').modal('hide');
+}
 
 var GlobalidecedulaEditar = "";
 function editarCedula(idcedula){// carga los datos en el model con los datos de la cedula
