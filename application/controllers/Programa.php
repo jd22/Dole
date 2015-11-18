@@ -50,8 +50,13 @@ class Programa  extends CI_Controller
 function crearPrograma(){
   $data = array(
     'lista_cedulas'=>$this->input->post('_lista_Programa'),
+    'intervalodias'=>$this->input->post('_elintervalo'),
+    'ult_fecha_prog'=>$this->input->post('_ult_fecha_prog'),
   );
   $datos3=array();
+  $interv=$data['intervalodias'];
+  $ulti_fecha =$data['ult_fecha_prog'];;
+  $idTrata="";
   $lista_cedulas = $data['lista_cedulas'];
   foreach ($lista_cedulas as $value) {
     $lista_dosis = $value['dosis'];
@@ -68,7 +73,10 @@ function crearPrograma(){
       
       $this->cedula_model->insertar_dosis($idcedulaactual,$dosis['id_infotratamiento'],$dosis['dosis']);
     }
+    $idTrata=$cedula['_id_tratamiento'];
   }
+  $cedulaConf="Si";
+  $this->tratamiento_model->editar_cedula($idTrata,$cedulaConf,$interv,$ulti_fecha);
   echo json_encode($datos3);
 }
 

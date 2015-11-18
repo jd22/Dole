@@ -51,10 +51,12 @@ $("#idsemanasiembra").daterangepicker({
 );
 
 var intervaloinicial = 0;
+var intervaloinicial2 = 0;
 var intervalo1 = "";
 var intervalo2 = "";
 var intervalo3 = "";
 var intervalo4 = "";
+var intervalo5 = "";
 function idintervalo(idTabla){
     var table = document.getElementById(idTabla.toString());
     
@@ -66,10 +68,31 @@ function idintervalo(idTabla){
             intervalo2 = intervaloinicial*5 +','+intervaloinicial*6+','+intervaloinicial*7+','+intervaloinicial*8;
             intervalo3 = intervaloinicial*9 +','+intervaloinicial*10+','+intervaloinicial*11+','+intervaloinicial*12+','+intervaloinicial*13;
             intervalo4 = intervaloinicial*14 +','+intervaloinicial*15+','+intervaloinicial*16+','+intervaloinicial*17+','+intervaloinicial*18;
+            intervalo5=intervaloinicial*18;
             table.rows[i].cells[1].childNodes[1].value = intervalo1;
             table.rows[i].cells[2].childNodes[1].value = intervalo2;
             table.rows[i].cells[3].childNodes[1].value = intervalo3;
             table.rows[i].cells[4].childNodes[1].value = intervalo4;
+            break;
+        }
+    }
+}
+
+function idintervalo2(idTabla){
+    var table = document.getElementById(idTabla.toString());
+    
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        //alert(table.rows[i].cells[0].innerHTML);
+        if(table.rows[i].cells[0].innerHTML=='Momento de aplicación (DDS)'){//posicionarse en la fila correcta
+            intervaloinicial = table.rows[i+1].cells[1].childNodes[1].value;
+            intervalo1 = intervaloinicial +','+intervaloinicial*2+','+intervaloinicial*3+','+intervaloinicial*4;
+            intervalo2 = intervaloinicial*5 +','+intervaloinicial*6+','+intervaloinicial*7+','+intervaloinicial*8;
+            intervalo3 = intervaloinicial*9 +','+intervaloinicial*10+','+intervaloinicial*11+','+intervaloinicial*12+','+intervaloinicial*13;
+            intervalo4 = intervaloinicial*14 +','+intervaloinicial*15+','+intervaloinicial*16+','+intervaloinicial*17+','+intervaloinicial*18;
+            intervalo5=intervaloinicial*18;
+            intervaloinicial2 = table.rows[i+1].cells[2].childNodes[1].value;
+            intervalo5=intervalo5+parseInt(intervaloinicial2);
+            table.rows[i].cells[5].childNodes[1].value = intervalo5;
             break;
         }
     }
@@ -220,14 +243,27 @@ var m = 0;
 var idGenerakTratamiento="";
 var tipoCedulaGlobal="";
 function CargarIdTratamiento(id,numerotratamiento,tipo){
-    document.getElementById("tipoCedula").innerHTML = tipo;
-    document.getElementById("actualizarCedula").style.display = "none";
-    document.getElementById("agregarCedula").style.display = "initial";
-    tipoCedulaGlobal=tipo;
-    //$('#calculos').modal('show');
-    $('#NuevaCedula').modal('show');
-    idGenerakTratamiento=id;
-    CargarProductosDelTratamientoSinId(id);
+    var table = document.getElementById(id.toString());
+    var interFecha = "";
+    for (var i = 2, row; row = table.rows[i]; i++) {
+        if(table.rows[i].cells[0].innerHTML == ' Intervalo de aplicación (días)'){//posicionarse en la fila correcta
+            interFecha = table.rows[i].cells[1].childNodes[1].value;
+        }
+    }
+    if(interFecha != ""){
+        $("#NuevaCedula").modal('show');
+        document.getElementById("tipoCedula").innerHTML = tipo;
+        document.getElementById("actualizarCedula").style.display = "none";
+        document.getElementById("agregarCedula").style.display = "initial";
+        tipoCedulaGlobal=tipo;
+        //$('#calculos').modal('show');
+        $('#NuevaCedula').modal('show');
+        idGenerakTratamiento=id;
+        CargarProductosDelTratamientoSinId(id);
+    }
+    else{
+        alert("Es necesario indicar el intervalo de días!");
+    }
 }
 
 
@@ -464,7 +500,7 @@ function crearPrograma(idTabla,nproyecto){
         lista_Programa.push(cedula_y_dosis);
         // alert(JSON.stringify(lista_Programa));        
     };
-
+    var ult_fecha_prog = new Date(fecha_semana_siembra_general);
     var lista_pcd = intervalo4.split(",");
     for (var i = 0; lista_pcd.length - 1 >= i; i++) {
         var cedula= {
@@ -482,19 +518,22 @@ function crearPrograma(idTabla,nproyecto){
             fecha_cambiante.addDays(lista_pcd[i]);
             cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+(fecha_cambiante.getMonth()+1) +'-'+fecha_cambiante.getDate();
             cedula["_semana_aplicacion"] = fecha_cambiante.getWeek() +'-'+ fecha_cambiante.getFullYear();
+            ult_fecha_prog  = cedula["_fecha_programada"];
         }
         var cedula_y_dosis = { // cedula con sus respectivas dosis
             "cedula":cedula,
             "dosis":lista_de_dosis_pcd,
         }
         lista_Programa.push(cedula_y_dosis);
+
     };
+    var elintervalo = intervaloinicial;
     // Usar ajax para mandar datos a la base de datos
      $.ajax({
          url: BASE_URL+'Programa/crearPrograma',
          async: false,
          type: "POST",
-         data: {_lista_Programa:lista_Programa},
+         data: {_lista_Programa:lista_Programa, _elintervalo:elintervalo,_ult_fecha_prog:ult_fecha_prog},
          dataType: 'json',
          success: function (msg) { // success callback
              alert("programa Creado");
@@ -505,8 +544,190 @@ function crearPrograma(idTabla,nproyecto){
               alert(JSON.stringify(msg));
          }
     });
+
+     //Se setean los campos
+
+    document.getElementById("idsemanaaplicacion").value="";
+    document.getElementById("idfechaprogramada").value="";
+    document.getElementById("idlitros").value="";
+    document.getElementById("idpresion").value="";
+    document.getElementById("idvelocidad").value="";
+    document.getElementById("idr_p_m").value="";
+    document.getElementById("idmarcha").value="";
+    document.getElementById("idboquilla").value="";
+    document.getElementById("idcultivonombrecientifico").value="";
+    document.getElementById("idvariedadcultivo").value="";
+    document.getElementById("idlote").value="";
+    document.getElementById("idbloque").value="";
+    document.getElementById("idestadio").value="";
+    document.getElementById("idsemanasiembra").value="";
+    document.getElementById("idareabloque").value="";
+    document.getElementById("idareaproyecto").value="";
+    document.getElementById("idnumerocamas").value="";
+    document.getElementById("idanchocamas").value="";
+    document.getElementById("idlongitudparcelas").value="";
+    document.getElementById("idnumeroparcelas").value="";
+    document.getElementById("idnumeroreplicas").value="";
+    document.getElementById("idvolumenaplicacion").value="";
 }
 
+function agregarPostPrograma(idTabla,nproyecto,ultisemanaapli){
+    var lista_de_dosis_pcforza = []; 
+    var table = document.getElementById(idTabla.toString());
+    var lista_intervalos = 0;
+    var days = 0;
+    for (var i = 2, row; row = table.rows[i]; i++) {
+        //alert(table.rows[i].cells[0].innerHTML);
+        if(table.rows[i].cells[0].innerHTML == 'Volumen de aplicación (L/ha)'){//posicionarse en la fila correcta
+            break;
+        }
+        else{
+           
+            var d5 =  {
+                    "id_infotratamiento":table.rows[i].cells[7].childNodes[0].id,
+                    "dosis":table.rows[i].cells[7].childNodes[0].value }
+
+            lista_de_dosis_pcforza.push(d5);
+        }
+    }
+    for (var i = 2, row; row = table.rows[i]; i++) {
+        if(table.rows[i].cells[0].innerHTML == 'Momento de aplicación (DDS)'){//posicionarse en la fila correcta
+            lista_intervalos =  table.rows[i].cells[5].childNodes[1].value;
+            days = table.rows[i+1].cells[2].childNodes[1].value;
+        }
+    }
+    
+    // alert(lista_intervalos);
+    var numero_proyecto = nproyecto;
+    var tipo = tipoCedulaGlobal;
+
+
+    var infocedula = "";
+    var id_tratamiento = idTabla;
+
+    $.ajax({ // ajax para consultar las cedulas del tratamiento seleccionado
+        url: BASE_URL+'Cedula/obtener_cedulas/'+id_tratamiento, // se manda solo con el id no ocupa mas datos
+        async: false,
+        type: "POST",
+        dataType: 'json',
+        success: function(data) {
+            // alert(JSON.stringify(data));
+                infocedula= data[0][0];
+        },
+        error: function(data) {
+            alert('Error al cargar la cedulas del tratamiento');
+            alert(JSON.stringify(data));
+        }
+    });
+
+    var id_finca = 0;
+    var descripcion_aplicacion = "";
+    var semana_aplicacion = "";
+    var fecha_programada = new Date();    
+    var litros = 0;
+    var presion = 0;
+    var velocidad = 0;
+    var rpm = 0;
+    var marcha = "";
+    var tipo_boquilla = "";
+    var cultivo = "";
+    var variedad = "";
+    var lote = "";
+    var bloque = 0;
+    var estadio = "";
+    var semana_siembra = "";
+    var area_bloque = 0;
+    var area_proyecto = 0;
+    var cantidad_camas = 0;
+    var ancho_camas = 0;
+    var longitud_parcelas = 0;
+    var cantidad_parcelas = 0;
+    var cantidad_replicas =0;
+    var volumen_aplicacion = 0;
+    var modo_aplicacion = "";
+    var metodo_aplicacion = "";
+
+    $.ajax({
+        url: BASE_URL+'Cedula/obtener_unacedula/'+infocedula,
+        async: false,
+        type: "POST",
+        dataType: 'json',
+        success: function (data) { // success callback
+            // alert(JSON.stringify(data));
+            // alert("informacion cargada de la cedula correctamente lista para editar");
+
+            id_finca=data[0];
+            descripcion_aplicacion= data[1];
+
+            semana_aplicacion=data[2]; fecha_programada=data[3];
+            litros=data[4]; presion=data[5];
+            velocidad=data[6]; rpm=data[7];
+            marcha=data[8]; tipo_boquilla=data[9];
+            cultivo=data[10]; variedad=data[11];
+            lote=data[12]; bloque=data[13];
+            estadio=data[14]; semana_siembra=data[15];
+            area_bloque=data[16]; area_proyecto=data[17];
+            cantidad_camas=data[18]; ancho_camas=data[19];
+            longitud_parcelas=data[20]; cantidad_parcelas=data[21];
+            cantidad_replicas=data[22]; volumen_aplicacion=data[23];
+            modo_aplicacion = data[24];
+            metodo_aplicacion= data[25];
+        },
+        error: function (data) {
+             alert(JSON.stringify(data));
+        }
+    });
+
+
+    
+    // se hace un ciclo para crear todas las cedulas
+    var lista_Programa = [];
+
+    var ult_fecha_prog = new Date();
+    var cedula= {
+                "_id_tratamiento":id_tratamiento,"_numero_proyecto":numero_proyecto,"_id_finca":id_finca,"_descripcion_aplicacion":descripcion_aplicacion,
+                 "_semana_aplicacion":semana_aplicacion,"_fecha_programada":fecha_programada,"_litros":litros,
+                 "_presion":presion,_velocidad:velocidad,"_rpm":rpm,_marcha:marcha,"_tipo_boquilla":tipo_boquilla,"_cultivo":cultivo,
+                 "_variedad":variedad,"_lote":lote,"_bloque":bloque,"_estadio":estadio,"_semana_siembra":semana_siembra,"_area_bloque":area_bloque,
+                 "_area_proyecto":area_proyecto,"_cantidad_camas":cantidad_camas,"_ancho_camas":ancho_camas,
+                 "_longitud_parcelas":longitud_parcelas,"_cantidad_parcelas":cantidad_parcelas,"_cantidad_replicas":cantidad_replicas,
+                 "_volumen_aplicacion":volumen_aplicacion,"_modo_aplicacion":modo_aplicacion,"_metodo_aplicacion":metodo_aplicacion,"_tipo":'Post-Forza',
+    }
+
+
+
+        
+    var fecha_cambiante = new Date(ult_fecha_prog); // fecha inicial de la semana siembre de la cedula actual
+    fecha_cambiante.addDays(days);
+    cedula["_fecha_programada"] = fecha_cambiante.getFullYear() +'-'+(fecha_cambiante.getMonth()+1) +'-'+fecha_cambiante.getDate();
+    cedula["_semana_aplicacion"] = fecha_cambiante.getWeek() +'-'+ fecha_cambiante.getFullYear();
+    ult_fecha_prog  = cedula["_fecha_programada"];
+        
+    var cedula_y_dosis = { // cedula con sus respectivas dosis
+        "cedula":cedula,
+        "dosis":lista_de_dosis_pcforza,
+    }
+    lista_Programa.push(cedula_y_dosis);
+
+    
+    var elintervalo = intervaloinicial;
+    // Usar ajax para mandar datos a la base de datos
+     $.ajax({
+         url: BASE_URL+'Programa/crearPrograma',
+         async: false,
+         type: "POST",
+         data: {_lista_Programa:lista_Programa, _elintervalo:elintervalo,_ult_fecha_prog:ult_fecha_prog},
+         dataType: 'json',
+         success: function (msg) { // success callback
+             alert("Post-Forza añadido");
+             alert(msg);
+            
+         },
+         error: function (msg) {
+              alert(JSON.stringify(msg));
+         }
+    });
+}
 
 function CargarCedulasDelTratamiento(id_tratamiento,tipo) { // cargar cedula del tratamiento existente con el id del tratamiento y el tipo de cedula pca,pcb,pcc etc
     idGenerakTratamiento=id_tratamiento;
