@@ -339,32 +339,51 @@ function generar_pdf($id_cedula,$numeroTratamiento)//$id_cedula
                       </tr>';
   
   
-  //para todos los productos
-  $listainformaciontratamiento = $this->InformacionTratamiento_model->obtener_informacionT($id_tratamiento);
-  foreach ($listainformaciontratamiento->result() as $row) {
-    $queryproducto = $this->product_model->obtener_producto($row->id_producto);
-    $Nombrecomercial='';
-    $IngredienteActivo='';
-    $Unidad='';
-    $dosisD='';
-    $dosisTanque = ($columlitros*$row->dosis)/$VolumendeApl;//formula
+  // //para todos los productos
+  // $listainformaciontratamiento = $this->InformacionTratamiento_model->obtener_informacionT($id_tratamiento);
+  // foreach ($listainformaciontratamiento->result() as $row) {
+  //   $queryproducto = $this->product_model->obtener_producto($row->id_producto);
+  //   $Nombrecomercial='';
+  //   $IngredienteActivo='';
+  //   $Unidad='';
+  //   $dosisTanque = ($columlitros*$row->dosis)/$VolumendeApl;//formula
 
-    foreach ($queryproducto->result() as $producto) { // para sacar todo los datos del producto de la informacion del tratamiento
-      $Nombrecomercial=$producto->name;
-      $IngredienteActivo=$producto->activecomponent;
-      $Unidad=$producto->unit;
-    }
-    $queryproducto2 = $this->cedula_model->obtener_dosis($id_cedula,$row->id_informaciontratamiento);
-    foreach ($queryproducto2->result() as $numdosis) { // para sacar todo los datos del producto de la informacion del tratamiento
-      $dosisD=$numdosis->dosis;
-    }
+  //   foreach ($queryproducto->result() as $producto) { // para sacar todo los datos del producto de la informacion del tratamiento
+  //     $Nombrecomercial=$producto->name;
+  //     $IngredienteActivo=$producto->activecomponent;
+  //     $Unidad=$producto->unit;
+  //   }
+
+    $listadosisdecedulas = $this->cedula_model->obtener_dosis_de_una_cedula($id_cedula); // lista de dosis de la cedula
+    foreach ($listadosisdecedulas as $valuedosis) {
+      
+      $infoTratamiento = $this->InformacionTratamiento_model->obtener_informacionTratamiento($valuedosis->id_infotratamiento);
+      $Nombrecomercial='';
+      $IngredienteActivo='';
+      $Unidad='';
+      $plaga_nombre_comun = '';
+      $plaga_nombre_cientifico = '';
+      foreach ($infoTratamiento as $value) {
+          $queryproducto = $this->product_model->obtener_producto($value->id_producto);
+          $plaga_nombre_comun = $value->plaga_nombre_comun;
+          $plaga_nombre_cientifico = $value->plaga_nombre_cientifico;
+        foreach ($queryproducto->result() as $producto) { // para sacar todo los datos del producto de la informacion del tratamiento
+            $Nombrecomercial=$producto->name;
+            $IngredienteActivo=$producto->activecomponent;
+            $Unidad=$producto->unit;
+        }
+        break;
+      }
+      
+      $dosisTanque = ($columlitros*$valuedosis->dosis)/$VolumendeApl;//formula
+
     $htmlrowproductos = $htmlrowproductos.
                         '<tr>
                           <td> '.$Nombrecomercial.' </td>
                           <td> '.$IngredienteActivo.' </td>
-                          <td> '.$row->plaga_nombre_comun.' </td>
-                          <td> '.$row->plaga_nombre_cientifico.' </td>
-                          <td> '.$row->dosisD.' </td>
+                          <td> '.$plaga_nombre_comun.' </td>
+                          <td> '.$plaga_nombre_cientifico.' </td>
+                          <td> '.$valuedosis->dosis.' </td>
                           <td> '.$dosisTanque.' </td>
                           <td> '.$Unidad.' </td>
                           <td> Horas </td>
@@ -544,7 +563,7 @@ $html='<html>
                       </td>
 
                       <td rowspan="2">
-                        <img heigh="320px" width="400px" src="C:/xampp/htdocs/Dole/images/'+$id_tratamiento+'.png">
+                        <img heigh="320px" width="400px" src="C:/xampp/htdocs/Dole/images/'.$id_tratamiento.'.png">
                       </td>
                     </tr>
 

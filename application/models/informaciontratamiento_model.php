@@ -57,6 +57,15 @@ class InformacionTratamiento_model extends CI_Model
           return $query;
      }
 
+     function obtener_informacionTratamiento($id_info_trata)
+     {
+          $this->db->select('*');
+          $this->db->from('informacion_tratamiento');
+          $this->db->where('id_informaciontratamiento',$id_info_trata);
+          $query = $this->db->get();
+          return $query->result();
+     }
+
      function eliminar_productoT($idT,$idP,$d,$s,$c,$pnc,$pnci)
      {
           $data = array(
