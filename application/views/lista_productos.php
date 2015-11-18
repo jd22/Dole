@@ -72,7 +72,7 @@
                                                     <td><?=$row->activecomponent?></td>
                                                     <td><?=$row->unit?></td>
                                                    <td style="text-align:center">
-                                                        <a href="'+BASE_URL+'">Eliminar</a> | <a href="#" onclick="cargarProducto(<?=$row->id_producto?>)">Editar</a>
+                                                        <a href="#" onclick="cargarProducto(<?=$row->id_producto?>)">Editar</a>
                                                     </td>
                                                </tr>
                                             <?php

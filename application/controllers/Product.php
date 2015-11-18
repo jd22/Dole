@@ -135,6 +135,19 @@ class Product extends CI_Controller {
         echo json_encode($datos3);
     }
 
+    function editar_producto(){
+        $idProducto = $this->input->post('_idProducto');
+      $name = $this->input->post('_name');
+        $active = $this->input->post('_active');
+        $unit = $this->input->post('_unit');
+
+      $this->product_model->editar_product($idProducto,$name,$active,$unit);
+      $datos3=array();
+      $datos3[]="Exito";
+        echo json_encode($datos3);
+
+    }
+
     function get_producto($id)
     {
       $datos3=array();
